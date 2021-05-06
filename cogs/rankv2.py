@@ -16,7 +16,7 @@ levels = {
 }
 path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'image_processing')
 
-leveling = CLUSTER["discord"]["fsfsefsefesf"]
+leveling = CLUSTER["discord"]["leveling"]
 def get_level(xp):
     lvl = 0
     while True:
