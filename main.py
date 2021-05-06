@@ -24,6 +24,9 @@ CLUSTER = MongoClient(f"mongodb+srv://{USERNAME}:{PASSWORD}@{CLUSTER_URL}")
 client = commands.Bot(command_prefix = '?', intents = Intents.all(), case_insensitive=True)
 client.remove_command('help')
 
+CHANNEL_GENERAL = client.get_channel(result["channel_general"])
+CHANNEL_LOGS = client.get_channel(result["channel_logs"])
+
 @client.event
 async def on_ready():
     await client.change_presence(activity=Game(name="?help"))
