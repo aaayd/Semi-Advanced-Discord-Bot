@@ -1,10 +1,3 @@
-"""
-RikkiBot Music Player
-based on Discord.py Rewrite Basic Music Player by Eviee with working Youtube Playlist Import
-Youtube download is set FALSE by default
-
-"""
-
 import discord
 from discord.ext import commands
 
