@@ -12,10 +12,6 @@ DICK_DB = CLUSTER["discord_fun"]["dick"]
 PUSSY_DB = CLUSTER["discord_fun"]["pussy"]
 SHIP_DB = CLUSTER["discord_fun"]["ship"]
 
-async def get(session: object, url: object) -> object:
-    async with session.get(url) as response:
-        return await response.text()
-
 class Fun(commands.Cog):
     def __init__(self, client):
         self.client = client
