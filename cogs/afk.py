@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands
 from datetime import datetime
 from main import CLUSTER
-from utils.str_lists import get_time_elapsed 
+from utils.constant_strings import get_time_elapsed 
 
 CLUSTER_AFK = CLUSTER["discord"]["afk"]
 class AFKSystem(commands.Cog):
@@ -71,6 +71,6 @@ class AFKSystem(commands.Cog):
             )
             await message.channel.send(embed=embed)
     
+def setup(bot):
+    bot.add_cog(AFKSystem(bot))
             
-def setup(client):
-    client.add_cog(AFKSystem(client))
