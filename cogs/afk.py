@@ -2,7 +2,6 @@
 import discord
 from discord.ext import commands
 from datetime import datetime
-from colorama import Fore, Style
 from main import CLUSTER
 from utils.str_lists import get_time_elapsed 
 
@@ -15,7 +14,6 @@ class AFKSystem(commands.Cog):
     @commands.command()
     async def afk(self, ctx, *, status="No status"):
         await ctx.channel.trigger_typing()
-        print (f"{Fore.MAGENTA}[{self.client.command_prefix}]{Style.RESET_ALL} {Fore.BLUE}[{datetime.now().strftime('%H:%M:%S')}]{Style.RESET_ALL} {Fore.CYAN}{ctx.author}{Style.RESET_ALL} used command {Fore.YELLOW}[AFK]{Style.RESET_ALL}")
 
         find_user = CLUSTER_AFK.find_one({"id" : ctx.author.id})
         if find_user is None:
