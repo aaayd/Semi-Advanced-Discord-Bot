@@ -8,7 +8,7 @@ from discord.flags import Intents
 from pymongo import MongoClient
 from re import compile
 
-with open('login.env') as ins:
+with open('protected_vars.env') as ins:
     result = {}
     for line in ins:
         match = compile(r'''^([^\s=]+)=(?:[\s"']*)(.+?)(?:[\s"']*)$''').match(line)
