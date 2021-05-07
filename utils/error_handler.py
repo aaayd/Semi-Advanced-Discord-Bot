@@ -19,6 +19,16 @@ class MissingArgument(Exception):
     def __str__(self):
         return self.message
 
+class MissingPermissionOnMember(Exception):
+    def __init__(self, command, member, message="I have no permissions to", ):
+        self.command = f"`{command}`"
+        self.member = f"{member.mention}"
+
+        self.message = f"{message} use {self.command} on {self.member}"
+
+    def __str__(self):
+        return self.message
+
 class CommandErrorHandler(commands.Cog):
 
     def __init__(self, bot):
@@ -26,18 +36,24 @@ class CommandErrorHandler(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-        
+        print(error)
 
         if isinstance(error, commands.CommandNotFound):
             unfound_command = str(error).split(" ")[1][1:-1]
             embed = embed_error(f"Command `{unfound_command}` is unrecognised.")
         
-        else:
-
-            error = str(error).split(":")
-            error = error[2] + ": " + error[3] + ": " + error[4]
+        elif "MissingPermissionOnMember" in str(error):
+            error = str(error)[len("Command raised an exception: MissingPermissionOnMember: "):]
             embed = embed_error(error)
-        
+
+        else:
+            try:
+                error = str(error).split(":")
+                error = error[2] + ": " + error[3] + ": " + error[4]
+                embed = embed_error(error)
+            except:
+                error = f"Unkown Error Occured! : {error}"
+            
         await ctx.send(embed=embed)
 
         
