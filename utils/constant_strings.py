@@ -23,7 +23,7 @@ def get_time_elapsed(afk_date):
         string += f"{round(seconds)} second" if hours == 1.0 else f"{round(seconds)} seconds"
     return string
 
-KISS_GIF_ARR = [
+KISS_GIF_ARRAY = [
     'https://media1.tenor.com/images/32d4f0642ebb373e3eb072b2b91e6064/tenor.gif?itemid=15150255',
     'https://media1.tenor.com/images/a390476cc2773898ae75090429fb1d3b/tenor.gif?itemid=12837192',
     'https://media1.tenor.com/images/558f63303a303abfdddaa71dc7b3d6ae/tenor.gif?itemid=12879850',
@@ -206,26 +206,28 @@ GAY_DICT = {
     ]
 }
 
-PUSSY_SIZE_SMALL = [
-    "Tiny Pussy", 
-    "Virgin"
-]
+PUSSY_DICT = {
+    "PUSSY_SIZE_SMALL" : [
+        "Tiny Pussy", 
+        "Virgin"
+    ],
 
-PUSSY_SIZE_MEDIUM = [
-    "Body count of 1", 
-    "Taken an average dick", 
-    "Nuttable"
-]
+    "PUSSY_SIZE_MEDIUM" : [
+        "Body count of 1", 
+        "Taken an average dick", 
+        "Nuttable"
+    ],
 
-PUSSY_SIZE_LARGE = [
-    "Kinda loose", 
-    "You know your way around a dick", 
-    "Body count of 3-5"
-]
+    "PUSSY_SIZE_LARGE" : [
+        "Kinda loose", 
+        "You know your way around a dick", 
+        "Body count of 3-5"
+    ],
 
-PUSSY_SIZE_BUCKET = [
-    "Bucket", 
-    "Been through every guy you've met", 
-    "Your pussy stink", 
-    "Dirty Slag"
-]
+    "PUSSY_SIZE_BUCKET" : [
+        "Bucket", 
+        "Been through every guy you've met", 
+        "Your pussy stink", 
+        "Dirty Slag"
+    ]
+}
