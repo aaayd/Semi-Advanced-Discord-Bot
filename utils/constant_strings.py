@@ -1,13 +1,14 @@
 
 from datetime import datetime
 from main import result
+import os
 
 GUILD_ID = result["GUILD_ID"]
 CHANNEL_GENERAL_ID = result["CHANNEL_GENERAL"]
 CHANNEL_LOGS_ID = result["CHANNEL_LOGS"]
 CHANNEL_CONFESSION_ID = result["CHANNEL_CONFESSION"]
 
-
+IMAGE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'image_processing')
 def get_time_elapsed(afk_date):
     elapsed_time = datetime.utcnow() - afk_date
     seconds = elapsed_time.total_seconds()

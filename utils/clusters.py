@@ -1,7 +1,7 @@
 from main import CLUSTER
 
 # Databases
-CLUSTER_EXPERIENCE= CLUSTER["discord"]["levelling"]
+CLUSTER_EXPERIENCE= CLUSTER["discord"]["leveling"]
 CLUSTER_RATELIMIT = CLUSTER["discord"]["xp_rate_limit"]
 CLUSTER_AFK = CLUSTER["discord"]["afk"]
 CLUSTER_GAY = CLUSTER["discord_fun"]["gay"]
