@@ -1,10 +1,8 @@
 from utils.constant_strings import EIGHT_BALL_DICT, GAY_DICT, HEART_LIST, PUSSY_DICT, SHIP_DICT, KISS_GIF_ARRAY
-import discord , random
+import discord, random
 from discord.ext import commands
 from discord import Embed
 from datetime import datetime
-import random
-from main import CLUSTER
 from utils.clusters import CLUSTER_DICK, CLUSTER_GAY, CLUSTER_PUSSY, CLUSTER_SHIP
 
 class Fun(commands.Cog):
