@@ -4,7 +4,7 @@ from PIL import ImageColor
 from discord.ext import commands
 from PIL import Image, ImageFont, ImageDraw, ImageChops
 from utils.constants import CLUSTER_EXPERIENCE, CHANNEL_GENERAL_ID, GUILD_ID, IMAGE_PATH
-
+from utils.error_handler import embed_error, MissingArgument
 
 def round_image(image):
     bigsize = (image.size[0] * 3, image.size[1] * 3)
@@ -128,49 +128,40 @@ class ImageManipulation(commands.Cog):
 
     @commands.command(aliases=["bg"])
     async def set_background(self, ctx, link="NoLinkSpecified"):
-        try:
-            if link == "NoLinkSpecified":
-                link = ctx.message.attachments[0].url
+        if link == "NoLinkSpecified":
+            link = ctx.message.attachments[0].url
 
-            CLUSTER_EXPERIENCE.update_one({
-                "id": ctx.author.id}, 
-                {"$set":{
-                    "background":link
-                    }
-                })
+        CLUSTER_EXPERIENCE.update_one({
+            "id": ctx.author.id}, 
+            {"$set":{
+                "background":link
+                }
+            })
 
-            embed = discord.Embed(
-                description=f"Your personal background has been changed! \n- DO NOT delete the picture or the background will reset"
-                ).set_image(url=link
-            )
+        embed = discord.Embed(
+            description=f"Your personal background has been changed! \n- DO NOT delete the picture or the background will reset"
+            ).set_image(url=link
+        )
 
-            await ctx.send(embed=embed)
-        except:
-            await ctx.send("Could not set image")
-
+        await ctx.send(embed=embed)
 
     @commands.command(aliases=["cr"])
-    async def set_colour(self, ctx, r):
+    async def set_colour(self, ctx, r = None):
         await ctx.message.delete()
-        try:
-            r = r.lstrip('#')
-            colour = ImageColor.getcolor(f"#{str(r).lower()}", "RGB")
-            CLUSTER_EXPERIENCE.update_one({"id": ctx.author.id}, {"$set":{"colour":colour}})
 
-            embed = discord.Embed(
-                description=f"Your personal colour has been changed!", 
-                color=int(hex(int(r.replace("#", ""), 16)), 0)
-            )
+        if r is None:
+            raise MissingArgument("HEX")
 
-            await ctx.send(embed=embed)
-        except:
-            embed = discord.Embed(
-                description=f":x: Invalid `HEX` value", 
-                color=0xFF0000
-            )
+        r = r.lstrip('#')
+        colour = ImageColor.getcolor(f"#{str(r).lower()}", "RGB")
+        CLUSTER_EXPERIENCE.update_one({"id": ctx.author.id}, {"$set":{"colour":colour}})
 
-            await ctx.send(embed=embed)
+        embed = discord.Embed(
+            description=f"Your personal colour has been changed!", 
+            color=int(hex(int(r.replace("#", ""), 16)), 0)
+        )
 
+        await ctx.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
@@ -198,6 +189,21 @@ class ImageManipulation(commands.Cog):
 
         card.save(os.path.join(f"{IMAGE_PATH}//temp//","temp_welcome.png"))
         await channel.send(file=discord.File(os.path.join(f"{IMAGE_PATH}//temp//","temp_welcome.png")))
+
+    '''
+    Begin Custom Error Handling
+    '''
+    
+    @set_colour.error
+    async def set_colour_handler(self, ctx, error):
+        if "ValueError" in str(error):
+            embed = embed_error("Invalid `HEX` value")
+
+        else:
+            error = str(error).split(":")[2] + ": " +  str(error).split(":")[3]
+            embed = embed_error(error)
+        
+        await ctx.send(embed=embed)
 
 def setup(client):
     client.add_cog(ImageManipulation(client))
