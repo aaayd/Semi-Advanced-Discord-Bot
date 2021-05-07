@@ -35,7 +35,6 @@ class Fun(commands.Cog):
         )
         await ctx.send(embed=embed)
 
-
     @commands.command(aliases=["flipcoin", "fiftyfifty", "5050"])
     async def coinflip(self, ctx):
         """Flip a coin"""
@@ -48,8 +47,6 @@ class Fun(commands.Cog):
             icon_url=f"https://www.pngarts.com/files/3/Silver-Coin-Transparent-Background-PNG.png"
         )
         await ctx.send(embed=embed)
-
-
 
     @commands.command()
     async def gayav(self, ctx, member : discord.Member = None):
@@ -70,8 +67,10 @@ class Fun(commands.Cog):
 
     @commands.command(aliases=["simp"])
     async def ship(self, ctx, member : discord.Member = None, member2 : discord.Member = None):
+        """?ship @user_1 @user_2"""
+
         if member is None or member2 is None:
-            return
+            raise MissingArgument("@user", get_command_description("ship"))
 
         members = [member.id, member2.id]
         members.sort()
@@ -142,8 +141,12 @@ class Fun(commands.Cog):
         await ctx.send(embed=embed)
     
     @commands.command(aliases=['8ball'])
-    async def eightball(self, ctx, *, _ballInput):
-        """extra generic just the way you like it"""
+    async def eightball(self, ctx, *, _ballInput = None):
+        """?8ball [question]"""
+
+        if _ballInput is None:
+            raise MissingArgument("Question", get_command_description("eightball"))
+        
         choice = random.randint(1,3)
         if choice == 1:
             prediction = random.choice(EIGHT_BALL_RESPONSE_DICT["EIGHT_BALL_AFFIRMATIVE"])
