@@ -38,7 +38,7 @@ def get_time_elapsed(afk_date):
 
 
 # Databases
-CLUSTER_EXPERIENCE= CLUSTER["discord"]["leveling"]
+CLUSTER_EXPERIENCE = CLUSTER["discord"]["leveling"]
 CLUSTER_RATELIMIT = CLUSTER["discord"]["xp_rate_limit"]
 CLUSTER_AFK = CLUSTER["discord"]["afk"]
 CLUSTER_GAY = CLUSTER["discord_fun"]["gay"]
@@ -46,8 +46,12 @@ CLUSTER_DICK = CLUSTER["discord_fun"]["dick"]
 CLUSTER_PUSSY = CLUSTER["discord_fun"]["pussy"]
 CLUSTER_SHIP = CLUSTER["discord_fun"]["ship"]
 
+
 # Variables for Database
 CONFESSION_BOOL = CLUSTER["discord"]["utils"].find_one({"id": "type_confession"})["confession"]
+BLACKLISTED_WORDS = CLUSTER["discord"]["utils"].find_one({"id": "type_blacklist"})["blacklist"]
+CLUSTER_GIFS = CLUSTER["discord"]["gifs"].find_one({"gif": "find_elem"})
+
 
 # Server Vars (Stored in ENV)
 GUILD_ID = result["GUILD_ID"]
