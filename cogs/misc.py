@@ -1,13 +1,11 @@
 from utils.clusters import CONFESSION_BOOL
-import discord, os, praw
+import discord, praw
 from discord.ext import commands
 from datetime import datetime
 from utils.constant_strings import CHANNEL_CONFESSION_ID, CHANNEL_GENERAL_ID, CHANNEL_LOGS_ID, GUILD_ID
 
 r = praw.Reddit(client_id="7oE7yB5GJJua2Q", client_secret="ooidPB-ETJxbRflpja6a65KX03g", user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36', username="PhantomVipermon", check_for_async=False)
-
 last_check = datetime.utcnow
-path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'image_processing')
 
 class Misc(commands.Cog):
     def __init__(self, client):
@@ -146,10 +144,6 @@ class Misc(commands.Cog):
     async def help(self,ctx, word = "None"):
         # TODO
         pass
-
-
-
-
 
 def setup(client):
     client.add_cog(Misc(client))
