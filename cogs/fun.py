@@ -1,8 +1,9 @@
+from utils.error_handler import MissingArgument
 import discord, random
 from discord.ext import commands
 from discord import Embed
 from datetime import datetime
-from utils.constants import CLUSTER_DICK, CLUSTER_GAY, CLUSTER_PUSSY, CLUSTER_SHIP
+from utils.constants import CLUSTER_DICK, CLUSTER_GAY, CLUSTER_PUSSY, CLUSTER_SHIP, get_command_description
 from utils.constants import EIGHT_BALL_RESPONSE_DICT, GAY_RESPONSE_DICT, HEART_RESPONSE_LIST, PUSSY_RESPONSE_DICT, SHIP_RESPONSE_DICT, KISS_GIF_ARRAY
 
 class Fun(commands.Cog):
@@ -11,8 +12,9 @@ class Fun(commands.Cog):
 
     @commands.command()
     async def kiss(self, ctx, member: discord.Member = None):
+        '''?kiss [@user]'''
         if member is None:
-            return
+            raise MissingArgument("user", get_command_description("kiss"))
 
         embed = discord.Embed(
             description=f"{ctx.message.author.mention} Kissed {member.mention}, How Sweet :heart:", 

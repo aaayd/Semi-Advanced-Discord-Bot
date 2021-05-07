@@ -2,6 +2,14 @@
 from datetime import datetime
 from main import result, CLUSTER, client
 import os
+import requests
+
+
+def query_valid_url(url):
+    request = requests.get(url)
+    if request.status_code == 400:
+        return False
+    return True
 
 def get_command_description(command):
     return client.get_command(command).help

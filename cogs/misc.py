@@ -1,6 +1,7 @@
 import discord, praw
 from discord.ext import commands
 from datetime import datetime
+from main import CLUSTER
 from utils.constants import CHANNEL_CONFESSION_ID, CHANNEL_GENERAL_ID, CHANNEL_LOGS_ID, CONFESSION_BOOL
 
 r = praw.Reddit(client_id="7oE7yB5GJJua2Q", client_secret="ooidPB-ETJxbRflpja6a65KX03g", user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36', username="PhantomVipermon", check_for_async=False)
@@ -138,11 +139,12 @@ class Misc(commands.Cog):
         )
         await ctx.send(embed=embed)
     
+    """
     @commands.command()
     @commands.has_permissions(add_reactions=True,embed_links=True)
     async def help(self,ctx, word = "None"):
         # TODO
         pass
-
+    """
 def setup(client):
     client.add_cog(Misc(client))

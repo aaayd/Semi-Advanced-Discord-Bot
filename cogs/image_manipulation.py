@@ -3,8 +3,10 @@ import numpy as np
 from PIL import ImageColor
 from discord.ext import commands
 from PIL import Image, ImageFont, ImageDraw, ImageChops
-from utils.constants import CLUSTER_EXPERIENCE, CHANNEL_GENERAL_ID, GUILD_ID, IMAGE_PATH, get_command_description
+from requests.models import InvalidURL
+from utils.constants import CLUSTER_EXPERIENCE, CHANNEL_GENERAL_ID, GUILD_ID, IMAGE_PATH, get_command_description, query_valid_url
 from utils.error_handler import embed_error, MissingArgument
+
 
 def round_image(image):
     bigsize = (image.size[0] * 3, image.size[1] * 3)
@@ -136,6 +138,11 @@ class ImageManipulation(commands.Cog):
 
             link = ctx.message.attachments[0].url
 
+        else:
+            if not query_valid_url(link):
+                raise InvalidURL
+
+
         CLUSTER_EXPERIENCE.update_one({
             "id": ctx.author.id}, 
             {"$set":{
@@ -152,12 +159,12 @@ class ImageManipulation(commands.Cog):
 
     @commands.command(aliases=["cr"])
     async def set_colour(self, ctx, r = None):
-        '''I want to get this wrapped in quotes''' 
+        '''?set_colour [hex]''' 
 
         await ctx.message.delete()
 
         if r is None:
-            raise MissingArgument("HEX")
+            raise MissingArgument("HEX", get_command_description("set_colour"))
 
         r = r.lstrip('#')
         colour = ImageColor.getcolor(f"#{str(r).lower()}", "RGB")
@@ -205,21 +212,6 @@ class ImageManipulation(commands.Cog):
     async def set_colour_handler(self, ctx, error):
         if "ValueError" in str(error):
             embed = embed_error("Invalid `HEX` value")
-
-        else:
-            error = str(error).split(":")[2] + ": " +  str(error).split(":")[3]
-            embed = embed_error(error)
-        
-        await ctx.send(embed=embed)
-
-    @set_background.error
-    async def set_colour_handler(self, ctx, error):
-        print(str(error))
-        error = str(error).split(":")
-        error = error[2] + ": " + error[3] + ": " + error[4]
-        embed = embed_error(error)
-        
-        await ctx.send(embed=embed)
 
 def setup(client):
     client.add_cog(ImageManipulation(client))
