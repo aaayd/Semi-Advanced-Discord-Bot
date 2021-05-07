@@ -169,7 +169,7 @@ class ImageManipulation(commands.Cog):
                 color=0xFF0000
             )
 
-            await ctx.send("")
+            await ctx.send(embed=embed)
 
 
     @commands.Cog.listener()

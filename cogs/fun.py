@@ -1,9 +1,9 @@
-from utils.constant_strings import EIGHT_BALL_DICT, GAY_DICT, HEART_LIST, PUSSY_DICT, SHIP_DICT, KISS_GIF_ARRAY
 import discord, random
 from discord.ext import commands
 from discord import Embed
 from datetime import datetime
-from utils.clusters import CLUSTER_DICK, CLUSTER_GAY, CLUSTER_PUSSY, CLUSTER_SHIP
+from utils.constants import CLUSTER_DICK, CLUSTER_GAY, CLUSTER_PUSSY, CLUSTER_SHIP
+from utils.constants import EIGHT_BALL_RESPONSE_DICT, GAY_RESPONSE_DICT, HEART_RESPONSE_LIST, PUSSY_RESPONSE_DICT, SHIP_RESPONSE_DICT, KISS_GIF_ARRAY
 
 class Fun(commands.Cog):
     def __init__(self, client):
@@ -86,38 +86,38 @@ class Fun(commands.Cog):
         shipnumber = _find_user["rating"]
         
         if 0 <= shipnumber <= 10: 
-            choice = random.choice(SHIP_DICT["SHIP_REALLY_LOW"])
+            choice = random.choice(SHIP_RESPONSE_DICT["SHIP_REALLY_LOW"])
             status = f"Really low! {choice}"
 
         elif 10 < shipnumber <= 20:
-            choice = random.choice(SHIP_DICT["SHIP_LOW"])
+            choice = random.choice(SHIP_RESPONSE_DICT["SHIP_LOW"])
             status = f"Low! {choice}"
             
         elif 20 < shipnumber <= 30:
-            choice = random.choice(SHIP_DICT["SHIP_POOR"])
+            choice = random.choice(SHIP_RESPONSE_DICT["SHIP_POOR"])
             status = f"Poor! {choice}"
 
         elif 30 < shipnumber <= 40:
-            choice = random.choice(SHIP_DICT["SHIP_FAIR"])
+            choice = random.choice(SHIP_RESPONSE_DICT["SHIP_FAIR"])
             status = f"Fair! {choice}"
 
         elif 40 < shipnumber <= 60:
-            choice = random.choice(SHIP_DICT["SHIP_MODERATE"])
+            choice = random.choice(SHIP_RESPONSE_DICT["SHIP_MODERATE"])
             status = f"Moderate! {choice}"
 
         elif 60 < shipnumber <= 70:
-            choice = random.choice(SHIP_DICT["SHIP_GOOD"])
+            choice = random.choice(SHIP_RESPONSE_DICT["SHIP_GOOD"])
             status = f"Good! {choice}"
 
         elif 70 < shipnumber <= 80:
-            choice = random.choice(SHIP_DICT["SHIP_GREAT"])
+            choice = random.choice(SHIP_RESPONSE_DICT["SHIP_GREAT"])
             status = f"Great! {choice}"
 
         elif 80 < shipnumber <= 90:
-            choice = random.choice(SHIP_DICT["SHIP_OVERAVERAGE"])
+            choice = random.choice(SHIP_RESPONSE_DICT["SHIP_OVERAVERAGE"])
             status = f"Over Average! {choice}"
         elif 90 < shipnumber <= 100:
-            choice = random.choice(SHIP_DICT["SHIP_TRUELOVE"])
+            choice = random.choice(SHIP_RESPONSE_DICT["SHIP_TRUELOVE"])
             status = f"True Love! {choice}"
 
         if shipnumber <= 33:
@@ -132,7 +132,7 @@ class Fun(commands.Cog):
         embed = (discord.Embed(
             color=colour,
             title="Simp rate for:",
-            description=f"**{member}** and **{member2}** {random.choice(HEART_LIST)}")
+            description=f"**{member}** and **{member2}** {random.choice(HEART_RESPONSE_LIST)}")
             ).add_field(name="Results:", value=f"{shipnumber}%", inline=True
             ).add_field(name="Status:", value=(status), inline=False
             ).set_author(name="Shipping", icon_url="http://moziru.com/images/kopel-clipart-heart-6.png")
@@ -144,14 +144,14 @@ class Fun(commands.Cog):
         """extra generic just the way you like it"""
         choice = random.randint(1,3)
         if choice == 1:
-            prediction = random.choice(EIGHT_BALL_DICT["EIGHT_BALL_AFFIRMATIVE"])
+            prediction = random.choice(EIGHT_BALL_RESPONSE_DICT["EIGHT_BALL_AFFIRMATIVE"])
             colour=0x3be801
 
         elif choice == 2:
-            prediction = random.choice(EIGHT_BALL_DICT["EIGHT_BALL_UNSURE"])
+            prediction = random.choice(EIGHT_BALL_RESPONSE_DICT["EIGHT_BALL_UNSURE"])
             colour=0xff6600
         elif choice == 3:
-            prediction = random.choice(EIGHT_BALL_DICT["EIGHTEIGHT_BALL_NEGATIVE"])
+            prediction = random.choice(EIGHT_BALL_RESPONSE_DICT["EIGHTEIGHT_BALL_NEGATIVE"])
             colour=0xE80303
         
             
@@ -179,19 +179,19 @@ class Fun(commands.Cog):
         gayness = _find_user["gay_rating"]
         
         if gayness <= 10:
-            gayStatus = random.choice(GAY_DICT["GAY_1"])
+            gayStatus = random.choice(GAY_RESPONSE_DICT["GAY_1"])
             colour = 0xFFFFFF
 
         elif 10 < gayness < 33:
-            gayStatus = random.choice(GAY_DICT["GAY_2"])
+            gayStatus = random.choice(GAY_RESPONSE_DICT["GAY_2"])
             colour = 0xFFC0CB
 
         elif 33 < gayness < 66:
-            gayStatus = random.choice(GAY_DICT["GAY_3"])
+            gayStatus = random.choice(GAY_RESPONSE_DICT["GAY_3"])
             colour = 0xFF69B4
 
         else:
-            gayStatus = random.choice(GAY_DICT["GAY_4"])
+            gayStatus = random.choice(GAY_RESPONSE_DICT["GAY_4"])
             colour = 0xFF00FF
 
         embed = discord.Embed(
@@ -222,16 +222,16 @@ class Fun(commands.Cog):
 
         colour = 0xFFFFFF
         if size <= 20:
-            status = random.choice(PUSSY_DICT["PUSSY_SIZE_SMALL"])
+            status = random.choice(PUSSY_RESPONSE_DICT["PUSSY_SIZE_SMALL"])
         elif 20 < size < 50:
-            status = random.choice(PUSSY_DICT["PUSSY_SIZE_MEDIUM"])
+            status = random.choice(PUSSY_RESPONSE_DICT["PUSSY_SIZE_MEDIUM"])
             colour = 0xFFC0CB
 
         elif 50 < size < 66:
-            status = random.choice(PUSSY_DICT["PUSSY_SIZE_SMALL"])
+            status = random.choice(PUSSY_RESPONSE_DICT["PUSSY_SIZE_SMALL"])
             colour = 0xFF69B4
         else:
-            status = random.choice(PUSSY_DICT["PUSSY_SIZE_BUCKET"])
+            status = random.choice(PUSSY_RESPONSE_DICT["PUSSY_SIZE_BUCKET"])
             colour = 0xFF00FF
 
         embed = discord.Embed(

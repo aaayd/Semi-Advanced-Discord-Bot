@@ -82,7 +82,7 @@ KISS_GIF_ARRAY = [
     'https://media1.tenor.com/images/230e9fd40cd15e3f27fc891bac04248e/tenor.gif?itemid=14751754',
 ]
 
-SHIP_DICT = {
+SHIP_RESPONSE_DICT = {
     "SHIP_REALLY_LOW" : [
         "Friendzone ;(", 
         "Just friends", 
@@ -150,7 +150,7 @@ SHIP_DICT = {
     ]
 }
 
-HEART_LIST = [
+HEART_RESPONSE_LIST = [
     ":sparkling_heart:", 
     ":heart_decoration:", 
     ":heart_exclamation:", 
@@ -165,7 +165,7 @@ HEART_LIST = [
     ":two_hearts:"
 ]
 
-EIGHT_BALL_DICT = {
+EIGHT_BALL_RESPONSE_DICT = {
     "EIGHT_BALL_AFFIRMATIVE" : [
         "It is certain ", 
         "It is decidedly so ", 
@@ -196,7 +196,7 @@ EIGHT_BALL_DICT = {
     ]
 }
 
-GAY_DICT = {
+GAY_RESPONSE_DICT = {
     "GAY_1" : [
         "Suspiciously Straight", 
         "Super Straight"
@@ -232,7 +232,7 @@ GAY_DICT = {
     ]
 }
 
-PUSSY_DICT = {
+PUSSY_RESPONSE_DICT = {
     "PUSSY_SIZE_SMALL" : [
         "Tiny Pussy", 
         "Virgin"
