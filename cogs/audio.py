@@ -1,3 +1,4 @@
+from utils.error_handler import MissingArgument
 import discord
 from discord.ext import commands
 
@@ -301,12 +302,12 @@ class Music(commands.Cog):
             await player.queue.put(source[song])
 
     @commands.command(name='play', aliases=['single'])
-    async def play_(self, ctx, *, search: str):
-        """Request a song and add it to the queue.
-        This command attempts to join a valid voice channel if the bot is not already in one.
-        Uses YTDL to automatically search and retrieve a song.
-        Parameters
-        """
+    async def play_(self, ctx, *, search: str = None):
+        """?play [link / query]"""
+
+        if search is None:
+            raise MissingArgument
+            
         await ctx.trigger_typing()
 
         vc = ctx.voice_client
@@ -409,13 +410,12 @@ class Music(commands.Cog):
                                    f'requested by `{vc.source.requester}`')
 
     @commands.command(name='volume', aliases=['vol'])
-    async def change_volume(self, ctx, *, vol: float):
-        """Change the player volume.
-        Parameters
-        ------------
-        volume: float or int [Required]
-            The volume to set the player to in percentage. This must be between 1 and 100.
-        """
+    async def change_volume(self, ctx, *, vol: float = None):
+        """?vol [number between 1 - 100]"""
+
+        if vol is None:
+            raise MissingArgument
+
         vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
