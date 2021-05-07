@@ -1,5 +1,5 @@
 from discord import embeds
-from utils.constant_strings import EIGHT_BALL_AFFIRMATIVE, EIGHT_BALL_NEGATIVE, EIGHT_BALL_UNSURE, GAY_1, GAY_2, GAY_3, GAY_4, HEART_LIST, PUSSY_SIZE_BUCKET, PUSSY_SIZE_MEDIUM, PUSSY_SIZE_SMALL, SHIP_POOR, SHIP_FAIR, SHIP_LOW, SHIP_REALLY_LOW, SHIP_GOOD, SHIP_GREAT, SHIP_MODERATE, SHIP_OVERAVERAGE, SHIP_TRUELOVE, SHIP_REALLY_LOW, KISS_GIF_ARR
+from utils.constant_strings import EIGHT_BALL_AFFIRMATIVE, EIGHT_BALL_NEGATIVE, EIGHT_BALL_UNSURE, GAY_1, GAY_2, GAY_3, GAY_4, HEART_LIST, PUSSY_SIZE_BUCKET, PUSSY_SIZE_MEDIUM, PUSSY_SIZE_SMALL, SHIP_DICT, KISS_GIF_ARR
 import discord , random
 from discord.ext import commands
 from discord import Embed
@@ -91,16 +91,41 @@ class Fun(commands.Cog):
             _find_user = SHIP_DB.find_one({"member_one" : members[0], "member_two": members[1]})
 
         shipnumber = _find_user["rating"]
+        
+        if 0 <= shipnumber <= 10: 
+            choice = random.choice(SHIP_DICT["SHIP_REALLY_LOW"])
+            status = f"Really low! {choice}"
 
-        if 0 <= shipnumber <= 10: status = f"Really low! {random.choice(SHIP_REALLY_LOW)}"
-        elif 10 < shipnumber <= 20: status = f"Low! {random.choice(SHIP_LOW)}"
-        elif 20 < shipnumber <= 30: status = f"Poor! {random.choice(SHIP_POOR)}"
-        elif 30 < shipnumber <= 40: status = f"Fair! {random.choice(SHIP_FAIR)}"
-        elif 40 < shipnumber <= 60: status = f"Moderate! {random.choice(SHIP_MODERATE)}"
-        elif 60 < shipnumber <= 70: status = f"Good! {random.choice(SHIP_GOOD)}"
-        elif 70 < shipnumber <= 80: status = f"Great! {random.choice(SHIP_GREAT)}"
-        elif 80 < shipnumber <= 90: status = f"Over Average! {random.choice(SHIP_OVERAVERAGE)}"
-        elif 90 < shipnumber <= 100: status = f"True Love! {random.choice(SHIP_TRUELOVE)}"
+        elif 10 < shipnumber <= 20:
+            choice = random.choice(SHIP_DICT["SHIP_LOW"])
+            status = f"Low! {choice}"
+            
+        elif 20 < shipnumber <= 30:
+            choice = random.choice(SHIP_DICT["SHIP_POOR"])
+            status = f"Poor! {choice}"
+
+        elif 30 < shipnumber <= 40:
+            choice = random.choice(SHIP_DICT["SHIP_FAIR"])
+            status = f"Fair! {choice}"
+
+        elif 40 < shipnumber <= 60:
+            choice = random.choice(SHIP_DICT["SHIP_MODERATE"])
+            status = f"Moderate! {choice}"
+
+        elif 60 < shipnumber <= 70:
+            choice = random.choice(SHIP_DICT["SHIP_GOOD"])
+            status = f"Good! {choice}"
+
+        elif 70 < shipnumber <= 80:
+            choice = random.choice(SHIP_DICT["SHIP_GREAT"])
+            status = f"Great! {choice}"
+
+        elif 80 < shipnumber <= 90:
+            choice = random.choice(SHIP_DICT["SHIP_OVERAVERAGE"])
+            status = f"Over Average! {choice}"
+        elif 90 < shipnumber <= 100:
+            choice = random.choice(SHIP_DICT["SHIP_TRUELOVE"])
+            status = f"True Love! {choice}"
 
         if shipnumber <= 33:
             colour = 0xE80303

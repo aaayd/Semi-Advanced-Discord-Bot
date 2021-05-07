@@ -56,70 +56,73 @@ KISS_GIF_ARR = [
     'https://media1.tenor.com/images/230e9fd40cd15e3f27fc891bac04248e/tenor.gif?itemid=14751754',
 ]
 
-SHIP_REALLY_LOW = [
-    "Friendzone ;(", 
-    "Just friends", 
-    "Friends", 
-    "Little to no love", 
-    "There's barely any love"
-]
+SHIP_DICT = {
+    "SHIP_REALLY_LOW" : [
+        "Friendzone ;(", 
+        "Just friends", 
+        "Friends", 
+        "Little to no love", 
+        "There's barely any love"
+    ],
 
-SHIP_LOW = [
-    "Still in the friendzone", 
-    "Still in that friendzone", 
-    "There's not a lot of love there."
-]
+    "SHIP_LOW" : [
+        "Still in the friendzone", 
+        "Still in that friendzone", 
+        "There's not a lot of love there."
+    ],
 
-SHIP_POOR = [
-    "But there's a small sense of romance from one person!", 
-    "But there's a small bit of love somewhere", 
-    "I sense a small bit of love!", 
-    "But someone has a bit of love for someone"
-]
+    "SHIP_POOR" : [
+        "But there's a small sense of romance from one person!", 
+        "But there's a small bit of love somewhere", 
+        "I sense a small bit of love!", 
+        "But someone has a bit of love for someone"
+    ],
 
-SHIP_FAIR = [
-    "There's a bit of love there!", 
-    "There is a bit of love there",
-    "A small bit of love is in the air"
-]
+    "SHIP_FAIR" : [
+        "There's a bit of love there!", 
+        "There is a bit of love there",
+        "A small bit of love is in the air"
+    ],
 
-SHIP_MODERATE = [
-    "But it's very one-sided", 
-    "It appears one sided!", 
-    "There's some potential!", 
-    "I sense a bit of potential!", 
-    "There's a bit of romance going on here!", 
-    "I feel like there's some romance progressing!", 
-    "The love is getting there"
-]
+    "SHIP_MODERATE" : [
+        "But it's very one-sided", 
+        "It appears one sided!", 
+        "There's some potential!", 
+        "I sense a bit of potential!", 
+        "There's a bit of romance going on here!", 
+        "I feel like there's some romance progressing!", 
+        "The love is getting there"
+    ],
 
-SHIP_GOOD = [
-    "I feel the romance progressing!", 
-    "There's some love in the air!", 
-    "I'm starting to feel some love!"]
+    "SHIP_GOOD" : [
+        "I feel the romance progressing!", 
+        "There's some love in the air!", 
+        "I'm starting to feel some love!"
+    ],
 
-SHIP_GREAT = [
-    "There is definitely love somewhere!", 
-    "I can see the love is there! Somewhere...", 
-    "I definitely can see that love is in the air"
-]
+    "SHIP_GREAT" : [
+        "There is definitely love somewhere!", 
+        "I can see the love is there! Somewhere...", 
+        "I definitely can see that love is in the air"
+    ],
 
-SHIP_OVERAVERAGE = [
-    "Love is in the air!", 
-    "I can definitely feel the love", 
-    "I feel the love! There's a sign of a match!", 
-    "There's a sign of a match!", 
-    "I sense a match!", 
-    "A few things can be imporved to make this a match made in heaven!"
-]
+    "SHIP_OVERAVERAGE" : [
+        "Love is in the air!", 
+        "I can definitely feel the love", 
+        "I feel the love! There's a sign of a match!", 
+        "There's a sign of a match!", 
+        "I sense a match!", 
+        "A few things can be imporved to make this a match made in heaven!"
+    ],
 
-SHIP_TRUELOVE = [
-    "It's a match!", 
-    "There's a match made in heaven!", 
-    "It's definitely a match!", 
-    "Love is truely in the air!", 
-    "Love is most definitely in the air!"
-]
+    "SHIP_TRUELOVE2" : [
+        "It's a match!", 
+        "There's a match made in heaven!", 
+        "It's definitely a match!", 
+        "Love is truely in the air!", 
+        "Love is most definitely in the air!"
+    ]
+}
 
 HEART_LIST = [
     ":sparkling_heart:", 
