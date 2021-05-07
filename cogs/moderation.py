@@ -1,11 +1,10 @@
-from utils.error_handler import MissingArgument
+from utils.error_handler import MissingArgument, MissingPermissionOnMember, embed_error
 import discord, re, asyncio
 from discord.utils import get
 from discord.ext import commands, tasks
 from datetime import datetime, timedelta
 from colorama import Fore, Style
-from utils.constants import CHANNEL_GENERAL_ID, CHANNEL_LOGS_ID, CLUSTER_MUTE, BLACKLISTED_WORDS, GUILD_ID, converter, get_command_description
-
+from utils.constants import CHANNEL_GENERAL_ID, CHANNEL_LOGS_ID, CLUSTER_MUTE, GUILD_ID, converter, get_command_description
 
 
 class Moderation(commands.Cog):
@@ -33,11 +32,16 @@ class Moderation(commands.Cog):
             
     @commands.command()
     @commands.has_permissions(kick_members=True)
-    async def kick(self, ctx, member : discord.Member=None, *, reason=None):
+    async def kick(self, ctx, member : discord.Member = None, *, reason=None):
         '''?kick [member] [reason]'''
         
         if member is None:
             raise MissingArgument("Discord User", get_command_description("kick"))
+
+        try:
+            await member.kick(reason=reason)
+        except:
+            raise MissingPermissionOnMember("kick", member)
 
         await ctx.message.delete()
         await ctx.channel.trigger_typing()
@@ -51,19 +55,23 @@ class Moderation(commands.Cog):
         )
         await log_channel.send(embed=embed)
         await member.send(embed=embed)
-        await member.kick(reason=reason)
-
+        
 
     @commands.command()
     @commands.has_permissions(ban_members=True)
-    async def ban(self, ctx, member : discord.Member, *, reason=None):
+    async def ban(self, ctx, member : discord.Member = None, *, reason=None):
         '''?ban [member] [reason]'''
 
         if member is None:
             raise MissingArgument("Discord User", get_command_description("ban"))
 
+        try:
+            await member.ban(reason=reason)
+        except:
+            raise MissingPermissionOnMember("ban", member)
+
         await ctx.message.delete()
-        await ctx.channel.trigger_typing() 
+        await ctx.channel.trigger_typing()
         log_channel = self.client.get_channel(int(CHANNEL_LOGS_ID))
 
         embed=discord.Embed(
@@ -75,16 +83,15 @@ class Moderation(commands.Cog):
             ).add_field(name="Punishment", value=f"Banned"
             ).add_field(name="Reason", value=f"{reason}"
         )
-        await member.ban(reason=reason)
+        
         await log_channel.send(embed=embed)
         await member.send(embed=embed)
         await member.send("https://cdn.discordapp.com/attachments/811885989005492276/812847731461849108/y2mate.com_-_ARSENAL_FAN_TV_ITS_TIME_TO_GO_MEME_360p_1.mp4")
-        
-            
+    
         
     @commands.command()
     @commands.has_permissions(manage_messages=True)
-    async def clear(self, ctx, member : discord.Member, limit: int=None):
+    async def clear(self, ctx, member : discord.Member = None, limit: int=None):
         '''?clear [member] [amount to delete]'''
 
         if member is None:
@@ -148,7 +155,10 @@ class Moderation(commands.Cog):
     async def _mute_user(self, ctx, member, time="Indefinite", reason="None"):
         channel = self.client.get_channel(int(CHANNEL_LOGS_ID))
         
-        muted_role = get(ctx.guild.roles, name="Muted")
+        try:
+            muted_role = get(ctx.guild.roles, name="Muted")
+        except:
+            await ctx.send(embed=embed_error("Muted Role doesn't exist!"))
         if muted_role in member.roles:
             return
         
