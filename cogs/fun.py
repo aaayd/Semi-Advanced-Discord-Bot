@@ -1,5 +1,5 @@
 from discord import embeds
-from utils.constant_strings import EIGHT_BALL_DICT, GAY_DICT, HEART_LIST, PUSSY_SIZE_BUCKET, PUSSY_SIZE_MEDIUM, PUSSY_SIZE_SMALL, SHIP_DICT, KISS_GIF_ARR
+from utils.constant_strings import EIGHT_BALL_DICT, GAY_DICT, HEART_LIST, PUSSY_DICT, SHIP_DICT, KISS_GIF_ARRAY
 import discord , random
 from discord.ext import commands
 from discord import Embed
@@ -24,7 +24,7 @@ class Fun(commands.Cog):
         embed = discord.Embed(
             description=f"{ctx.message.author.mention} Kissed {member.mention}, How Sweet :heart:", 
             color=0xc81f9f,
-            ).set_image(url=f"{random.choice(KISS_GIF_ARR)}"
+            ).set_image(url=f"{random.choice(KISS_GIF_ARRAY)}"
         )
         await ctx.send(embed=embed)
 
@@ -229,16 +229,16 @@ class Fun(commands.Cog):
 
         colour = 0xFFFFFF
         if size <= 20:
-            status = random.choice(PUSSY_SIZE_SMALL)
+            status = random.choice(PUSSY_DICT["PUSSY_SIZE_SMALL"])
         elif 20 < size < 50:
-            status = random.choice(PUSSY_SIZE_MEDIUM)
+            status = random.choice(PUSSY_DICT["PUSSY_SIZE_MEDIUM"])
             colour = 0xFFC0CB
 
         elif 50 < size < 66:
-            status = random.choice(PUSSY_SIZE_SMALL)
+            status = random.choice(PUSSY_DICT["PUSSY_SIZE_SMALL"])
             colour = 0xFF69B4
         else:
-            status = random.choice(PUSSY_SIZE_BUCKET)
+            status = random.choice(PUSSY_DICT["PUSSY_SIZE_BUCKET"])
             colour = 0xFF00FF
 
         embed = discord.Embed(
