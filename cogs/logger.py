@@ -17,7 +17,7 @@ class Logger(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
-    async def purge(self, ctx, amount = None):
+    async def purge(self, ctx, amount : int = None):
         '''?purge [amount]'''
 
         await ctx.channel.trigger_typing()
@@ -122,7 +122,7 @@ class Logger(commands.Cog):
                 color=0xff0000
                 ).set_author(name=f"{self.author_temp} just got sniped", icon_url=f"{self.author_temp.avatar_url}"
             )
-            
+
             for i, str in enumerate(strs):
                 embed.add_field(name=f"Sniped Message {i + 1}", value=f"{str}", inline=False)
             embed.set_footer(text=f"ID - {self.author_temp.id}"
