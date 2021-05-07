@@ -1,5 +1,5 @@
 from discord import embeds
-from utils.constant_strings import EIGHT_BALL_DICT, GAY_1, GAY_2, GAY_3, GAY_4, HEART_LIST, PUSSY_SIZE_BUCKET, PUSSY_SIZE_MEDIUM, PUSSY_SIZE_SMALL, SHIP_DICT, KISS_GIF_ARR
+from utils.constant_strings import EIGHT_BALL_DICT, GAY_DICT, HEART_LIST, PUSSY_SIZE_BUCKET, PUSSY_SIZE_MEDIUM, PUSSY_SIZE_SMALL, SHIP_DICT, KISS_GIF_ARR
 import discord , random
 from discord.ext import commands
 from discord import Embed
@@ -186,19 +186,19 @@ class Fun(commands.Cog):
         gayness = _find_user["gay_rating"]
         
         if gayness <= 10:
-            gayStatus = random.choice(GAY_1)
+            gayStatus = random.choice(GAY_DICT["GAY_1"])
             colour = 0xFFFFFF
 
         elif 10 < gayness < 33:
-            gayStatus = random.choice(GAY_2)
+            gayStatus = random.choice(GAY_DICT["GAY_2"])
             colour = 0xFFC0CB
 
         elif 33 < gayness < 66:
-            gayStatus = random.choice(GAY_3)
+            gayStatus = random.choice(GAY_DICT["GAY_3"])
             colour = 0xFF69B4
 
         else:
-            gayStatus = random.choice(GAY_4)
+            gayStatus = random.choice(GAY_DICT["GAY_4"])
             colour = 0xFF00FF
 
         embed = discord.Embed(

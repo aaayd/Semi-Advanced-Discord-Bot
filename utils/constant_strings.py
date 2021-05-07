@@ -170,39 +170,41 @@ EIGHT_BALL_DICT = {
     ]
 }
 
-GAY_1 = [
-    "Suspiciously Straight", 
-    "Super Straight"
-]
+GAY_DICT = {
+    "GAY_1" : [
+        "Suspiciously Straight", 
+        "Super Straight"
+    ],
 
-GAY_2 = [
-    "No homo", 
-    "Wearing socks", 
-    '"Only sometimes"', 
-    "Straight-ish", 
-    "No homo bro", 
-    "Girl-kisser", 
-    "Hella straight"
-]
+    "GAY_2" : [
+        "No homo", 
+        "Wearing socks", 
+        '"Only sometimes"', 
+        "Straight-ish", 
+        "No homo bro", 
+        "Girl-kisser", 
+        "Hella straight"
+    ],
 
-GAY_3 = [
-    "Possible homo", 
-    "My gay-sensor is picking something up", 
-    "I can't tell if the socks are on or off", 
-    "Gay-ish", 
-    "Looking a bit homo", 
-    "lol half  g a y", 
-    "safely inbetween for now"
-]
+    "GAY_3" : [
+        "Possible homo", 
+        "My gay-sensor is picking something up", 
+        "I can't tell if the socks are on or off", 
+        "Gay-ish", 
+        "Looking a bit homo", 
+        "lol half  g a y", 
+        "safely inbetween for now"
+    ],
 
-GAY_4 = [
-    "HOMO ALERT", 
-    "MY GAY-SENSOR IS OFF THE CHARTS", 
-    "STINKY GAY", 
-    "GAY AS FUCK", 
-    "THE SOCKS ARE OFF", 
-    "HELLA GAY"
-]
+    "GAY_4" : [
+        "HOMO ALERT", 
+        "MY GAY-SENSOR IS OFF THE CHARTS", 
+        "STINKY GAY", 
+        "GAY AS FUCK", 
+        "THE SOCKS ARE OFF", 
+        "HELLA GAY"
+    ]
+}
 
 PUSSY_SIZE_SMALL = [
     "Tiny Pussy", 
