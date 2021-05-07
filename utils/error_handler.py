@@ -53,6 +53,7 @@ class CommandErrorHandler(commands.Cog):
                 embed = embed_error(error)
             except:
                 error = f"Unkown Error Occured! : {error}"
+                embed = embed_error(error)
             
         await ctx.send(embed=embed)
 

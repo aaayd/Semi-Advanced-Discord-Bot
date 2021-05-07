@@ -4,6 +4,16 @@ from main import result, CLUSTER, client
 import os, re
 import requests
 
+def converter(time):
+    time_converter={
+        's': 1,
+        'm': 60,
+        'h': 3600,
+        'd': 86400,
+        'w': 604800}
+
+    time = re.sub('[^a-zA-Z]+', '', time)
+    return time_converter.get(time,"Invalid Timeframe.")
 
 def query_valid_url(url):
     request = requests.get(url)
@@ -36,16 +46,6 @@ def get_time_elapsed(afk_date):
         string += f"{round(seconds)} second" if hours == 1.0 else f"{round(seconds)} seconds"
     return string
 
-def converter(time):
-    time_converter={
-        's': 1,
-        'm': 60,
-        'h': 3600,
-        'd': 86400,
-        'w': 604800}
-
-    time = re.sub('[^a-zA-Z]+', '', time)
-    return time_converter.get(time,"Invalid Timeframe.")
 
 
 # Databases
