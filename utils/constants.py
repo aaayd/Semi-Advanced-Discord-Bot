@@ -1,7 +1,7 @@
 
 from datetime import datetime
 from main import result, CLUSTER, client
-import os
+import os, re
 import requests
 
 
@@ -36,6 +36,17 @@ def get_time_elapsed(afk_date):
         string += f"{round(seconds)} second" if hours == 1.0 else f"{round(seconds)} seconds"
     return string
 
+def converter(time):
+    time_converter={
+        's': 1,
+        'm': 60,
+        'h': 3600,
+        'd': 86400,
+        'w': 604800}
+
+    time = re.sub('[^a-zA-Z]+', '', time)
+    return time_converter.get(time,"Invalid Timeframe.")
+
 
 # Databases
 CLUSTER_EXPERIENCE = CLUSTER["discord"]["leveling"]
@@ -45,6 +56,7 @@ CLUSTER_GAY = CLUSTER["discord_fun"]["gay"]
 CLUSTER_DICK = CLUSTER["discord_fun"]["dick"]
 CLUSTER_PUSSY = CLUSTER["discord_fun"]["pussy"]
 CLUSTER_SHIP = CLUSTER["discord_fun"]["ship"]
+CLUSTER_MUTE = CLUSTER["discord"]["mute"]
 
 
 # Variables for Database
