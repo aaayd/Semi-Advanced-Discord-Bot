@@ -1,8 +1,10 @@
 
 from datetime import datetime
-from main import result, CLUSTER
+from main import result, CLUSTER, client
 import os
 
+def get_command_description(command):
+    return client.get_command(command).help
 # Functions
 def get_time_elapsed(afk_date):
     elapsed_time = datetime.utcnow() - afk_date

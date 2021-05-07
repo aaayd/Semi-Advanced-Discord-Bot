@@ -8,8 +8,11 @@ def embed_error(message):
 
 
 class MissingArgument(Exception):
-    def __init__(self, missing_argument, message="Missing keyword: "):
+    def __init__(self, missing_argument, command_description, message="Missing keyword: ", ):
         self.missing_argument = f"`{missing_argument}`"
+        self.command_description = f"`{command_description}`"
+
+        self.missing_argument += f"\nCommand Usage: {self.command_description}"
         self.message = message + self.missing_argument
 
     def __str__(self):
