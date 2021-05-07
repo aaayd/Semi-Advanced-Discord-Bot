@@ -1,3 +1,5 @@
+from utils.constants import get_command_description
+from utils.error_handler import MissingArgument
 from discord.ext import commands
 from discord import Embed
 from animals import Animals
@@ -9,25 +11,26 @@ class Image(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def animal(self, ctx, name):
-        try:
-            if name == "monkey":            
-                await ctx.send(embed=Embed(
-                    title=f"Here is a {name}, {ctx.author.display_name}", timestamp=datetime.now(), url="https://www.placemonkeys.com/512?random"
-                    ).set_image(url="https://www.placemonkeys.com/512?random"
-                    ).set_footer(text=f"{name.capitalize()} images don't have a dedicated API. Image refreshes may take a while.")
-                )
+    async def animal(self, ctx, name = None):
+        """?animal [animal_name]"""
 
-            else:
+        if name is None:
+            raise MissingArgument("Animal Name", get_command_description("animal"))
 
-                animal = Animals(str(name).lower())
-                await ctx.send(embed=Embed(
-                        title=f"Here is a {name}, {ctx.author.display_name}", timestamp=datetime.now(), url=animal.image()
-                ).set_image(url=animal.image()
-                ).set_footer(text=f"Fun fact: {str(animal.fact())}"))
+        if name == "monkey":            
+            await ctx.send(embed=Embed(
+                title=f"Here is a {name}, {ctx.author.display_name}", timestamp=datetime.now(), url="https://www.placemonkeys.com/512?random"
+                ).set_image(url="https://www.placemonkeys.com/512?random"
+                ).set_footer(text=f"{name.capitalize()} images don't have a dedicated API. Image refreshes may take a while.")
+            )
 
-        except:
-            pass
+        else:
+
+            animal = Animals(str(name).lower())
+            await ctx.send(embed=Embed(
+                    title=f"Here is a {name}, {ctx.author.display_name}", timestamp=datetime.now(), url=animal.image()
+            ).set_image(url=animal.image()
+            ).set_footer(text=f"Fun fact: {str(animal.fact())}"))
 
 
 

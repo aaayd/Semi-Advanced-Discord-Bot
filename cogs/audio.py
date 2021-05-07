@@ -1,3 +1,4 @@
+from utils.constants import get_command_description
 from utils.error_handler import MissingArgument
 import discord
 from discord.ext import commands
@@ -306,8 +307,8 @@ class Music(commands.Cog):
         """?play [link / query]"""
 
         if search is None:
-            raise MissingArgument
-            
+            raise MissingArgument("Search query", get_command_description("play_"))
+
         await ctx.trigger_typing()
 
         vc = ctx.voice_client
@@ -414,7 +415,7 @@ class Music(commands.Cog):
         """?vol [number between 1 - 100]"""
 
         if vol is None:
-            raise MissingArgument
+            raise MissingArgument("Volume Number", get_command_description("change_volume"))
 
         vc = ctx.voice_client
 
