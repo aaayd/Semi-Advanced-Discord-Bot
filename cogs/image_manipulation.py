@@ -120,10 +120,7 @@ def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour,
     start = start.rotate(180)
     card.paste(start, (percentage + 334, 263), start)
 
-    card.save(os.path.join(f"{IMAGE_PATH}//rank//","card_temp.png"))
-    #await ctx.send(file=discord.File(os.path.join(f"{path}//rank//","card_temp.png")))
-
-
+    card.save(os.path.join(f"{IMAGE_PATH}//temp//","card_temp.png"))
 
 class ImageManipulation(commands.Cog):
     def __init__(self, client):

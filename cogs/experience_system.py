@@ -21,9 +21,7 @@ class ExperienceSystem(commands.Cog):
         rankings = CLUSTER_EXPERIENCE.find().sort("xp", -1)
         for iter,rank in enumerate(list(rankings)):
             if rank["id"] == member.id:
-                rank_in_server = iter + 1
-                return rank_in_server
-
+                return iter + 1
 
     @commands.command(aliases=["rank"])
     async def _rank(self, ctx, member: discord.Member = None):
@@ -48,22 +46,18 @@ class ExperienceSystem(commands.Cog):
         xp -= ((50*((lvl-1)**2))+(50*(lvl-1)))
         rank = self._get_rank(member)
 
-        colour = (stats["colour"][0],stats["colour"][1],stats["colour"][2])
-        background = (stats["background"])
-        
-        if colour is None:
+        try:
+            colour = (stats["colour"][0],stats["colour"][1],stats["colour"][2])
+        except KeyError:
             colour = (65, 178, 138)
 
-        if background is None:
+        try:
+            background = (stats["background"])
+        except KeyError:
             background = "https://media.discordapp.net/attachments/665771066085474346/821993295310749716/statementofsolidarity.jpg?width=1617&height=910"
 
-        rank_card = create_rank_card(member, xp, lvl, rank, background, colour, ctx.guild.member_count)
+        create_rank_card(member, xp, lvl, rank, background, colour, ctx.guild.member_count)
+        await ctx.send(file=discord.File(os.path.join(f"{IMAGE_PATH}//temp//","card_temp.png")))
     
-        await ctx.send(file=discord.File(os.path.join(f"{IMAGE_PATH}//rank//","card_temp.png")))
-        
-
-        
-        
-
 def setup(client):
     client.add_cog(ExperienceSystem(client))
