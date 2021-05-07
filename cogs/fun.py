@@ -1,4 +1,3 @@
-from discord import embeds
 from utils.constant_strings import EIGHT_BALL_DICT, GAY_DICT, HEART_LIST, PUSSY_DICT, SHIP_DICT, KISS_GIF_ARRAY
 import discord , random
 from discord.ext import commands
