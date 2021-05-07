@@ -1,5 +1,5 @@
 from discord import embeds
-from utils.constant_strings import EIGHT_BALL_AFFIRMATIVE, EIGHT_BALL_NEGATIVE, EIGHT_BALL_UNSURE, GAY_1, GAY_2, GAY_3, GAY_4, HEART_LIST, PUSSY_SIZE_BUCKET, PUSSY_SIZE_MEDIUM, PUSSY_SIZE_SMALL, SHIP_DICT, KISS_GIF_ARR
+from utils.constant_strings import EIGHT_BALL_DICT, GAY_1, GAY_2, GAY_3, GAY_4, HEART_LIST, PUSSY_SIZE_BUCKET, PUSSY_SIZE_MEDIUM, PUSSY_SIZE_SMALL, SHIP_DICT, KISS_GIF_ARR
 import discord , random
 from discord.ext import commands
 from discord import Embed
@@ -145,26 +145,26 @@ class Fun(commands.Cog):
             ).set_author(name="Shipping", icon_url="http://moziru.com/images/kopel-clipart-heart-6.png")
 
         await ctx.send(embed=embed)
-
+    
     @commands.command(aliases=['8ball'])
     async def eightball(self, ctx, *, _ballInput):
         """extra generic just the way you like it"""
         choice = random.randint(1,3)
         if choice == 1:
-            prediction = random.choice(EIGHT_BALL_AFFIRMATIVE) + ":8ball:"
+            prediction = random.choice(EIGHT_BALL_DICT["EIGHT_BALL_AFFIRMATIVE"])
             colour=0x3be801
 
         elif choice == 2:
-            prediction = random.choice(EIGHT_BALL_UNSURE) + ":8ball:"
+            prediction = random.choice(EIGHT_BALL_DICT["EIGHT_BALL_UNSURE"])
             colour=0xff6600
         elif choice == 3:
-            prediction = random.choice(EIGHT_BALL_NEGATIVE) + ":8ball:"
+            prediction = random.choice(EIGHT_BALL_DICT["EIGHTEIGHT_BALL_NEGATIVE"])
             colour=0xE80303
         
             
         embed = discord.Embed(
             title=f"Question: {_ballInput}", 
-            description=prediction,
+            description=f"{prediction} :8ball:",
             colour=colour
             ).set_author(name='Magic 8 ball', icon_url='https://www.horoscope.com/images-US/games/game-magic-8-ball-no-text.png'
         )
