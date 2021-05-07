@@ -5,11 +5,7 @@ from discord import Embed
 from datetime import datetime
 import random
 from main import CLUSTER
-
-GAY_DB = CLUSTER["discord_fun"]["gay"]
-DICK_DB = CLUSTER["discord_fun"]["dick"]
-PUSSY_DB = CLUSTER["discord_fun"]["pussy"]
-SHIP_DB = CLUSTER["discord_fun"]["ship"]
+from utils.clusters import CLUSTER_DICK, CLUSTER_GAY, CLUSTER_PUSSY, CLUSTER_SHIP
 
 class Fun(commands.Cog):
     def __init__(self, client):
@@ -80,14 +76,14 @@ class Fun(commands.Cog):
         members = [member.id, member2.id]
         members.sort()
 
-        _find_user = SHIP_DB.find_one({"member_one" : members[0], "member_two": members[1]})
+        _find_user = CLUSTER_SHIP.find_one({"member_one" : members[0], "member_two": members[1]})
 
         if _find_user is None:
             shipnumber = random.randint(0,100)
             new_ship = ({"member_one" : members[0], "member_two": members[1], "rating": shipnumber})
-            SHIP_DB.insert(new_ship)
+            CLUSTER_SHIP.insert(new_ship)
 
-            _find_user = SHIP_DB.find_one({"member_one" : members[0], "member_two": members[1]})
+            _find_user = CLUSTER_SHIP.find_one({"member_one" : members[0], "member_two": members[1]})
 
         shipnumber = _find_user["rating"]
         
@@ -174,13 +170,13 @@ class Fun(commands.Cog):
         if member == None:
             member = ctx.author
 
-        _find_user = GAY_DB.find_one({"id" : member.id})
+        _find_user = CLUSTER_GAY.find_one({"id" : member.id})
 
         if _find_user is None:
             gayness = random.randint(0,100)
             new_gay_client = ({"id": member.id, "gay_rating": gayness})
-            GAY_DB.insert(new_gay_client)
-            _find_user = GAY_DB.find_one({"id" : member.id})
+            CLUSTER_GAY.insert(new_gay_client)
+            _find_user = CLUSTER_GAY.find_one({"id" : member.id})
 
         gayness = _find_user["gay_rating"]
         
@@ -216,13 +212,13 @@ class Fun(commands.Cog):
             member = ctx.author
 
 
-        _find_user = PUSSY_DB.find_one({"id" : member.id})
+        _find_user = CLUSTER_PUSSY.find_one({"id" : member.id})
 
         if _find_user is None:
             size = random.randint(0,100)
             new_pussy = ({"id": member.id, "pussy_size": size})
-            PUSSY_DB.insert(new_pussy)
-            _find_user = PUSSY_DB.find_one({"id" : member.id})
+            CLUSTER_PUSSY.insert(new_pussy)
+            _find_user = CLUSTER_PUSSY.find_one({"id" : member.id})
 
         size = _find_user["pussy_size"]
 
@@ -253,13 +249,13 @@ class Fun(commands.Cog):
         if member == None:
             member = ctx.author
 
-        _find_user = DICK_DB.find_one({"id" : member.id})
+        _find_user = CLUSTER_DICK.find_one({"id" : member.id})
 
         if _find_user is None:
             dick_size = f"8{'='*random.randint(1,12)}3"
             new_dick_size = ({"id": member.id, "dick_size": dick_size})
-            DICK_DB.insert(new_dick_size)
-            _find_user = DICK_DB.find_one({"id" : member.id})
+            CLUSTER_DICK.insert(new_dick_size)
+            _find_user = CLUSTER_DICK.find_one({"id" : member.id})
 
         dick_size = _find_user["dick_size"]
         gayColor = 0xFFFFFF

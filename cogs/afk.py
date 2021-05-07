@@ -3,9 +3,9 @@ import discord
 from discord.ext import commands
 from datetime import datetime
 from main import CLUSTER
-from utils.constant_strings import get_time_elapsed 
+from utils.constant_strings import get_time_elapsed
+from utils.clusters import CLUSTER_AFK
 
-CLUSTER_AFK = CLUSTER["discord"]["afk"]
 class AFKSystem(commands.Cog):
     def __init__(self, client):
         self.client = client

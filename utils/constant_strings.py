@@ -1,5 +1,12 @@
 
 from datetime import datetime
+from main import result
+
+GUILD_ID = result["GUILD_ID"]
+CHANNEL_GENERAL_ID = result["CHANNEL_GENERAL"]
+CHANNEL_LOGS_ID = result["CHANNEL_LOGS"]
+CHANNEL_CONFESSION_ID = result["CHANNEL_CONFESSION"]
+
 
 def get_time_elapsed(afk_date):
     elapsed_time = datetime.utcnow() - afk_date
