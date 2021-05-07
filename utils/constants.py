@@ -1,14 +1,9 @@
 
 from datetime import datetime
-from main import result
+from main import result, CLUSTER
 import os
 
-GUILD_ID = result["GUILD_ID"]
-CHANNEL_GENERAL_ID = result["CHANNEL_GENERAL"]
-CHANNEL_LOGS_ID = result["CHANNEL_LOGS"]
-CHANNEL_CONFESSION_ID = result["CHANNEL_CONFESSION"]
-
-IMAGE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'image_processing')
+# Functions
 def get_time_elapsed(afk_date):
     elapsed_time = datetime.utcnow() - afk_date
     seconds = elapsed_time.total_seconds()
@@ -31,6 +26,29 @@ def get_time_elapsed(afk_date):
         string += f"{round(seconds)} second" if hours == 1.0 else f"{round(seconds)} seconds"
     return string
 
+
+# Databases
+CLUSTER_EXPERIENCE= CLUSTER["discord"]["leveling"]
+CLUSTER_RATELIMIT = CLUSTER["discord"]["xp_rate_limit"]
+CLUSTER_AFK = CLUSTER["discord"]["afk"]
+CLUSTER_GAY = CLUSTER["discord_fun"]["gay"]
+CLUSTER_DICK = CLUSTER["discord_fun"]["dick"]
+CLUSTER_PUSSY = CLUSTER["discord_fun"]["pussy"]
+CLUSTER_SHIP = CLUSTER["discord_fun"]["ship"]
+
+# Variables for Database
+CONFESSION_BOOL = CLUSTER["discord"]["utils"].find_one({"id": "type_confession"})["confession"]
+
+# Server Vars (Stored in ENV)
+GUILD_ID = result["GUILD_ID"]
+CHANNEL_GENERAL_ID = result["CHANNEL_GENERAL"]
+CHANNEL_LOGS_ID = result["CHANNEL_LOGS"]
+CHANNEL_CONFESSION_ID = result["CHANNEL_CONFESSION"]
+
+IMAGE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'image_processing')
+
+
+# Arrays / Dicts
 KISS_GIF_ARRAY = [
     'https://media1.tenor.com/images/32d4f0642ebb373e3eb072b2b91e6064/tenor.gif?itemid=15150255',
     'https://media1.tenor.com/images/a390476cc2773898ae75090429fb1d3b/tenor.gif?itemid=12837192',

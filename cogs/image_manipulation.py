@@ -3,8 +3,7 @@ import numpy as np
 from PIL import ImageColor
 from discord.ext import commands
 from PIL import Image, ImageFont, ImageDraw, ImageChops
-from utils.constant_strings import CHANNEL_GENERAL_ID, GUILD_ID, IMAGE_PATH
-from utils.clusters import CLUSTER_EXPERIENCE
+from utils.constants import CLUSTER_EXPERIENCE, CHANNEL_GENERAL_ID, GUILD_ID, IMAGE_PATH
 
 
 def round_image(image):

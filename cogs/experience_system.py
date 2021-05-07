@@ -1,8 +1,7 @@
-from utils.constant_strings import IMAGE_PATH
+from utils.constants import IMAGE_PATH, CLUSTER_EXPERIENCE
 from cogs.image_manipulation import create_rank_card
 import discord, os
 from discord.ext import commands
-from utils.clusters import CLUSTER_EXPERIENCE
 
 class ExperienceSystem(commands.Cog):
     def __init__(self, client):

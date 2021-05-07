@@ -3,8 +3,7 @@ import discord
 from discord.ext import commands
 from datetime import datetime
 from main import CLUSTER
-from utils.constant_strings import get_time_elapsed
-from utils.clusters import CLUSTER_AFK
+from utils.constants import get_time_elapsed, CLUSTER_AFK
 
 class AFKSystem(commands.Cog):
     def __init__(self, client):
