@@ -29,7 +29,8 @@ class CommandErrorHandler(commands.Cog):
         
 
         if isinstance(error, commands.CommandNotFound):
-            embed = embed_error(error)
+            unfound_command = str(error).split(" ")[1][1:-1]
+            embed = embed_error(f"Command `{unfound_command}` is unrecognised.")
         
         else:
 
