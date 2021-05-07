@@ -26,10 +26,16 @@ class CommandErrorHandler(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-        print(error)
-        error = str(error).split(":")
-        error = error[2] + ": " + error[3] + ": " + error[4]
-        embed = embed_error(error)
+        
+
+        if isinstance(error, commands.CommandNotFound):
+            embed = embed_error(error)
+        
+        else:
+
+            error = str(error).split(":")
+            error = error[2] + ": " + error[3] + ": " + error[4]
+            embed = embed_error(error)
         
         await ctx.send(embed=embed)
 
