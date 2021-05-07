@@ -5,9 +5,9 @@ An easy to setup Discord bot made with Python
 1. Python
 
 # Libraries 
-1. discordpy 
-2. Pillow 
-3. pymongo
+- discordpy 
+- Pillow 
+- pymongo
 
 # Installation 
 ```py
@@ -22,7 +22,10 @@ An easy to setup Discord bot made with Python
 3. Set `PASSWORD` to your `MongoDB` password
 4. Set `URL` to your `MongoDB` cluster url 
 5. Set `GUILD_ID`to the server you invite the bot to 
-6. Set `
+6. Set `CHANNEL_GENERAL` to your `General` channel `ID`
+7. Set `CHANNEL_LOGS` to your `Logs` channel `ID` 
+- Optional 
+8. Set `CHANNEL_CONFESSION` to your `Anonymous Confessions` channel `ID`
 
 
 
