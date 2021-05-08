@@ -9,19 +9,20 @@ def embed_error(message):
     )
 
 class MissingArgument(commands.CommandError):
-    def __init__(self, missing_argument, command_description, message="Missing keyword: ", ):
+    def __init__(self, missing_argument, command_description):
         self.missing_argument = f"`{missing_argument}`"
         self.command_description = f"`{command_description}`"
 
-        self.missing_argument += f"\nCommand Usage: {self.command_description}"
-        self.message = message + self.missing_argument
+    def __str__(self):
+        return "Missing keyword: " + self.missing_argument + "\n" + f"Command Usage: {self.command_description}"
 
 class MissingPermissionOnMember(commands.CommandError):
-    def __init__(self, command, member, message="I have no permissions to", ):
+    def __init__(self, command, member):
         self.command = f"`{command}`"
         self.member = f"{member.mention}"
 
-        self.message = f"{message} use {self.command} on {self.member}"
+    def __str__(self):
+        return f"I have no permissions to use {self.command} on {self.member}"
 
 class CommandErrorHandler(commands.Cog):
 
@@ -33,6 +34,9 @@ class CommandErrorHandler(commands.Cog):
         #print(str(error))
 
         if isinstance(type(error), type(MissingArgument)):
+            embed = embed_error(str(error))
+
+        if isinstance(type(error), type(MissingPermissionOnMember)):
             embed = embed_error(str(error))
 
         if isinstance(error, commands.CommandNotFound):
