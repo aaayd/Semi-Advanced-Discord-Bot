@@ -1,5 +1,14 @@
 # Discord-Bot
-An easy to setup Discord bot made with Python
+An easy to setup Discord bot with a database made with Python 
+
+# Features 
+- MongoDB Backend 
+- Ranking System
+- Custom Image Manipulated Cards 
+- Easily Customisable Rank Cards 
+- Custom Error Handling 
+- Plays music w/ search engine 
+
 
 # Requirements 
 1. Python
