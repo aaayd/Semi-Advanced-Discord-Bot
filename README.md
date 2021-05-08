@@ -1,5 +1,5 @@
-# Discord-Bot
-An easy to setup Discord bot with a database made with Python 
+# Zenyx-Bot
+An easy to setup Discord bot utilising a MongoDB database made in Python 
 
 # Features 
 - MongoDB Backend 
@@ -15,7 +15,7 @@ Rank Card Example
 Welcome Card Example
 ![welcome_card](https://cdn.discordapp.com/attachments/665771066085474346/840511453454532648/temp_welcome.png)
 # Requirements 
-1. Python
+1. Python 3
 
 # Libraries 
 - discordpy 
