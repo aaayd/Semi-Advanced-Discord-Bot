@@ -41,6 +41,11 @@ class CommandErrorHandler(commands.Cog):
         if isinstance(error, commands.CommandNotFound):
             unfound_command = str(error).split(" ")[1][1:-1]
             embed = embed_error(f"Command `{unfound_command}` is unrecognised.")
+
+        if isinstance(error, commands.BadArgument):
+            if "Member" in str(error) and "not found" in str(error):
+            user = str(error).split(" ")[1]
+            embed = embed_error(f"Member `{user}` not found") 
         
         elif "MissingPermissionOnMember" in str(error):
             error = str(error)[len("Command raised an exception: MissingPermissionOnMember: "):]
