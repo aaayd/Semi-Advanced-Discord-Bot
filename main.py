@@ -15,12 +15,9 @@ with open('protected_vars.env') as ins:
         if match is not None:
             result[match.group(1)] = match.group(2)
             
-USERNAME= result["USERNAME"]
-PASSWORD = result["PASSWORD"]
 TOKEN = result["TOKEN"]
-CLUSTER_URL = result["URL"] 
 
-CLUSTER = MongoClient(f"mongodb+srv://{USERNAME}:{PASSWORD}@{CLUSTER_URL}")
+CLUSTER = MongoClient(result["SRV_URL"])
 client = commands.Bot(command_prefix = '?', intents = Intents.all(), case_insensitive=True)
 client.remove_command('help')
 
