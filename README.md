@@ -9,7 +9,11 @@ An easy to setup Discord bot with a database made with Python
 - Custom Error Handling 
 - Plays music w/ search engine 
 
+Rank Card Example
+![rank_card](https://cdn.discordapp.com/attachments/665771066085474346/840510892516704296/card_temp-1.png)
 
+Welcome Card Example
+![welcome_card](https://cdn.discordapp.com/attachments/665771066085474346/840511453454532648/temp_welcome.png)
 # Requirements 
 1. Python
 
