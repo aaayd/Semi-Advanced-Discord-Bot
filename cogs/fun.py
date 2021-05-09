@@ -158,7 +158,7 @@ class Fun(commands.Cog):
             prediction = random.choice(EIGHT_BALL_RESPONSE_DICT["EIGHT_BALL_UNSURE"])
             colour=0xff6600
         elif choice == 3:
-            prediction = random.choice(EIGHT_BALL_RESPONSE_DICT["EIGHTEIGHT_BALL_NEGATIVE"])
+            prediction = random.choice(EIGHT_BALL_RESPONSE_DICT["EIGHT_BALL_NEGATIVE"])
             colour=0xE80303
         
             
