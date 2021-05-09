@@ -3,7 +3,7 @@ import discord, praw
 from discord.ext import commands
 from datetime import datetime
 from main import CLUSTER
-from utils.constants import CHANNEL_CONFESSION_ID, CHANNEL_GENERAL_ID, CHANNEL_LOGS_ID, CONFESSION_BOOL, get_command_description
+from utils.constants import CHANNEL_CONFESSION_ID, CHANNEL_GENERAL_ID, CHANNEL_LOGS_ID, get_command_description
 
 r = praw.Reddit(client_id="7oE7yB5GJJua2Q", client_secret="ooidPB-ETJxbRflpja6a65KX03g", user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36', username="PhantomVipermon", check_for_async=False)
 last_check = datetime.utcnow
@@ -42,25 +42,26 @@ class Misc(commands.Cog):
     @commands.command(aliases=['m'])
     async def mirror(self, ctx):        
         """?mirror [message]"""
-
         message = ctx.message.content
-        message = message[3:]
-
+        message = message.partition(' ')[2]
+        
         if message == "":
             raise MissingArgument("Message", get_command_description("mirror"))    
+
         if message[0] == str(self.client.command_prefix):
             return
 
+        channel = self.client.get_channel(int(CHANNEL_GENERAL_ID[0]))
         if isinstance(ctx.channel, discord.channel.DMChannel):
             log_channel = self.client.get_channel(int(CHANNEL_LOGS_ID))
-            channel = self.client.get_channel(int(CHANNEL_GENERAL_ID))
             embed=discord.Embed(title="", description=f"**Mirrored** message in DM's with {message.author.mention}", timestamp=datetime.utcnow(), color=0xff0000
                 ).set_author(name=f"{message.author}", icon_url=f"{message.author.avatar_url}"
-                ).add_field(name="Content", value=f"{message.content[3:]}"
+                ).add_field(name="Content", value=f"{message.content}"
                 ).add_field(name="ID", value=f"```ml\nUser = {message.author.id}\nMessage = {message.id}\n```", inline=False
             )
+
             await log_channel.send(embed=embed)
-            await channel.send(message.content[3:])
+        await channel.send(message)
             
 
 

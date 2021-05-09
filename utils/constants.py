@@ -1,8 +1,22 @@
 
 from datetime import datetime
-from main import result, CLUSTER, client
+from main import ROOT, result, CLUSTER, client
 import os, re
 import requests
+
+def update_channel_id(var, _chan_id):
+    _old_value = str(var[0]).split('=')[0]
+
+    if str(var[0]) == 123456789 or len(str(var[0])) <= 9:
+        var.append(_chan_id)
+        var.pop(0) 
+        with open(ROOT +'\protected_vars.env') as file:
+            new_text = file.read().replace(str(_old_value), str(_chan_id))
+            
+        with open(ROOT +'\protected_vars.env', "w") as file:
+            file.write(new_text)
+
+
 
 def converter(time):
     time_converter={
@@ -59,24 +73,31 @@ CLUSTER_SHIP = CLUSTER["discord_fun"]["ship"]
 CLUSTER_MUTE = CLUSTER["discord"]["mute"]
 CLUSTER_SERVER_ROLES = CLUSTER["discord"]["utils"]
 CLUSTER_BLACKLIST_WORDS = CLUSTER["discord"]["utils"]
-
-# Variables for Database
-CONFESSION_BOOL = CLUSTER["discord"]["utils"].find_one({"id": "type_confession"})["confession"]
-BLACKLISTED_WORDS = CLUSTER["discord"]["utils"].find_one({"id": "type_blacklist"})["blacklist"]
-CLUSTER_GIFS = CLUSTER["discord"]["gifs"].find_one({"gif": "find_elem"})
-
-
+CLUSTER_GIFS = CLUSTER["discord"]["utils"]
+CLUSTER_CONFESSION = CLUSTER["discord"]["utils"]
 
 # Server Vars (Stored in ENV)
-GUILD_ID = result["GUILD_ID"]
-CHANNEL_GENERAL_ID = result["CHANNEL_GENERAL"]
-CHANNEL_LOGS_ID = result["CHANNEL_LOGS"]
-CHANNEL_CONFESSION_ID = result["CHANNEL_CONFESSION"]
+
+
+        
+CHANNEL_GENERAL_ID = [result["CHANNEL_GENERAL"]]
+CHANNEL_LOGS_ID = [result["CHANNEL_LOGS"]]
+CHANNEL_CONFESSION_ID = [result["CHANNEL_CONFESSION"]]
 
 IMAGE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'image_processing')
 
 
 # Arrays / Dicts
+
+DEF_SNIPE_GIFS = [
+    "https://cdn.discordapp.com/attachments/787823476966162455/819247827376013372/sniper.gif", 
+    "https://cdn.discordapp.com/attachments/827207915483955271/827207962484277278/image1-14.gif",
+    "https://cdn.discordapp.com/attachments/827207915483955271/827207963147239435/image0-50.gif",
+    "https://cdn.discordapp.com/attachments/827207915483955271/827207963633909839/image1-38.gif",
+    "https://cdn.discordapp.com/attachments/822133166206484501/827227673629032508/tenor.gif",
+    "https://cdn.discordapp.com/attachments/827230906859257866/827231024102113360/image0.gif"
+]
+
 KISS_GIF_ARRAY = [
     'https://media1.tenor.com/images/32d4f0642ebb373e3eb072b2b91e6064/tenor.gif?itemid=15150255',
     'https://media1.tenor.com/images/a390476cc2773898ae75090429fb1d3b/tenor.gif?itemid=12837192',

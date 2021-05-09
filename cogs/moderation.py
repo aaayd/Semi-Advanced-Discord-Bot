@@ -195,8 +195,8 @@ class Moderation(commands.Cog):
             await member.add_roles(muted_role)
                                     
     async def _unmute_user(self, member):
-        channel = self.client.get_channel(int(CHANNEL_LOGS_ID))
-        channel1 = self.client.get_channel(int(CHANNEL_GENERAL_ID))
+        channel = self.client.get_channel(int(CHANNEL_LOGS_ID[0]))
+        channel1 = self.client.get_channel(int(CHANNEL_GENERAL_ID[0]))
         
         muted_role = get(member.guild.roles, name="Muted")
         await member.remove_roles(muted_role)

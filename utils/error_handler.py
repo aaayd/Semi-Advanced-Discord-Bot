@@ -1,3 +1,4 @@
+from utils.constants import CHANNEL_CONFESSION_ID, CHANNEL_GENERAL_ID, CHANNEL_LOGS_ID, update_channel_id
 from discord import Embed
 from discord.ext import commands
 from discord.ext.commands.errors import CommandError, CommandInvokeError
@@ -35,6 +36,12 @@ class CommandErrorHandler(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        update_channel_id(CHANNEL_GENERAL_ID, message.guild.system_channel.id)
+        update_channel_id(CHANNEL_LOGS_ID, message.guild.system_channel.id)
+        update_channel_id(CHANNEL_CONFESSION_ID, message.guild.system_channel.id)
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
