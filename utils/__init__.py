@@ -1,4 +1,3 @@
-
 def _init_mongo_arr(cluster, _id, default_vars = []):
     _exists = cluster.find_one({
         "id": _id

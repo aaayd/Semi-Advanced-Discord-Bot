@@ -36,8 +36,8 @@ class MissingPermissionOnMember(commands.CommandError):
 
 class CommandErrorHandler(commands.Cog):
 
-    def __init__(self, bot):
-        self.bot = bot
+    def __init__(self, client):
+        self.client = client
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
@@ -79,5 +79,5 @@ class CommandErrorHandler(commands.Cog):
         await ctx.send(embed=embed)
 
         
-def setup(bot):
-    bot.add_cog(CommandErrorHandler(bot))
+def setup(client):
+    client.add_cog(CommandErrorHandler(client))
