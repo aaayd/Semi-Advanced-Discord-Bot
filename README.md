@@ -32,12 +32,12 @@ Welcome Card Example
 # Setup
 1. Open `protected_vars.env`
 2. Set `SRV_URL` to your `MongoDB` Connection URL 
-3. Set `GUILD_ID`to the server you invite the bot to 
-4. Set `CHANNEL_GENERAL` to your `General` channel `ID`
-5. Set `CHANNEL_LOGS` to your `Logs` channel `ID` 
-- Optional 
-6. Set `CHANNEL_CONFESSION` to your `Anonymous Confessions` channel `ID`
 
+- Change default `General` text channel 
+1. `?change_channel` `general` `[new_channel_id]`
+
+- Change default `Logs` text channel 
+1. `?change_channel` `logs` `[new_channel_id]`
 
 
 
