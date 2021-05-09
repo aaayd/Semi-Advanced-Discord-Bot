@@ -4,7 +4,7 @@ from PIL import ImageColor
 from discord.ext import commands
 from PIL import Image, ImageFont, ImageDraw, ImageChops
 from requests.models import InvalidURL
-from utils.constants import CLUSTER_EXPERIENCE, CHANNEL_GENERAL_ID, GUILD_ID, IMAGE_PATH, get_command_description, query_valid_url
+from utils.constants import CLUSTER_EXPERIENCE, CHANNEL_GENERAL_ID, IMAGE_PATH, get_command_description, query_valid_url
 from utils.error_handler import embed_error, MissingArgument
 
 
@@ -198,8 +198,8 @@ class ImageManipulation(commands.Cog):
         _w, _h = draw.textsize(f"{member.name}", ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 70))
         draw.text(((1500-_text_width)/2 + _w + 3,501), f"#{member.discriminator}", font=ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 70), fill=(81,81,81))
 
-        _text_width, _h = draw.textsize(f"Member #{self.client.get_guild(int(GUILD_ID)).member_count}", ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 55))
-        draw.text(((1500-_text_width)/2 ,574), f"Member #{self.client.get_guild(int(GUILD_ID)).member_count}", font=ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 55), fill=(255,255,255))
+        _text_width, _h = draw.textsize(f"Member #{member.guild.member_count}", ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 55))
+        draw.text(((1500-_text_width)/2 ,574), f"Member #{member.guild.member_count}", font=ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 55), fill=(255,255,255))
 
         card.save(os.path.join(f"{IMAGE_PATH}//temp//","temp_welcome.png"))
         await channel.send(file=discord.File(os.path.join(f"{IMAGE_PATH}//temp//","temp_welcome.png")))

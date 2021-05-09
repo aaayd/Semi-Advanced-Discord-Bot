@@ -4,7 +4,7 @@ from discord.utils import get
 from discord.ext import commands, tasks
 from datetime import datetime, timedelta
 from colorama import Fore, Style
-from utils.constants import CHANNEL_GENERAL_ID, CHANNEL_LOGS_ID, CLUSTER_MUTE, GUILD_ID, converter, get_command_description
+from utils.constants import CHANNEL_GENERAL_ID, CHANNEL_LOGS_ID, CLUSTER_MUTE, converter, get_command_description
 
 
 class Moderation(commands.Cog):
@@ -13,20 +13,17 @@ class Moderation(commands.Cog):
         self.client = client
         self._mute_db_check.start(self)
 
+    
     @tasks.loop(seconds=10.0)
     async def _mute_db_check(self, ctx):
         time_now = datetime.utcnow()
-        guild = self.client.get_guild(int(GUILD_ID))
-        guild = self.client.get_guild(int(GUILD_ID))
         for muted_user in CLUSTER_MUTE.find({}):
             if time_now > muted_user["end_date"]:
                 try:
-                    for member in guild.members:
-                        if member.id == muted_user["id"]:
-                            await self._unmute_user(member)
-                            CLUSTER_MUTE.delete_many({'id': member.id})
-                            print (f"{Fore.BLUE}[-]{Style.RESET_ALL} {Fore.BLUE}[{datetime.now().strftime('%H:%M:%S')}]{Style.RESET_ALL} {Fore.YELLOW}[UNMUTED]{Style.RESET_ALL} {Fore.CYAN}{member}{Style.RESET_ALL} via Database check ")
-                            continue
+                    member = get(self.client.get_all_members(), id=muted_user["id"])
+                    await self._unmute_user(member)
+                    CLUSTER_MUTE.delete_many({'id': int(member.id)})
+                    print (f"{Fore.BLUE}[-]{Style.RESET_ALL} {Fore.BLUE}[{datetime.now().strftime('%H:%M:%S')}]{Style.RESET_ALL} {Fore.YELLOW}[UNMUTED]{Style.RESET_ALL} {Fore.CYAN}{member}{Style.RESET_ALL} via Database check ")
                 except:
                     pass
             
@@ -202,9 +199,7 @@ class Moderation(commands.Cog):
         channel1 = self.client.get_channel(int(CHANNEL_GENERAL_ID))
         
         muted_role = get(member.guild.roles, name="Muted")
-    
         await member.remove_roles(muted_role)
-
         embed=discord.Embed(
             description=f" ", 
             timestamp=datetime.utcnow(), 
