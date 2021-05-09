@@ -1,3 +1,4 @@
+from utils.error_handler import ExpectedLiteralInt
 from utils.constants import CLUSTER_SERVER_ROLES
 from main import CLUSTER
 import discord
@@ -11,6 +12,11 @@ class StickyRole(commands.Cog):
 
     @commands.command()
     async def add_default_roles(self, ctx, *, roles):
+        try:
+            [int(role) for role in roles.split()]
+        except ValueError:
+            raise ExpectedLiteralInt
+
         for role in roles.split():
             CLUSTER_SERVER_ROLES.update({
                 "id" : "type_on_join_roles"}, 
