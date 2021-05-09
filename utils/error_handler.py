@@ -1,12 +1,19 @@
 from discord import Embed
 from discord.ext import commands
-from discord.ext.commands.errors import CommandError
+from discord.ext.commands.errors import CommandError, CommandInvokeError
 
 def embed_error(message):
     return Embed(
         description=f":x: {message}", 
         color=0xFF0000
     )
+
+class ExpectedLiteralInt(commands.CommandError):
+    def __init__(self,):
+        pass
+
+    def __str__(self):
+        return "Expected `number`, not `word`"
 
 class MissingArgument(commands.CommandError):
     def __init__(self, missing_argument, command_description):
@@ -32,6 +39,10 @@ class CommandErrorHandler(commands.Cog):
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
         #print(str(error))
+        #print(type(error))
+
+        if isinstance(type(error), type(ExpectedLiteralInt)):
+            embed = embed_error(str(error))
 
         if isinstance(type(error), type(MissingArgument)):
             embed = embed_error(str(error))
