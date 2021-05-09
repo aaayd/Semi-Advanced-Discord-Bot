@@ -57,12 +57,14 @@ CLUSTER_DICK = CLUSTER["discord_fun"]["dick"]
 CLUSTER_PUSSY = CLUSTER["discord_fun"]["pussy"]
 CLUSTER_SHIP = CLUSTER["discord_fun"]["ship"]
 CLUSTER_MUTE = CLUSTER["discord"]["mute"]
-
+CLUSTER_SERVER_ROLES = CLUSTER["discord"]["utils"]
+CLUSTER_BLACKLIST_WORDS = CLUSTER["discord"]["utils"]
 
 # Variables for Database
 CONFESSION_BOOL = CLUSTER["discord"]["utils"].find_one({"id": "type_confession"})["confession"]
 BLACKLISTED_WORDS = CLUSTER["discord"]["utils"].find_one({"id": "type_blacklist"})["blacklist"]
 CLUSTER_GIFS = CLUSTER["discord"]["gifs"].find_one({"gif": "find_elem"})
+
 
 
 # Server Vars (Stored in ENV)
