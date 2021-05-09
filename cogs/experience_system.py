@@ -1,4 +1,4 @@
-from utils.constants import CLUSTER_RATELIMIT, IMAGE_PATH, CLUSTER_EXPERIENCE
+from utils.constants import CLUSTER_RATELIMIT, IMAGE_PATH, get_cluster
 from cogs.image_manipulation import create_rank_card
 import discord, os
 from discord.ext import tasks   
@@ -25,8 +25,8 @@ class ExperienceSystem(commands.Cog):
             lvl += 1
         return lvl
 
-    def _get_rank(self, member):
-        rankings = CLUSTER_EXPERIENCE.find().sort("xp", -1)
+    def _get_rank(self, member, _db):
+        rankings = _db.find().sort("xp", -1)
         for iter,rank in enumerate(list(rankings)):
             if rank["id"] == member.id:
                 return iter + 1
@@ -35,13 +35,15 @@ class ExperienceSystem(commands.Cog):
     async def _rank(self, ctx, member: discord.Member = None):
         await ctx.message.delete()
         
+        _db = get_cluster(ctx.message.guild.id, "CLUSTER_EXPERIENCE")
+
         if member is None:
             member = ctx.author
 
 
         await ctx.channel.trigger_typing()
         
-        stats = CLUSTER_EXPERIENCE.find_one({
+        stats = _db.find_one({
             "id" : member.id
         })
 
@@ -52,7 +54,7 @@ class ExperienceSystem(commands.Cog):
         xp = stats["xp"]
         lvl = self._get_level(xp)
         xp -= ((50*((lvl-1)**2))+(50*(lvl-1)))
-        rank = self._get_rank(member)
+        rank = self._get_rank(member, _db)
 
         try:
             colour = (stats["colour"][0],stats["colour"][1],stats["colour"][2])
@@ -63,7 +65,8 @@ class ExperienceSystem(commands.Cog):
             background = (stats["background"])
         except KeyError:
             background = "https://media.discordapp.net/attachments/665771066085474346/821993295310749716/statementofsolidarity.jpg?width=1617&height=910"
-
+       
+        await ctx.send(xp)
         create_rank_card(member, xp, lvl, rank, background, colour, ctx.guild.member_count)
         await ctx.send(file=discord.File(os.path.join(f"{IMAGE_PATH}//temp//","card_temp.png")))
 
@@ -71,28 +74,22 @@ class ExperienceSystem(commands.Cog):
     async def on_message(self, message):
         if isinstance(message.channel, discord.channel.DMChannel):
             return
-                        
-        _rate_limit = CLUSTER_RATELIMIT.find_one({"id" : message.author.id})
-        if _rate_limit is not None:
-            return
-
-        _rl_user = ({"id" : message.author.id, "rate_limited": True})
-        CLUSTER_RATELIMIT.insert(_rl_user)
 
         if not message.author.bot:
-            stats = CLUSTER_EXPERIENCE.find_one({"id" : message.author.id})
+            _db = get_cluster(message.guild.id, "CLUSTER_EXPERIENCE")
+            stats = _db.find_one({"id" : message.author.id})
             if stats is None:
                 greenie = ({
                     "id" : message.author.id, 
                     "xp": 5, 
                 })
 
-                CLUSTER_EXPERIENCE.insert(greenie)
+                _db.insert(greenie)
             
             else:
                 xp = stats["xp"] + 5
                 lvl = 0
-                CLUSTER_EXPERIENCE.update_one({"id": message.author.id}, {"$set":{"xp":xp}})
+                _db.update_one({"id": message.author.id}, {"$set":{"xp":xp}})
 
                 while True:
                     if xp < ((50*(lvl**2))+(50*(lvl-1))):

@@ -4,7 +4,7 @@ from PIL import ImageColor
 from discord.ext import commands
 from PIL import Image, ImageFont, ImageDraw, ImageChops
 from requests.models import InvalidURL
-from utils.constants import CLUSTER_EXPERIENCE, CHANNEL_GENERAL_ID, IMAGE_PATH, get_command_description, query_valid_url
+from utils.constants import CLUSTERS, IMAGE_PATH, get_channel_id, get_command_description, query_valid_url, get_cluster
 from utils.error_handler import embed_error, MissingArgument
 
 
@@ -132,6 +132,8 @@ class ImageManipulation(commands.Cog):
     async def set_background(self, ctx, link="NoLinkSpecified"):
         '''?set_background [image_link]'''
 
+        _db = get_cluster(ctx.message.guild.id, "CLUSTER_EXPERIENCE")
+   
         if link == "NoLinkSpecified":
             if (len(ctx.message.attachments)) == 0:
                 raise MissingArgument("Background Image Link", get_command_description("set_background"))
@@ -143,7 +145,7 @@ class ImageManipulation(commands.Cog):
                 raise InvalidURL
 
 
-        CLUSTER_EXPERIENCE.update_one({
+        _db.update_one({
             "id": ctx.author.id}, 
             {"$set":{
                 "background":link
@@ -161,6 +163,8 @@ class ImageManipulation(commands.Cog):
     async def set_colour(self, ctx, r = None):
         '''?set_colour [hex]''' 
 
+        _db = get_cluster(ctx.message.guild.id, "CLUSTER_EXPERIENCE")
+
         await ctx.message.delete()
 
         if r is None:
@@ -168,7 +172,7 @@ class ImageManipulation(commands.Cog):
 
         r = r.lstrip('#')
         colour = ImageColor.getcolor(f"#{str(r).lower()}", "RGB")
-        CLUSTER_EXPERIENCE.update_one({"id": ctx.author.id}, {"$set":{"colour":colour}})
+        _db.update_one({"id": ctx.author.id}, {"$set":{"colour":colour}})
 
         embed = discord.Embed(
             description=f"Your personal colour has been changed!", 
@@ -179,7 +183,9 @@ class ImageManipulation(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        channel = self.client.get_channel(int(CHANNEL_GENERAL_ID[0]))
+        general_channel_id = get_channel_id(member.guild.id, "channel_general")
+        channel = self.client.get_channel(general_channel_id)
+
         card = Image.open(os.path.join(f"{IMAGE_PATH}//welcome//backgrounds//", f"background_{random.randint(1,14)}.png"))
         av_outline_circle = Image.open(os.path.join(f"{IMAGE_PATH}//welcome//utils//", f"black_circle.png"))
         alpha_plate = Image.open(os.path.join(f"{IMAGE_PATH}//welcome//utils//", f"alpha_plate.png"))

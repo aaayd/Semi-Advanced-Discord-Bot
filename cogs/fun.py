@@ -3,7 +3,7 @@ import discord, random
 from discord.ext import commands
 from discord import Embed
 from datetime import datetime
-from utils.constants import CLUSTER_DICK, CLUSTER_GAY, CLUSTER_PUSSY, CLUSTER_SHIP, get_command_description
+from utils.constants import get_cluster, get_command_description
 from utils.constants import EIGHT_BALL_RESPONSE_DICT, GAY_RESPONSE_DICT, HEART_RESPONSE_LIST, PUSSY_RESPONSE_DICT, SHIP_RESPONSE_DICT, KISS_GIF_ARRAY
 
 class Fun(commands.Cog):
@@ -75,14 +75,16 @@ class Fun(commands.Cog):
         members = [member.id, member2.id]
         members.sort()
 
-        _find_user = CLUSTER_SHIP.find_one({"member_one" : members[0], "member_two": members[1]})
+        _db = get_cluster(ctx.message.guild.id, "CLUSTER_SHIP")
+
+        _find_user = _db.find_one({"member_one" : members[0], "member_two": members[1]})
 
         if _find_user is None:
             shipnumber = random.randint(0,100)
             new_ship = ({"member_one" : members[0], "member_two": members[1], "rating": shipnumber})
-            CLUSTER_SHIP.insert(new_ship)
-
-            _find_user = CLUSTER_SHIP.find_one({"member_one" : members[0], "member_two": members[1]})
+            
+            _db.insert(new_ship)
+            _find_user = _db.find_one({"member_one" : members[0], "member_two": members[1]})
 
         shipnumber = _find_user["rating"]
         
@@ -172,14 +174,15 @@ class Fun(commands.Cog):
     async def gay_scanner(self, ctx, member : discord.Member=None):
         if member == None:
             member = ctx.author
-
-        _find_user = CLUSTER_GAY.find_one({"id" : member.id})
+        
+        _db = get_cluster(ctx.message.guild.id, "CLUSTER_GAY")
+        _find_user = _db.find_one({"id" : member.id})
 
         if _find_user is None:
             gayness = random.randint(0,100)
             new_gay_client = ({"id": member.id, "gay_rating": gayness})
-            CLUSTER_GAY.insert(new_gay_client)
-            _find_user = CLUSTER_GAY.find_one({"id" : member.id})
+            _db.insert(new_gay_client)
+            _find_user = _db.find_one({"id" : member.id})
 
         gayness = _find_user["gay_rating"]
         
@@ -213,15 +216,15 @@ class Fun(commands.Cog):
     async def pussy_size(self, ctx, member : discord.Member=None):
         if member == None:
             member = ctx.author
-
-
-        _find_user = CLUSTER_PUSSY.find_one({"id" : member.id})
+            
+        _db = get_cluster(ctx.message.guild.id, "CLUSTER_GAY")
+        _find_user = _db.find_one({"id" : member.id})
 
         if _find_user is None:
             size = random.randint(0,100)
             new_pussy = ({"id": member.id, "pussy_size": size})
-            CLUSTER_PUSSY.insert(new_pussy)
-            _find_user = CLUSTER_PUSSY.find_one({"id" : member.id})
+            _db.insert(new_pussy)
+            _find_user = _db.find_one({"id" : member.id})
 
         size = _find_user["pussy_size"]
 
@@ -252,13 +255,14 @@ class Fun(commands.Cog):
         if member == None:
             member = ctx.author
 
-        _find_user = CLUSTER_DICK.find_one({"id" : member.id})
+        _db = get_cluster(ctx.message.guild.id, "CLUSTER_DICK")
+        _find_user = _db.find_one({"id" : member.id})
 
         if _find_user is None:
             dick_size = f"8{'='*random.randint(1,12)}3"
             new_dick_size = ({"id": member.id, "dick_size": dick_size})
-            CLUSTER_DICK.insert(new_dick_size)
-            _find_user = CLUSTER_DICK.find_one({"id" : member.id})
+            _db.insert(new_dick_size)
+            _find_user = _db.find_one({"id" : member.id})
 
         dick_size = _find_user["dick_size"]
         gayColor = 0xFFFFFF

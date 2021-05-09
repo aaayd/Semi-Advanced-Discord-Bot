@@ -16,8 +16,6 @@ def update_channel_id(var, _chan_id):
         with open(ROOT +'\protected_vars.env', "w") as file:
             file.write(new_text)
 
-
-
 def converter(time):
     time_converter={
         's': 1,
@@ -37,6 +35,9 @@ def query_valid_url(url):
 
 def get_command_description(command):
     return client.get_command(command).help
+
+def get_channel_id(guild_id, channel_name):
+    return get_cluster(guild_id, "CLUSTER_CHANNELS").find_one({"id" : "type_important_channels"})["dict"][channel_name]
 # Functions
 def get_time_elapsed(afk_date):
     elapsed_time = datetime.utcnow() - afk_date
@@ -60,11 +61,30 @@ def get_time_elapsed(afk_date):
         string += f"{round(seconds)} second" if hours == 1.0 else f"{round(seconds)} seconds"
     return string
 
+CLUSTERS = {
+    "CLUSTER_EXPERIENCE" : "leveling",
+    "CLUSTER_RATELIMIT" : "xp_rate_limit",
+    "CLUSTER_AFK" : "afk",
+    "CLUSTER_GAY" : "gay",
+    "CLUSTER_DICK" : "dick",
+    "CLUSTER_PUSSY" : "pussy",
+    "CLUSTER_SHIP" : "ship",
+    "CLUSTER_MUTE" : "mute",
+    "CLUSTER_SERVER_ROLES" : "utils",
+    "CLUSTER_BLACKLIST_WORD" : "utils",
+    "CLUSTER_GIFS" : "utils",
+    "CLUSTER_CONFESSION" : "utils",
+    "CLUSTER_CHANNELS" : "utils",
+}
 
+def get_cluster(guild, cluster, clusters = CLUSTERS):
+    val = clusters.get(cluster)
+    return CLUSTER[str(guild)][val]
 
 # Databases
-CLUSTER_EXPERIENCE = CLUSTER["discord"]["leveling"]
+
 CLUSTER_RATELIMIT = CLUSTER["discord"]["xp_rate_limit"]
+
 CLUSTER_AFK = CLUSTER["discord"]["afk"]
 CLUSTER_GAY = CLUSTER["discord_fun"]["gay"]
 CLUSTER_DICK = CLUSTER["discord_fun"]["dick"]
@@ -76,16 +96,8 @@ CLUSTER_BLACKLIST_WORDS = CLUSTER["discord"]["utils"]
 CLUSTER_GIFS = CLUSTER["discord"]["utils"]
 CLUSTER_CONFESSION = CLUSTER["discord"]["utils"]
 
-# Server Vars (Stored in ENV)
-
-
-        
-CHANNEL_GENERAL_ID = [result["CHANNEL_GENERAL"]]
-CHANNEL_LOGS_ID = [result["CHANNEL_LOGS"]]
-CHANNEL_CONFESSION_ID = [result["CHANNEL_CONFESSION"]]
-
 IMAGE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'image_processing')
-
+BLACKLISTED_WORDS = ["nigger"]
 
 # Arrays / Dicts
 
@@ -190,7 +202,7 @@ SHIP_RESPONSE_DICT = {
         "A few things can be imporved to make this a match made in heaven!"
     ],
 
-    "SHIP_TRUELOVE2" : [
+    "SHIP_TRUELOVE" : [
         "It's a match!", 
         "There's a match made in heaven!", 
         "It's definitely a match!", 

@@ -3,7 +3,7 @@ import discord, praw
 from discord.ext import commands
 from datetime import datetime
 from main import CLUSTER
-from utils.constants import CHANNEL_CONFESSION_ID, CHANNEL_GENERAL_ID, CHANNEL_LOGS_ID, get_command_description
+from utils.constants import  get_channel_id, get_command_description
 
 r = praw.Reddit(client_id="7oE7yB5GJJua2Q", client_secret="ooidPB-ETJxbRflpja6a65KX03g", user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36', username="PhantomVipermon", check_for_async=False)
 last_check = datetime.utcnow
@@ -51,9 +51,9 @@ class Misc(commands.Cog):
         if message[0] == str(self.client.command_prefix):
             return
 
-        channel = self.client.get_channel(int(CHANNEL_GENERAL_ID[0]))
+        channel = self.client.get_channel(get_channel_id(ctx.message.guild.id, "channel_general"))
         if isinstance(ctx.channel, discord.channel.DMChannel):
-            log_channel = self.client.get_channel(int(CHANNEL_LOGS_ID))
+            log_channel = self.client.get_channel(get_channel_id(message.guild.id, "channel_logs"))
             embed=discord.Embed(title="", description=f"**Mirrored** message in DM's with {message.author.mention}", timestamp=datetime.utcnow(), color=0xff0000
                 ).set_author(name=f"{message.author}", icon_url=f"{message.author.avatar_url}"
                 ).add_field(name="Content", value=f"{message.content}"
@@ -80,11 +80,11 @@ class Misc(commands.Cog):
         )
 
         await ctx.reply(embed=embed)
-
+ 
+    '''
     @commands.command()
     async def confess(self, ctx, *, confession = None):
         """?confess [confession]"""
-        
         if isinstance(ctx.channel, discord.channel.DMChannel) and CONFESSION_BOOL:
 
             if confession is None:
@@ -100,6 +100,7 @@ class Misc(commands.Cog):
 
         elif isinstance(ctx.channel, discord.channel.DMChannel) and CONFESSION_BOOL == False:
             await ctx.send("Confess is disabled due to misuse of the command.")
+    '''
             
     @commands.command()
     async def ping(self, ctx):

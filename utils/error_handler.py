@@ -1,4 +1,6 @@
-from utils.constants import CHANNEL_CONFESSION_ID, CHANNEL_GENERAL_ID, CHANNEL_LOGS_ID, update_channel_id
+from main import CLUSTER
+from utils import _init_mongo_arr, _init_mongo_bool, _init_mongo_dict
+from utils.constants import CLUSTER_BLACKLIST_WORDS, CLUSTER_GIFS, CLUSTER_SERVER_ROLES, CLUSTER_CONFESSION, DEF_SNIPE_GIFS
 from discord import Embed
 from discord.ext import commands
 from discord.ext.commands.errors import CommandError, CommandInvokeError
@@ -38,10 +40,19 @@ class CommandErrorHandler(commands.Cog):
         self.bot = bot
 
     @commands.Cog.listener()
-    async def on_message(self, message):
-        update_channel_id(CHANNEL_GENERAL_ID, message.guild.system_channel.id)
-        update_channel_id(CHANNEL_LOGS_ID, message.guild.system_channel.id)
-        update_channel_id(CHANNEL_CONFESSION_ID, message.guild.system_channel.id)
+    async def on_guild_join(self, guild):
+        await guild.system_channel.send("Hi")
+        used_channel_dict = {
+            "channel_general" : guild.system_channel.id,
+            "channel_logs" : guild.system_channel.id,
+            "channel_confession" : guild.system_channel.id,
+        }
+        CLUSTER_UTIL = CLUSTER[str(guild.id)]["utils"]
+        _init_mongo_dict(CLUSTER_UTIL, "type_important_channels", used_channel_dict)        
+        _init_mongo_arr(CLUSTER_UTIL, "type_blacklist", ["nigger"])
+        _init_mongo_arr(CLUSTER_UTIL, "type_on_join_roles")
+        _init_mongo_arr(CLUSTER_UTIL, "type_snipe_gifs", DEF_SNIPE_GIFS)
+        _init_mongo_bool(CLUSTER_UTIL, "type_confession")
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):

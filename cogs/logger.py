@@ -1,7 +1,7 @@
 from os import link
 from re import purge
 from utils.error_handler import MissingArgument
-from utils.constants import BLACKLISTED_WORDS, CHANNEL_GENERAL_ID, CHANNEL_LOGS_ID, CLUSTER_GIFS, GUILD_ID, get_command_description
+from utils.constants import BLACKLISTED_WORDS, CLUSTER_GIFS, get_channel_id, get_command_description
 from colorama.ansi import Style
 import discord
 from random import choice
@@ -57,7 +57,7 @@ class Logger(commands.Cog):
             else:
                 self.deletee = message.author
 
-        log_channel = self.client.get_channel(int(CHANNEL_LOGS_ID))
+        log_channel = self.client.get_channel(get_channel_id(message.guild.id, "channel_logs"))
 
         if message.author.bot:
             return
@@ -83,7 +83,7 @@ class Logger(commands.Cog):
         
     @commands.Cog.listener()
     async def on_message_edit(self, before_edit, after_edit):
-        log_channel = self.client.get_channel(int(CHANNEL_LOGS_ID))
+        log_channel = self.client.get_channel(get_channel_id(before_edit.guild.id, "channel_logs"))
         if before_edit.content == after_edit.content:
             return
 
@@ -170,7 +170,8 @@ class Logger(commands.Cog):
                 pass
 
             message_id = before_edit.id
-            message_link = f"https://discord.com/channels/{GUILD_ID}/{CHANNEL_GENERAL_ID}" + f"/{message_id}"
+            channel_id = get_channel_id(ctx.message.guild.id, "channel_general")
+            message_link = f"https://discord.com/channels/{ctx.message.guild.id}/{channel_id}" + f"/{message_id}"
 
             embed=discord.Embed(
                 description=f"Message edited in: {before_edit.channel.mention}\n[Go To Message]({message_link})", 
