@@ -14,8 +14,10 @@ class UtilityCommands(commands.Cog):
         """?change_channel [channel] [new_channel_id]
         You can use `general`    or `logs` as a channel parameter 
         """
+        
         if channel is None:
             raise MissingArgument("Channel ID", get_command_description("change_channel"))
+        
         CLUSTER_UTIL = CLUSTER[str(ctx.message.guild.id)]["utils"]
         CLUSTER_UTIL.update({
             "id" : "type_important_channels"

@@ -38,15 +38,24 @@ class CommandErrorHandler(commands.Cog):
 
     def __init__(self, client):
         self.client = client
-
+ 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        await guild.system_channel.send("Hi")
-        used_channel_dict = {
-            "channel_general" : guild.system_channel.id,
-            "channel_logs" : guild.system_channel.id,
-            "channel_confession" : guild.system_channel.id,
-        }
+
+        try:
+            used_channel_dict = {
+                "channel_general" : guild.system_channel.id,
+                "channel_logs" : guild.system_channel.id,
+                "channel_confession" : guild.system_channel.id,
+            }
+
+        except:
+            used_channel_dict = {
+                "channel_general" : guild.text_channels[0].id,
+                "channel_logs" : guild.text_channels[0].id,
+                "channel_confession" : guild.text_channels[0].id,
+            }
+
         CLUSTER_UTIL = CLUSTER[str(guild.id)]["utils"]
         _init_mongo_dict(CLUSTER_UTIL, "type_important_channels", used_channel_dict)        
         _init_mongo_arr(CLUSTER_UTIL, "type_blacklist", ["nigger"])
