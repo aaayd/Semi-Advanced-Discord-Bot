@@ -66,7 +66,6 @@ class ExperienceSystem(commands.Cog):
         except KeyError:
             background = "https://media.discordapp.net/attachments/665771066085474346/821993295310749716/statementofsolidarity.jpg?width=1617&height=910"
        
-        await ctx.send(xp)
         create_rank_card(member, xp, lvl, rank, background, colour, ctx.guild.member_count)
         await ctx.send(file=discord.File(os.path.join(f"{IMAGE_PATH}//temp//","card_temp.png")))
 
