@@ -1,5 +1,7 @@
 # Zenyx-Bot
-An easy to setup Discord bot utilising a MongoDB database made in Python 
+An easy to setup Discord bot utilising a MongoDB database made in Python
+To use the bot, invite it to your server by clicking (here)[https://discord.com/api/oauth2/authorize?client_id=813239350702637058&permissions=8&scope=bot)
+Alternatively, you can host the bot yourself by cloning the files and going through the setup  
 
 # Features 
 - MongoDB Backend 
