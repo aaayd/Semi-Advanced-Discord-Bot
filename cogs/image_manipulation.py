@@ -179,7 +179,7 @@ class ImageManipulation(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        channel = self.client.get_channel(int(CHANNEL_GENERAL_ID))
+        channel = self.client.get_channel(int(CHANNEL_GENERAL_ID[0]))
         card = Image.open(os.path.join(f"{IMAGE_PATH}//welcome//backgrounds//", f"background_{random.randint(1,14)}.png"))
         av_outline_circle = Image.open(os.path.join(f"{IMAGE_PATH}//welcome//utils//", f"black_circle.png"))
         alpha_plate = Image.open(os.path.join(f"{IMAGE_PATH}//welcome//utils//", f"alpha_plate.png"))

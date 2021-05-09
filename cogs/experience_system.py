@@ -1,11 +1,20 @@
-from utils.constants import IMAGE_PATH, CLUSTER_EXPERIENCE
+from utils.constants import CLUSTER_RATELIMIT, IMAGE_PATH, CLUSTER_EXPERIENCE
 from cogs.image_manipulation import create_rank_card
 import discord, os
+from discord.ext import tasks   
 from discord.ext import commands
 
 class ExperienceSystem(commands.Cog):
     def __init__(self, client):
         self.client = client
+        self._rate_limit_check.start(self)
+
+    @tasks.loop(minutes=1)
+    async def _rate_limit_check(self, ctx):
+        try:
+            CLUSTER_RATELIMIT.delete_many({'rate_limited': True})
+        except:
+            pass
 
         
     def _get_level(self, xp):
@@ -57,6 +66,47 @@ class ExperienceSystem(commands.Cog):
 
         create_rank_card(member, xp, lvl, rank, background, colour, ctx.guild.member_count)
         await ctx.send(file=discord.File(os.path.join(f"{IMAGE_PATH}//temp//","card_temp.png")))
-    
+
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        if isinstance(message.channel, discord.channel.DMChannel):
+            return
+                        
+        _rate_limit = CLUSTER_RATELIMIT.find_one({"id" : message.author.id})
+        if _rate_limit is not None:
+            return
+
+        _rl_user = ({"id" : message.author.id, "rate_limited": True})
+        CLUSTER_RATELIMIT.insert(_rl_user)
+
+        if not message.author.bot:
+            stats = CLUSTER_EXPERIENCE.find_one({"id" : message.author.id})
+            if stats is None:
+                greenie = ({
+                    "id" : message.author.id, 
+                    "xp": 5, 
+                })
+
+                CLUSTER_EXPERIENCE.insert(greenie)
+            
+            else:
+                xp = stats["xp"] + 5
+                lvl = 0
+                CLUSTER_EXPERIENCE.update_one({"id": message.author.id}, {"$set":{"xp":xp}})
+
+                while True:
+                    if xp < ((50*(lvl**2))+(50*(lvl-1))):
+                        break
+                    lvl += 1
+                xp -= ((50*((lvl-1)**2))+(50*(lvl-1)))
+                
+                if xp == 0:
+                    embed = discord.Embed(
+                        description=f"{message.author.mention} Reached Level {lvl}!"
+                        ).set_image(url="https://i.imgur.com/qgpcufH.gif"
+                    )
+
+                    await message.channel.send(embed=embed)
+
 def setup(client):
     client.add_cog(ExperienceSystem(client))
