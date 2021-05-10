@@ -71,7 +71,7 @@ CLUSTERS = {
     "CLUSTER_SHIP" : "ship",
     "CLUSTER_MUTE" : "mute",
     "CLUSTER_SERVER_ROLES" : "utils",
-    "CLUSTER_BLACKLIST_WORD" : "utils",
+    "CLUSTER_BLACKLIST_WORDS" : "utils",
     "CLUSTER_GIFS" : "utils",
     "CLUSTER_CONFESSION" : "utils",
     "CLUSTER_CHANNELS" : "utils",
@@ -97,7 +97,7 @@ CLUSTER_GIFS = CLUSTER["discord"]["utils"]
 CLUSTER_CONFESSION = CLUSTER["discord"]["utils"]
 
 IMAGE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'image_processing')
-BLACKLISTED_WORDS = ["nigger"]
+
 
 # Arrays / Dicts
 

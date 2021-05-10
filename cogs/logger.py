@@ -1,7 +1,7 @@
 from os import link
 from re import purge
 from utils.error_handler import MissingArgument
-from utils.constants import BLACKLISTED_WORDS, CLUSTER_GIFS, get_channel_id, get_command_description
+from utils.constants import CLUSTER_GIFS, get_channel_id, get_cluster, get_command_description
 from colorama.ansi import Style
 import discord
 from random import choice
@@ -19,7 +19,7 @@ class Logger(commands.Cog):
     @commands.has_permissions(manage_messages=True)
     async def purge(self, ctx, amount : int = None):
         '''?purge [amount]'''
-
+     
         await ctx.channel.trigger_typing()
         if amount is None:
             raise MissingArgument("Amount of messages", get_command_description("purge"))
@@ -28,8 +28,10 @@ class Logger(commands.Cog):
         async for message in ctx.channel.history(limit=amount):
             if message.author == ctx.author:
                 self.author_temp = message.author
+
+                _db = get_cluster(ctx.message.guild.id, "CLUSTER_BLACKLIST_WORDS").find_one({"id": "type_blacklist"})["array"]
                 if not message.content.startswith("?"):
-                    for word in BLACKLISTED_WORDS:
+                    for word in _db:
                         message.content = message.content.lower().replace(word, "[redacted]")
                     deleted_messages.append(message)
         if deleted_messages:
@@ -67,7 +69,8 @@ class Logger(commands.Cog):
             self.author_temp = message.author
 
         if not message.content.startswith("?"):
-            for word in BLACKLISTED_WORDS:
+            _db = get_cluster(message.guild.id, "CLUSTER_BLACKLIST_WORDS").find_one({"id": "type_blacklist"})["array"]
+            for word in _db:
                 message.content = message.content.lower().replace(word, "[redacted]")
             deleted_messages.append(message)
 
@@ -80,14 +83,19 @@ class Logger(commands.Cog):
             ).add_field(name="ID", value=f"```ml\nUser = {message.author.id}\nMessage = {message.id}\n```", inline=False
         )
         await log_channel.send(embed=embed)
-        
+    
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        if any(word in message.content.lower() for word in get_cluster(message.guild.id, "CLUSTER_BLACKLIST_WORDS").find_one({"id": "type_blacklist"})["array"]):
+            await message.delete()
+
     @commands.Cog.listener()
     async def on_message_edit(self, before_edit, after_edit):
         log_channel = self.client.get_channel(get_channel_id(before_edit.guild.id, "channel_logs"))
         if before_edit.content == after_edit.content:
             return
 
-        if any(word in after_edit.content.lower() for word in BLACKLISTED_WORDS):
+        if any(word in after_edit.content.lower() for word in get_cluster(before_edit.guild.id, "CLUSTER_BLACKLIST_WORDS").find_one({"id": "type_blacklist"})["array"]):
             await before_edit.delete()
 
         self.temp_message_edit_before = before_edit
@@ -112,8 +120,7 @@ class Logger(commands.Cog):
             return
         
         if ctx.message.channel == deleted_messages[0].channel:
-            gif_arr = CLUSTER_GIFS["gif_arr"]
-            
+            gif_arr = get_cluster(ctx.message.guild.id, "CLUSTER_GIFS").find_one({"id": "type_snipe_gifs"})["array"]
             strs = [x.content for x in deleted_messages]
 
             embed=discord.Embed(
@@ -158,12 +165,12 @@ class Logger(commands.Cog):
             return
 
         if ctx.message.channel == self.temp_message_edit_before.channel:
-            gif_arr = CLUSTER_GIFS["gif_arr"]
+            gif_arr = get_cluster(ctx.message.guild.id, "CLUSTER_GIFS").find_one({"id": "type_snipe_gifs"})["array"]
 
             before_edit_content = self.temp_message_edit_before.content
             after_edit_content = self.temp_message_edit_after.content
             try:
-                for word in BLACKLISTED_WORDS:
+                for word in get_cluster(ctx.message.guild.id, "CLUSTER_BLACKLIST_WORDS").find_one({"id": "type_blacklist"})["array"]:
                     before_edit_content = before_edit_content.lower().replace(word, "[redacted]")
                     after_edit_content = after_edit_content.lower().replace(word, "[redacted]")
             except:
