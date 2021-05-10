@@ -4,7 +4,7 @@ from PIL import ImageColor
 from discord.ext import commands
 from PIL import Image, ImageFont, ImageDraw, ImageChops
 from requests.models import InvalidURL
-from utils.constants import CLUSTERS, IMAGE_PATH, get_channel_id, get_command_description, query_valid_url, get_cluster
+from utils.constants import IMAGE_PATH, get_channel_id, get_command_description, query_valid_url, get_cluster
 from utils.error_handler import embed_error, MissingArgument
 
 

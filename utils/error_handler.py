@@ -1,9 +1,8 @@
 from main import CLUSTER
 from utils import _init_mongo_arr, _init_mongo_bool, _init_mongo_dict
-from utils.constants import CLUSTER_BLACKLIST_WORDS, CLUSTER_GIFS, CLUSTER_SERVER_ROLES, CLUSTER_CONFESSION, DEF_SNIPE_GIFS
+from utils.constants import DEF_SNIPE_GIFS
 from discord import Embed
 from discord.ext import commands
-from discord.ext.commands.errors import CommandError, CommandInvokeError
 
 def embed_error(message):
     return Embed(
