@@ -8,6 +8,7 @@ Alternatively, you can host the bot yourself by cloning the files and going thro
 
 # Features 
 - MongoDB Backend 
+- Supports Multiple Servers (and so does the Database!)
 - Ranking System
 - Custom Image Manipulated Cards 
 - Easily Customisable Rank Cards 
@@ -37,6 +38,7 @@ Welcome Card Example
 # Setup
 1. Open `protected_vars.env`
 2. Set `SRV_URL` to your `MongoDB` Connection URL 
+3. Set `TOKEN` to your bot token 
 
 - Change default `General` text channel 
 1. `?change_channel` `general` `[new_channel_id]`
