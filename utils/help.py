@@ -60,10 +60,7 @@ class Help(commands.Cog):
                 if not command.cog_name and not command.hidden:
                     commands_desc += f'{command.name} - {command.help}\n'
 
-            if commands_desc:
-                emb.add_field(name='Not belonging to a module', value=commands_desc, inline=False)
-
-            emb.add_field(name="About", value=f"The Bots is developed by {owner}, based on discord.py.\n\
+            emb.add_field(name="About", value=f"This bot is developed by {owner}, based on discord.py.\n\
                                     Please visit https://github.com/azenyx/Zenyx-Bot to submit ideas or bugs.")
             emb.set_footer(text=f"Bot is running {version}")
 
