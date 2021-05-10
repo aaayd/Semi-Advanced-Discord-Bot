@@ -1,5 +1,5 @@
 from discord.errors import Forbidden
-from utils.error_handler import MissingArgument, MissingPermissionOnMember, RoleNotFound
+from utils.error_handler import MissingArgument, MissingPermissionOnMember, RoleNotFound, embed_success
 import discord, praw
 from discord.ext import commands
 from datetime import datetime
@@ -130,6 +130,7 @@ class Misc(commands.Cog):
                     await ctx.author.remove_roles(discord.utils.get(ctx.guild.roles, name=key))
 
             await ctx.author.add_roles(role)
+            await ctx.send(embed=embed_success(f"Added {role.mention} to {ctx.author.mention}"))
 
         except Forbidden:
             raise MissingPermissionOnMember("Edit role", ctx.author)

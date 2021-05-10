@@ -11,6 +11,13 @@ def embed_error(message):
         color=0xFF0000
     )
 
+def embed_success(message):
+    return Embed(
+        description=f":white_check_mark: {message}", 
+        color=0x66f542
+    )
+
+
 class ExpectedLiteralInt(commands.CommandError):
     def __init__(self,):
         pass
