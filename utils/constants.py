@@ -88,6 +88,19 @@ IMAGE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'image_pro
 
 # Arrays / Dicts
 
+COLOUR_ROLES_DICT = {
+    "BLACK" : 0x000000,
+    "WHITE" : 0xFFFFFF,
+    "RED" : 0xFA1414,
+    "ORANGE" : 0xFF6600,
+    "YELLOW" : 0xFFFF00,
+    "GREEN" : 0x00CC00,
+    "CYAN" : 0x00CCFF,
+    "BLUE" : 0x0052CC,
+    "PURPLE" : 0x8000FF,
+    "PINK" : 0xF306C0
+}
+
 DEF_SNIPE_GIFS = [
     "https://cdn.discordapp.com/attachments/787823476966162455/819247827376013372/sniper.gif", 
     "https://cdn.discordapp.com/attachments/827207915483955271/827207962484277278/image1-14.gif",

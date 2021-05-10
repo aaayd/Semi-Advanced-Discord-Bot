@@ -1,8 +1,8 @@
 from PIL import UnidentifiedImageError
 from main import CLUSTER
 from utils import _init_mongo_arr, _init_mongo_bool, _init_mongo_dict
-from utils.constants import DEF_SNIPE_GIFS
-from discord import Embed
+from utils.constants import  COLOUR_ROLES_DICT, DEF_SNIPE_GIFS
+from discord import Embed, utils
 from discord.ext import commands
 
 def embed_error(message):
@@ -65,6 +65,15 @@ class CommandErrorHandler(commands.Cog):
         _init_mongo_arr(CLUSTER_UTIL, "type_on_join_roles")
         _init_mongo_arr(CLUSTER_UTIL, "type_snipe_gifs", DEF_SNIPE_GIFS)
         _init_mongo_bool(CLUSTER_UTIL, "type_confession")
+
+        
+        for name, colour in COLOUR_ROLES_DICT.items():
+            if not utils.get(guild.roles, name=name): 
+                await guild.create_role(name=name, colour=colour)
+
+        if not utils.get(guild.roles, name="Muted"): 
+            await guild.create_role(name="Muted", colour=0x505050)
+
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):

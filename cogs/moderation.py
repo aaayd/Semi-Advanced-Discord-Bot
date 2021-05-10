@@ -161,7 +161,7 @@ class Moderation(commands.Cog):
         try:
             muted_role = get(ctx.guild.roles, name="Muted")
         except:
-            await ctx.send(embed=embed_error("Muted Role doesn't exist!"))
+            await ctx.message.guild.create_role(name="Muted", colour=0x505050)
 
         if muted_role in member.roles:
             return
