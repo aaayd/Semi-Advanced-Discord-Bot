@@ -1,7 +1,6 @@
-from utils.constants import IMAGE_PATH, get_cluster
+from utils.constants import IMAGE_PATH, get_cluster, get_level, get_rank
 from cogs.image_manipulation import create_rank_card
 import discord, os
-from discord.ext import tasks   
 from discord.ext import commands
 
 class ExperienceSystem(commands.Cog):
@@ -22,19 +21,6 @@ class ExperienceSystem(commands.Cog):
             pass
     """
         
-    def _get_level(self, xp):
-        lvl = 0
-        while True:
-            if xp < ((50*(lvl**2))+(50*(lvl))):
-                break
-            lvl += 1
-        return lvl
-
-    def _get_rank(self, member, _db):
-        rankings = _db.find().sort("xp", -1)
-        for iter,rank in enumerate(list(rankings)):
-            if rank["id"] == member.id:
-                return iter + 1
 
     @commands.command(aliases=["rank"])
     async def _rank(self, ctx, member: discord.Member = None):
@@ -59,9 +45,9 @@ class ExperienceSystem(commands.Cog):
             return
 
         xp = stats["xp"]
-        lvl = self._get_level(xp)
+        lvl = get_level(xp)
         xp -= ((50*((lvl-1)**2))+(50*(lvl-1)))
-        rank = self._get_rank(member, _db)
+        rank = get_rank(member, _db)
 
         try:
             colour = (stats["colour"][0],stats["colour"][1],stats["colour"][2])

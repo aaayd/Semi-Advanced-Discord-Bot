@@ -4,7 +4,7 @@ from PIL import ImageColor, UnidentifiedImageError
 from discord.ext import commands
 from PIL import Image, ImageFont, ImageDraw, ImageChops
 from requests.models import InvalidURL
-from utils.constants import IMAGE_PATH, get_channel_id, get_command_description, query_valid_url, get_cluster
+from utils.constants import IMAGE_PATH, get_channel_id, get_command_description, get_level, get_rank, query_valid_url, get_cluster
 from utils.error_handler import embed_error, MissingArgument
 
 
@@ -140,6 +140,8 @@ class ImageManipulation(commands.Cog):
     async def set_background(self, ctx, link="NoLinkSpecified"):
         '''?set_background [image_link]'''
 
+        await ctx.trigger_typing()
+
         _db = get_cluster(ctx.message.guild.id, "CLUSTER_EXPERIENCE")
    
         if link == "NoLinkSpecified":
@@ -151,21 +153,36 @@ class ImageManipulation(commands.Cog):
         else:
             if not query_valid_url(link):
                 raise InvalidURL
-
-
+                
+                
         _db.update_one({
             "id": ctx.author.id}, 
             {"$set":{
                 "background":link
                 }
             })
+            
+        
+        stats = _db.find_one({"id": ctx.author.id})
 
-        embed = discord.Embed(
-            description=f"Your personal background has been changed! \n- DO NOT delete the picture or the background will reset"
-            ).set_image(url=link
-        )
+        xp = stats["xp"]
+        lvl = get_level(xp)
+        xp -= ((50*((lvl-1)**2))+(50*(lvl-1)))
+        rank = get_rank(ctx.message.author, _db)
 
-        await ctx.send(embed=embed)
+        try:
+            colour = (stats["colour"][0],stats["colour"][1],stats["colour"][2])
+        except KeyError:
+            colour = (65, 178, 138)
+
+        try:
+            background = (stats["background"])
+        except KeyError:
+            background = "https://media.discordapp.net/attachments/665771066085474346/821993295310749716/statementofsolidarity.jpg?width=1617&height=910"
+
+        
+        create_rank_card(ctx.message.author, xp, lvl, rank, background, colour, ctx.guild.member_count)
+        await ctx.send(file=discord.File(os.path.join(f"{IMAGE_PATH}//temp//","card_temp.png")))
 
     @commands.command(aliases=["cr"])
     async def set_colour(self, ctx, r = None):

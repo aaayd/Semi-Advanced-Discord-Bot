@@ -16,6 +16,21 @@ def update_channel_id(var, _chan_id):
         with open(ROOT +'\protected_vars.env', "w") as file:
             file.write(new_text)
 
+def get_level(xp):
+    lvl = 0
+    while True:
+        if xp < ((50*(lvl**2))+(50*(lvl))):
+            break
+        lvl += 1
+    return lvl
+
+def get_rank(member, _db):
+    rankings = _db.find().sort("xp", -1)
+    for iter,rank in enumerate(list(rankings)):
+        if rank["id"] == member.id:
+            return iter + 1
+
+
 def converter(time):
     time_converter={
         's': 1,
