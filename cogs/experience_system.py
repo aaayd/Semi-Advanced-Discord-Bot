@@ -1,4 +1,4 @@
-from utils.constants import CLUSTER_RATELIMIT, IMAGE_PATH, get_cluster
+from utils.constants import IMAGE_PATH, get_cluster
 from cogs.image_manipulation import create_rank_card
 import discord, os
 from discord.ext import tasks   
@@ -7,15 +7,17 @@ from discord.ext import commands
 class ExperienceSystem(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self._rate_limit_check.start(self)
+        #self._rate_limit_check.start(self)
 
+    """
+    TODO
     @tasks.loop(minutes=1)
     async def _rate_limit_check(self, ctx):
         try:
             CLUSTER_RATELIMIT.delete_many({'rate_limited': True})
         except:
             pass
-
+    """
         
     def _get_level(self, xp):
         lvl = 0

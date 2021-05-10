@@ -1,5 +1,5 @@
+from utils.constants import get_cluster
 from utils.error_handler import ExpectedLiteralInt
-from utils.constants import CLUSTER_SERVER_ROLES
 from main import CLUSTER
 import discord
 from discord.ext import commands
@@ -17,8 +17,9 @@ class StickyRole(commands.Cog):
         except ValueError:
             raise ExpectedLiteralInt
 
+        _db = get_cluster(ctx.message.guild.id, "CLUSTER_SERVER_ROLES")
         for role in roles.split():
-            CLUSTER_SERVER_ROLES.update({
+            _db.update({
                 "id" : "type_on_join_roles"}, 
                     {"$push" : {
                         "array" : int(role)
@@ -27,7 +28,8 @@ class StickyRole(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        for role_id in CLUSTER_SERVER_ROLES.find_one({"id": "type_on_join_roles"})["array"]:
+        _db = get_cluster(member.guild.id, "CLUSTER_SERVER_ROLES")
+        for role_id in _db.find_one({"id": "type_on_join_roles"})["array"]:
             _ = discord.utils.get(member.guild.roles, id = role_id)
             
             await member.add_roles(_)

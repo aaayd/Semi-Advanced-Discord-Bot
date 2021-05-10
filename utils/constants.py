@@ -81,20 +81,7 @@ def get_cluster(guild, cluster, clusters = CLUSTERS):
     val = clusters.get(cluster)
     return CLUSTER[str(guild)][val]
 
-# Databases
 
-CLUSTER_RATELIMIT = CLUSTER["discord"]["xp_rate_limit"]
-
-CLUSTER_AFK = CLUSTER["discord"]["afk"]
-CLUSTER_GAY = CLUSTER["discord_fun"]["gay"]
-CLUSTER_DICK = CLUSTER["discord_fun"]["dick"]
-CLUSTER_PUSSY = CLUSTER["discord_fun"]["pussy"]
-CLUSTER_SHIP = CLUSTER["discord_fun"]["ship"]
-CLUSTER_MUTE = CLUSTER["discord"]["mute"]
-CLUSTER_SERVER_ROLES = CLUSTER["discord"]["utils"]
-CLUSTER_BLACKLIST_WORDS = CLUSTER["discord"]["utils"]
-CLUSTER_GIFS = CLUSTER["discord"]["utils"]
-CLUSTER_CONFESSION = CLUSTER["discord"]["utils"]
 
 IMAGE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'image_processing')
 

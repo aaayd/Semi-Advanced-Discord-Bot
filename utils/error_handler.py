@@ -1,3 +1,4 @@
+from PIL import UnidentifiedImageError
 from main import CLUSTER
 from utils import _init_mongo_arr, _init_mongo_bool, _init_mongo_dict
 from utils.constants import DEF_SNIPE_GIFS
@@ -84,6 +85,9 @@ class CommandErrorHandler(commands.Cog):
             user = str(error).split(" ")[1][1:-1]
             embed = embed_error(f"Member `{user}` not found") 
 
+        if isinstance(type(error), type(UnidentifiedImageError)):
+            pass
+        
         await ctx.send(embed=embed)
 
         
