@@ -4,6 +4,7 @@ An easy to setup Discord bot utilising a MongoDB database made in Python <br>
 # Usage
 To use the bot, invite it to your server by clicking [here](https://discord.com/api/oauth2/authorize?client_id=813239350702637058&permissions=8&scope=bot) <br>
 Alternatively, you can host the bot yourself by cloning the files and going through the setup  
+- Note, when hosting yourself, be sure to invite the bot <b>AFTER</b> it is online. This way the bot can initialise important files in the database.
 
 # Features 
 - MongoDB Backend 
