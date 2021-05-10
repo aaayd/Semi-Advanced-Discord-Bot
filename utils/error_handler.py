@@ -18,6 +18,14 @@ class ExpectedLiteralInt(commands.CommandError):
     def __str__(self):
         return "Expected `number`, not `word`"
 
+class RoleNotFound(commands.CommandError):
+    def __init__(self, role):
+        self.role = role
+
+    def __str__(self):
+        return f"Role `{self.role}` not found"
+
+
 class MissingArgument(commands.CommandError):
     def __init__(self, missing_argument, command_description):
         self.missing_argument = f"`{missing_argument}`"

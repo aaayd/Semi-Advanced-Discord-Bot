@@ -1,6 +1,5 @@
 from discord.errors import Forbidden
-from discord.ext.commands.errors import MissingRequiredArgument
-from utils.error_handler import MissingArgument, MissingPermissionOnMember
+from utils.error_handler import MissingArgument, MissingPermissionOnMember, RoleNotFound
 import discord, praw
 from discord.ext import commands
 from datetime import datetime
@@ -133,6 +132,9 @@ class Misc(commands.Cog):
             await ctx.author.add_roles(role)
         except Forbidden:
             raise MissingPermissionOnMember("Edit role", ctx.author)
+
+        except AttributeError:
+            raise RoleNotFound(str(colour).lower().capitalize())
                 
     @commands.command()
     async def ping(self, ctx):
