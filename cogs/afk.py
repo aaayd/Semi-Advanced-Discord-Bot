@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands
 from datetime import datetime
 from main import CLUSTER
-from utils.constants import get_time_elapsed, CLUSTER_AFK
+from utils.constants import get_cluster, get_time_elapsed
 
 class AFKSystem(commands.Cog):
     def __init__(self, client):
@@ -13,10 +13,10 @@ class AFKSystem(commands.Cog):
     @commands.command()
     async def afk(self, ctx, *, status="No status"):
         await ctx.channel.trigger_typing()
-
-        find_user = CLUSTER_AFK.find_one({"id" : ctx.author.id})
+        _db = get_cluster(ctx.message.guild.id, "CLUSTER_AFK")
+        find_user = _db.find_one({"id" : ctx.author.id})
         if find_user is None:
-            CLUSTER_AFK.insert({
+            _db.insert({
                 "id" : ctx.author.id, 
                 "status": status, 
                 "date": datetime.utcnow()}
@@ -33,8 +33,9 @@ class AFKSystem(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message : discord.Message):
+        _db = get_cluster(message.guild.id, "CLUSTER_AFK")
         for member in message.mentions: 
-            find_user = CLUSTER_AFK.find_one({"id" : member.id})
+            find_user = _db.find_one({"id" : member.id})
 
             if find_user is None or "?afk" in message.content.lower():
                 return
@@ -58,9 +59,9 @@ class AFKSystem(commands.Cog):
                 await message.channel.send(embed=embed)
                 return
         
-        find_user = CLUSTER_AFK.find_one({"id" : message.author.id})
+        find_user = _db.find_one({"id" : message.author.id})
         if find_user is not None:
-            CLUSTER_AFK.delete_many({"id" : message.author.id})
+            _db.delete_many({"id" : message.author.id})
             
             embed=discord.Embed(
                 description=f"{message.author} is no longer AFK after {get_time_elapsed(find_user['date'])}!", 

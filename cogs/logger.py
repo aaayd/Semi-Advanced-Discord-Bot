@@ -1,8 +1,5 @@
-from os import link
-from re import purge
 from utils.error_handler import MissingArgument
-from utils.constants import CLUSTER_GIFS, get_channel_id, get_cluster, get_command_description
-from colorama.ansi import Style
+from utils.constants import get_channel_id, get_cluster, get_command_description
 import discord
 from random import choice
 from datetime import datetime, timedelta
