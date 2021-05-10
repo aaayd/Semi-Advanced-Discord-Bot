@@ -1,6 +1,6 @@
 import discord, requests, os, random
 import numpy as np
-from PIL import ImageColor
+from PIL import ImageColor, UnidentifiedImageError
 from discord.ext import commands
 from PIL import Image, ImageFont, ImageDraw, ImageChops
 from requests.models import InvalidURL
@@ -25,7 +25,12 @@ def change_white(image, colour):
     return Image.fromarray(data)
 
 def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour, member_count):
-    card = Image.open(requests.get(background, stream=True).raw).convert("RGBA")
+    try:
+        card = Image.open(requests.get(background, stream=True).raw).convert("RGBA")
+    except:
+        background = "https://media.discordapp.net/attachments/665771066085474346/821993295310749716/statementofsolidarity.jpg?width=1617&height=910"
+        card = Image.open(requests.get(background, stream=True).raw).convert("RGBA")
+
     avatar_img = Image.open(requests.get(member.avatar_url_as(size=1024), stream=True).raw).convert("RGBA")
     empty = Image.open(os.path.join(f"{IMAGE_PATH}//rank//","empty_png.png")).convert("RGBA")
 
