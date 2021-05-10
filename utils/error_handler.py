@@ -19,7 +19,7 @@ class ExpectedLiteralInt(commands.CommandError):
         return "Expected `number`, not `word`"
 
 class RoleNotFound(commands.CommandError):
-    def __init__(self, role):
+    def __init__(self, role : str):
         self.role = role
 
     def __str__(self):
@@ -87,6 +87,10 @@ class CommandErrorHandler(commands.Cog):
     async def on_command_error(self, ctx, error):
         #print(str(error))
         #print(type(error))
+
+        if isinstance(type(error), type(RoleNotFound)):
+            embed = embed_error(str(error))
+
 
         if isinstance(type(error), type(ExpectedLiteralInt)):
             embed = embed_error(str(error))

@@ -113,28 +113,29 @@ class Misc(commands.Cog):
     '''
     
     @commands.command(aliases=['color', 'colour', 'role'])
-    async def _colour(self, ctx, colour = None):
+    async def _colour(self, ctx, colour : str = None):
         """?colour <colour>"""
 
         if colour is None:
             raise MissingArgument("Colour", get_command_description("_colour"))
         
+       
         await ctx.message.delete()                 
+        role = discord.utils.get(ctx.guild.roles, name=colour.upper())
 
-        colour = str(colour).upper()
-        role = discord.utils.get(ctx.guild.roles, name=colour)
+        try:
 
-        try:        
-            for name, colour in COLOUR_ROLES_DICT.items():
-                if discord.utils.get(ctx.message.guild.roles, name=name) in ctx.author.roles:
-                    await ctx.author.remove_roles(discord.utils.get(ctx.guild.roles, name=name))
+            for key in COLOUR_ROLES_DICT.keys():
+                if discord.utils.get(ctx.message.guild.roles, name=key) in ctx.author.roles:
+                    await ctx.author.remove_roles(discord.utils.get(ctx.guild.roles, name=key))
 
             await ctx.author.add_roles(role)
+
         except Forbidden:
             raise MissingPermissionOnMember("Edit role", ctx.author)
 
         except AttributeError:
-            raise RoleNotFound(str(colour).lower().capitalize())
+            raise RoleNotFound(colour.upper())
                 
     @commands.command()
     async def ping(self, ctx):
