@@ -1,4 +1,4 @@
-# Zenyx-Bot
+# Zen-Bot
 An easy to setup Discord bot utilising a MongoDB database made in Python <br>
 
 # Usage
