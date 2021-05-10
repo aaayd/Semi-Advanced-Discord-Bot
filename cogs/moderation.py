@@ -7,7 +7,9 @@ from utils.constants import converter, get_channel_id, get_cluster, get_command_
 
 
 class Moderation(commands.Cog):
-    """Moderation related commands."""
+    """
+    Moderation related commands.
+    """
 
     def __init__(self, client):
         self.client = client

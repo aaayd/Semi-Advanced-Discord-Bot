@@ -1,4 +1,4 @@
-from utils.error_handler import MissingArgument
+from utils.error_handler import ExpectedLiteralInt, MissingArgument
 from utils.constants import get_channel_id, get_cluster, get_command_description
 import discord
 from random import choice
@@ -7,7 +7,9 @@ from discord.ext import commands
 
 deleted_messages = []
 class Logger(commands.Cog):
-    """Commands related to logging."""
+    """
+    Commands related to logging.
+    """
 
     def __init__(self, client):
         self.client = client
@@ -15,12 +17,17 @@ class Logger(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
-    async def purge(self, ctx, amount : int = None):
+    async def purge(self, ctx, amount):
         '''?purge [amount]'''
      
         await ctx.channel.trigger_typing()
         if amount is None:
             raise MissingArgument("Amount of messages", get_command_description("purge"))
+
+        try:
+            amount = int(amount)
+        except:
+            raise ExpectedLiteralInt
 
         
         async for message in ctx.channel.history(limit=amount):
@@ -113,6 +120,8 @@ class Logger(commands.Cog):
     
     @commands.command()
     async def snipe(self, ctx):
+        """Sends most recent deleted messages by [member]"""
+
         if not deleted_messages:
             await ctx.send("Nothing to snipe!")
             return
@@ -153,7 +162,7 @@ class Logger(commands.Cog):
 
     @commands.command()
     async def esnipe(self, ctx):
-        '''?snipe'''
+        """Sends most recent edited messages by [member]"""
 
         try:
             before_edit = self.temp_message_edit_before

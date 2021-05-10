@@ -6,7 +6,9 @@ from animals import Animals
 from datetime import datetime
 
 class Image(commands.Cog):
-    """Image commands to send pictures of animals."""
+    """
+    Image commands to send pictures of animals.
+    """
 
     def __init__(self, bot):
         self.bot = bot

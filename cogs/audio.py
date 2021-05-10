@@ -199,7 +199,9 @@ class MusicPlayer(commands.Cog):
 
 
 class Music(commands.Cog):
-    """Music related commands."""
+    """
+    Music related commands.
+    """
 
     __slots__ = ('bot', 'players')
 

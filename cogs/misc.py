@@ -9,12 +9,16 @@ r = praw.Reddit(client_id="7oE7yB5GJJua2Q", client_secret="ooidPB-ETJxbRflpja6a6
 last_check = datetime.utcnow
 
 class Misc(commands.Cog):
-    """Miscellaneous related commands."""
+    """
+    Miscellaneous related commands.
+    """
     def __init__(self, client):
         self.client = client
     
     @commands.command(aliases=["st", "shower", "showerthought"])
     async def _get_shower_thought(self, ctx):
+        """Sends random shower thought from r/showerthoughts"""
+
         sub = r.subreddit('showerthoughts')
         sub = sub.random()
         text = sub.selftext
@@ -33,6 +37,8 @@ class Misc(commands.Cog):
 
     @commands.command()
     async def invites(self, ctx, member : discord.Member = None):
+        """Sends amount of invites [member] has"""
+
         if member is None:
             member = ctx.author
 
@@ -68,6 +74,8 @@ class Misc(commands.Cog):
 
     @commands.command()
     async def serverinfo(self, ctx):
+        """Sends information about the server"""
+
         embed = discord.Embed(
             title=str(ctx.guild.name) + " Server Information",
             description=str(ctx.guild.description),
@@ -105,11 +113,15 @@ class Misc(commands.Cog):
             
     @commands.command()
     async def ping(self, ctx):
+        """Sends the ping of the bot"""
+
         embed=discord.Embed(title=f"", description=f'Pong :ping_pong:    {round(self.client.latency * 1000)}ms!')
         await ctx.reply(embed=embed)
         
     @commands.command(aliases=["av"])
     async def avatar(self, ctx, member : discord.Member=None):
+        """Sends an avatar image / gif of [member]"""
+
         if member == None:
             member = ctx.message.author    
     
@@ -134,6 +146,8 @@ class Misc(commands.Cog):
     
     @commands.command(aliases=["whois"])
     async def userinfo(self,ctx, member: discord.Member = None):
+        """Sends information about [member]"""
+
         if not member:
             member = ctx.message.author
 

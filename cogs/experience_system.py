@@ -5,7 +5,9 @@ from discord.ext import tasks
 from discord.ext import commands
 
 class ExperienceSystem(commands.Cog):
-    """Rank and Leveling related commands."""
+    """
+    Rank and Leveling related commands.
+    """
     def __init__(self, client):
         self.client = client
         #self._rate_limit_check.start(self)
@@ -36,6 +38,8 @@ class ExperienceSystem(commands.Cog):
 
     @commands.command(aliases=["rank"])
     async def _rank(self, ctx, member: discord.Member = None):
+        """Sends an image of [member]'s rank card"""
+        
         await ctx.message.delete()
         
         _db = get_cluster(ctx.message.guild.id, "CLUSTER_EXPERIENCE")

@@ -9,7 +9,9 @@ from main import CLUSTER
 sticks = CLUSTER["discord"]["sticky_roles"]
 
 class StickyRole(commands.Cog):
-    """Sticky Role related commands."""
+    """
+    Sticky Role related commands.
+    """
 
     @commands.command()
     @commands.has_permissions(administrator=True)

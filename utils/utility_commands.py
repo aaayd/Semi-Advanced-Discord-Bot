@@ -5,7 +5,10 @@ import discord
 from discord.ext import commands
 
 class UtilityCommands(commands.Cog):
-    "Utility commands to keep the bot functional."
+    """
+    Utility commands to keep the bot functional.
+    """
+    
     def __init__(self, client):
         self.client = client
 

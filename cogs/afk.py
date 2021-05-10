@@ -6,13 +6,17 @@ from main import CLUSTER
 from utils.constants import get_cluster, get_time_elapsed
 
 class AFKSystem(commands.Cog):
-    """AFK Related Commands"""
+    """
+    AFK Related Commands
+    """
     def __init__(self, client):
         self.client = client
     
 
     @commands.command()
     async def afk(self, ctx, *, status="No status"):
+        """?afk [afk message]"""
+        
         await ctx.channel.trigger_typing()
         _db = get_cluster(ctx.message.guild.id, "CLUSTER_AFK")
         find_user = _db.find_one({"id" : ctx.author.id})
