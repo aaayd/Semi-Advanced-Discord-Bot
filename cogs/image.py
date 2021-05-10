@@ -1,3 +1,4 @@
+import requests, discord
 from utils.constants import get_command_description
 from utils.error_handler import MissingArgument
 from discord.ext import commands
@@ -12,6 +13,15 @@ class Image(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+
+    @commands.command()
+    async def meme(self, ctx):
+        """Sends random meme."""
+
+        meme = requests.get("https://some-random-api.ml/meme").json()
+        meme = meme["image"]
+
+        await ctx.send(meme)
 
     @commands.command()
     async def animal(self, ctx, name = None):
