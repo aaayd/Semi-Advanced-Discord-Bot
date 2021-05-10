@@ -7,6 +7,7 @@ from utils.constants import get_cluster, get_command_description
 from utils.constants import EIGHT_BALL_RESPONSE_DICT, GAY_RESPONSE_DICT, HEART_RESPONSE_LIST, PUSSY_RESPONSE_DICT, SHIP_RESPONSE_DICT, KISS_GIF_ARRAY
 
 class Fun(commands.Cog):
+    """Fun commands"""
     def __init__(self, client):
         self.client = client
 

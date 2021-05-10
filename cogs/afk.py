@@ -6,6 +6,7 @@ from main import CLUSTER
 from utils.constants import get_cluster, get_time_elapsed
 
 class AFKSystem(commands.Cog):
+    """AFK Related Commands"""
     def __init__(self, client):
         self.client = client
     

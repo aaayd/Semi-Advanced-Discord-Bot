@@ -35,7 +35,7 @@ class MissingPermissionOnMember(commands.CommandError):
         return f"I have no permissions to use {self.command} on {self.member}"
 
 class CommandErrorHandler(commands.Cog):
-
+    "Error handler for the bot - nothing interesting here."
     def __init__(self, client):
         self.client = client
  
@@ -87,7 +87,7 @@ class CommandErrorHandler(commands.Cog):
 
         if isinstance(type(error), type(UnidentifiedImageError)):
             pass
-        
+
         await ctx.send(embed=embed)
 
         

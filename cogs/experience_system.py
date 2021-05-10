@@ -5,6 +5,7 @@ from discord.ext import tasks
 from discord.ext import commands
 
 class ExperienceSystem(commands.Cog):
+    """Rank and Leveling related commands."""
     def __init__(self, client):
         self.client = client
         #self._rate_limit_check.start(self)

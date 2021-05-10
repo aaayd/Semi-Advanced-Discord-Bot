@@ -5,11 +5,12 @@ import discord
 from discord.ext import commands
 
 class UtilityCommands(commands.Cog):
-
+    "Utility commands to keep the bot functional."
     def __init__(self, client):
         self.client = client
 
     @commands.command()
+    @commands.has_permissions(administrator=True)
     async def change_channel(self, ctx, channel = None, id = None):
         """?change_channel [channel] [new_channel_id]
         You can use `general`    or `logs` as a channel parameter 

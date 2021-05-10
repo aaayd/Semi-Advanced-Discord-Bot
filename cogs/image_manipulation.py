@@ -124,6 +124,7 @@ def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour,
     card.save(os.path.join(f"{IMAGE_PATH}//temp//","card_temp.png"))
 
 class ImageManipulation(commands.Cog):
+    """Image related commands."""
     def __init__(self, client):
         self.client = client
 

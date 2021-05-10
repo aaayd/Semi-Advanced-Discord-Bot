@@ -9,6 +9,7 @@ r = praw.Reddit(client_id="7oE7yB5GJJua2Q", client_secret="ooidPB-ETJxbRflpja6a6
 last_check = datetime.utcnow
 
 class Misc(commands.Cog):
+    """Miscellaneous related commands."""
     def __init__(self, client):
         self.client = client
     

@@ -9,8 +9,10 @@ from main import CLUSTER
 sticks = CLUSTER["discord"]["sticky_roles"]
 
 class StickyRole(commands.Cog):
+    """Sticky Role related commands."""
 
     @commands.command()
+    @commands.has_permissions(administrator=True)
     async def add_default_roles(self, ctx, *, roles):
         try:
             [int(role) for role in roles.split()]

@@ -7,6 +7,7 @@ from discord.ext import commands
 
 deleted_messages = []
 class Logger(commands.Cog):
+    """Commands related to logging."""
 
     def __init__(self, client):
         self.client = client
