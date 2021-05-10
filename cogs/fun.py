@@ -1,5 +1,5 @@
 from utils.error_handler import MissingArgument
-import discord, random
+import discord, random, requests
 from discord.ext import commands
 from discord import Embed
 from datetime import datetime
@@ -17,12 +17,29 @@ class Fun(commands.Cog):
     async def kiss(self, ctx, member: discord.Member = None):
         '''?kiss [@user]'''
         if member is None:
-            raise MissingArgument("user", get_command_description("kiss"))
+            raise MissingArgument("Discord Member", get_command_description("kiss"))
 
         embed = discord.Embed(
-            description=f"{ctx.message.author.mention} Kissed {member.mention}, How Sweet :heart:", 
+            description=f"{ctx.message.author.mention} Kissed {member.mention}, How Sweet {random.choice(HEART_RESPONSE_LIST)}", 
             color=0xc81f9f,
             ).set_image(url=f"{random.choice(KISS_GIF_ARRAY)}"
+        )
+        await ctx.send(embed=embed)
+
+    @commands.command(aliases=["pat"])
+    async def headpat(self, ctx, member : discord.Member = None):
+        '''?headpat [@user]'''
+        
+        if member is None:
+            raise MissingArgument("Discord Member", get_command_description("headpat"))
+
+        pat_json = requests.get("http://headp.at/js/pats.json").json()
+        pat = random.choice(pat_json).replace(" ", "%20")
+
+        embed = discord.Embed(
+            description=f"{ctx.message.author.mention} Patted {member.mention}, How Sweet {random.choice(HEART_RESPONSE_LIST)}", 
+            color=0xc81f9f,
+            ).set_image(url=f"http://headp.at/pats/{pat}"
         )
         await ctx.send(embed=embed)
 
