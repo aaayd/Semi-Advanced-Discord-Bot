@@ -33,15 +33,33 @@ class Fun(commands.Cog):
         if member is None:
             raise MissingArgument("Discord Member", get_command_description("headpat"))
 
-        pat_json = requests.get("http://headp.at/js/pats.json").json()
-        pat = random.choice(pat_json).replace(" ", "%20")
+        pat_json = requests.get("https://some-random-api.ml/animu/pat").json()
+        pat_gif = pat_json["link"]
 
         embed = discord.Embed(
             description=f"{ctx.message.author.mention} Patted {member.mention}, How Sweet {random.choice(HEART_RESPONSE_LIST)}", 
             color=0xc81f9f,
-            ).set_image(url=f"http://headp.at/pats/{pat}"
+            ).set_image(url=pat_gif
         )
         await ctx.send(embed=embed)
+
+    @commands.command()
+    async def hug(self, ctx, member : discord.Member = None):
+        '''?hug [@user]'''
+        
+        if member is None:
+            raise MissingArgument("Discord Member", get_command_description("hug"))
+
+        pat_json = requests.get("https://some-random-api.ml/animu/hug").json()
+        pat_gif = pat_json["link"]
+
+        embed = discord.Embed(
+            description=f"{ctx.message.author.mention} Hugged {member.mention}, How Sweet {random.choice(HEART_RESPONSE_LIST)}", 
+            color=0xc81f9f,
+            ).set_image(url=pat_gif
+        )
+        await ctx.send(embed=embed)
+
 
     @commands.command(aliases=["diceroll"])
     async def rolldice(self, ctx):
