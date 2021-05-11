@@ -56,19 +56,11 @@ class Misc(commands.Cog):
         if message == "":
             raise MissingArgument("Message", get_command_description("mirror"))    
 
+        await ctx.message.delete()
         if message[0] == str(self.client.command_prefix):
             return
 
         channel = self.client.get_channel(get_channel_id(ctx.message.guild.id, "channel_general"))
-        if isinstance(ctx.channel, discord.channel.DMChannel):
-            log_channel = self.client.get_channel(get_channel_id(message.guild.id, "channel_logs"))
-            embed=discord.Embed(title="", description=f"**Mirrored** message in DM's with {message.author.mention}", timestamp=datetime.utcnow(), color=0xff0000
-                ).set_author(name=f"{message.author}", icon_url=f"{message.author.avatar_url}"
-                ).add_field(name="Content", value=f"{message.content}"
-                ).add_field(name="ID", value=f"```ml\nUser = {message.author.id}\nMessage = {message.id}\n```", inline=False
-            )
-
-            await log_channel.send(embed=embed)
         await channel.send(message)
             
 
