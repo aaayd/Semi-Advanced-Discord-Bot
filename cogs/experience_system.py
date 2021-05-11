@@ -1,4 +1,4 @@
-from utils.constants import IMAGE_PATH, get_cluster, get_level, get_rank
+from utils.constants import IMAGE_PATH, get_cluster, get_level, get_rank, get_channel
 from cogs.image_manipulation import create_rank_card
 import discord, os
 from discord.ext import commands
@@ -27,9 +27,7 @@ class ExperienceSystem(commands.Cog):
         """Sends an image of [member]'s rank card"""
         
         await ctx.message.delete()
-        
-        _db = get_cluster(ctx.message.guild.id, "CLUSTER_EXPERIENCE")
-
+          
         if member is None:
             member = ctx.author
 
@@ -65,6 +63,11 @@ class ExperienceSystem(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         if isinstance(message.channel, discord.channel.DMChannel):
+            return
+        
+        channel = self.client.get_channel(get_channel_id(ctx.message.guild.id, "channel_general"))
+
+        if channel != ctx.messsage.channel:
             return
 
         if not message.author.bot:
