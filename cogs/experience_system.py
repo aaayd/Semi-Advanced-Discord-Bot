@@ -31,6 +31,8 @@ class ExperienceSystem(commands.Cog):
         if member is None:
             member = ctx.author
 
+        _db = get_cluster(ctx.message.guild.id, "CLUSTER_EXPERIENCE")
+
 
         await ctx.channel.trigger_typing()
         
