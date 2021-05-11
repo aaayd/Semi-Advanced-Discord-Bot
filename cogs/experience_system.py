@@ -1,4 +1,4 @@
-from utils.constants import IMAGE_PATH, get_cluster, get_level, get_channel_id
+from utils.constants import IMAGE_PATH, get_cluster, get_level, get_channel_id, get_rank
 from cogs.image_manipulation import create_rank_card
 import discord, os
 from discord.ext import commands
