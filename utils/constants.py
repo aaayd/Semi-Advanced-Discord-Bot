@@ -125,6 +125,16 @@ DEF_SNIPE_GIFS = [
     "https://cdn.discordapp.com/attachments/827230906859257866/827231024102113360/image0.gif"
 ]
 
+PUNCH_GIF_ARRAY = [
+    "https://cdn.discordapp.com/attachments/841439376733896705/841483099452080158/f3ec8c256cb22279c14bfdc48c92e5ab.gif"
+    "https://cdn.discordapp.com/attachments/841439376733896705/841483198889590804/d7c30e46a937aaade4d7bc20eb09339b.gif"
+    "https://cdn.discordapp.com/attachments/841439376733896705/841483318494887936/giphy.gif"
+    "https://cdn.discordapp.com/attachments/841439376733896705/841483412967129138/f2kkp3L.gif"
+    "https://cdn.discordapp.com/attachments/841439376733896705/841483650985492500/9eUJ.gif"
+    "https://cdn.discordapp.com/attachments/841439376733896705/841483719809564702/Omake_Gif_Anime_-_Fairy_Tail_Final_Season_-_Episode_282_-_Lucy_Punch.gif"
+    "https://cdn.discordapp.com/attachments/841439376733896705/841483795467206676/8d50607e59db86b5afcc21304194ba57.gif"
+    "https://cdn.discordapp.com/attachments/841439376733896705/841483861203615764/giphy.gif"
+]
 KISS_GIF_ARRAY = [
     'https://media1.tenor.com/images/32d4f0642ebb373e3eb072b2b91e6064/tenor.gif?itemid=15150255',
     'https://media1.tenor.com/images/a390476cc2773898ae75090429fb1d3b/tenor.gif?itemid=12837192',

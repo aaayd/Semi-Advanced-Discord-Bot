@@ -3,7 +3,7 @@ import discord, random, requests
 from discord.ext import commands
 from discord import Embed
 from datetime import datetime
-from utils.constants import get_cluster, get_command_description
+from utils.constants import PUNCH_GIF_ARRAY, get_cluster, get_command_description
 from utils.constants import EIGHT_BALL_RESPONSE_DICT, GAY_RESPONSE_DICT, HEART_RESPONSE_LIST, PUSSY_RESPONSE_DICT, SHIP_RESPONSE_DICT, KISS_GIF_ARRAY
 
 class Fun(commands.Cog):
@@ -23,6 +23,19 @@ class Fun(commands.Cog):
             description=f"{ctx.message.author.mention} Kissed {member.mention}, How Sweet {random.choice(HEART_RESPONSE_LIST)}", 
             color=0xc81f9f,
             ).set_image(url=f"{random.choice(KISS_GIF_ARRAY)}"
+        )
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    async def punch(self, ctx, member: discord.Member = None):
+        '''?punch [@user]'''
+        if member is None:
+            raise MissingArgument("Discord Member", get_command_description("kiss"))
+
+        embed = discord.Embed(
+            description=f"{ctx.message.author.mention} Punched {member.mention}", 
+            color=0xc81f9f,
+            ).set_image(url=f"{random.choice(PUNCH_GIF_ARRAY)}"
         )
         await ctx.send(embed=embed)
 
