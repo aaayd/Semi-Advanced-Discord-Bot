@@ -1,4 +1,4 @@
-![avatar_img](https://cdn.discordapp.com/attachments/833503537479942155/841478093469646898/0caa50361b97c59a9899a37abb0c31b3.png)
+<p align="center"><img src="https://cdn.discordapp.com/attachments/833503537479942155/841505138497814559/zenyx_bot_2_small.png" /></p>
 
 # Zen-Bot
 An easy to setup Discord bot utilising a MongoDB database made in Python <br>
