@@ -1,4 +1,4 @@
-from utils.constants import IMAGE_PATH, get_cluster, get_level, get_rank, get_channel
+from utils.constants import IMAGE_PATH, get_cluster, get_level, get_channel_id
 from cogs.image_manipulation import create_rank_card
 import discord, os
 from discord.ext import commands
@@ -65,7 +65,7 @@ class ExperienceSystem(commands.Cog):
         if isinstance(message.channel, discord.channel.DMChannel):
             return
         
-        channel = self.client.get_channel(get_channel_id(ctx.message.guild.id, "channel_general"))
+        channel = self.client.get_channel_id(get_channel_id(ctx.message.guild.id, "channel_general"))
 
         if channel != ctx.messsage.channel:
             return
