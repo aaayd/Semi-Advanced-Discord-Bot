@@ -1,6 +1,6 @@
 from PIL import UnidentifiedImageError
 from main import CLUSTER
-from utils import _init_mongo_arr, _init_mongo_bool, _init_mongo_dict
+from utils.constants     import _init_mongo_arr, _init_mongo_bool, _init_mongo_dict
 from utils.constants import  COLOUR_ROLES_DICT, DEF_SNIPE_GIFS
 from discord import Embed, utils
 from discord.ext import commands

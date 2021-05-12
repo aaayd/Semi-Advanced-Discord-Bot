@@ -1,80 +1,16 @@
 
 from datetime import datetime
-from main import ROOT, result, CLUSTER, client
-import os, re
-import requests
+from main import ROOT, CLUSTER, client
+import os, re, requests
 
-def update_channel_id(var, _chan_id):
-    _old_value = str(var[0]).split('=')[0]
+# Variables 
 
-    if str(var[0]) == 123456789 or len(str(var[0])) <= 9:
-        var.append(_chan_id)
-        var.pop(0) 
-        with open(ROOT +'\protected_vars.env') as file:
-            new_text = file.read().replace(str(_old_value), str(_chan_id))
-            
-        with open(ROOT +'\protected_vars.env', "w") as file:
-            file.write(new_text)
+ALL_GUILD_DATABASES = dict(
+    (db, [collection for collection in CLUSTER[db].collection_names()]) for db in CLUSTER.database_names()
+)
 
-def get_level(xp):
-    lvl = 0
-    while True:
-        if xp < ((50*(lvl**2))+(50*(lvl))):
-            break
-        lvl += 1
-    return lvl
+IMAGE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'image_processing')
 
-def get_rank(member, _db):
-    rankings = _db.find().sort("xp", -1)
-    for iter,rank in enumerate(list(rankings)):
-        if rank["id"] == member.id:
-            return iter + 1
-
-
-def converter(time):
-    time_converter={
-        's': 1,
-        'm': 60,
-        'h': 3600,
-        'd': 86400,
-        'w': 604800}
-
-    time = re.sub('[^a-zA-Z]+', '', time)
-    return time_converter.get(time,"Invalid Timeframe.")
-
-def query_valid_url(url):
-    request = requests.get(url)
-    if request.status_code == 400:
-        return False
-    return True
-
-def get_command_description(command):
-    return client.get_command(command).help
-
-def get_channel_id(guild_id, channel_name):
-    return get_cluster(guild_id, "CLUSTER_CHANNELS").find_one({"id" : "type_important_channels"})["dict"][channel_name]
-# Functions
-def get_time_elapsed(afk_date):
-    elapsed_time = datetime.utcnow() - afk_date
-    seconds = elapsed_time.total_seconds()
-    days = seconds // 86400
-    hours = seconds // 3600
-    minutes = (seconds % 3600) // 60
-    seconds = seconds % 60
-
-    string = ""
-    if days != 0.0:
-        string += f"{round(days)} day" if days == 1.0 else f"{round(days)} days"
-
-    elif hours != 0.0:
-        string += f"{round(hours)} hour" if hours == 1.0 else f"{round(hours)} hours"
-
-    elif minutes != 0.0:
-        string += f"{round(minutes)} minute" if minutes == 1.0 else f"{round(minutes)} minutes"
-    
-    else:
-        string += f"{round(seconds)} second" if hours == 1.0 else f"{round(seconds)} seconds"
-    return string
 
 CLUSTERS = {
     "CLUSTER_EXPERIENCE" : "leveling",
@@ -91,14 +27,6 @@ CLUSTERS = {
     "CLUSTER_CONFESSION" : "utils",
     "CLUSTER_CHANNELS" : "utils",
 }
-
-def get_cluster(guild, cluster, clusters = CLUSTERS):
-    val = clusters.get(cluster)
-    return CLUSTER[str(guild)][val]
-
-
-
-IMAGE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'image_processing')
 
 
 # Arrays / Dicts
@@ -135,6 +63,7 @@ PUNCH_GIF_ARRAY = [
     "https://cdn.discordapp.com/attachments/841439376733896705/841483795467206676/8d50607e59db86b5afcc21304194ba57.gif",
     "https://cdn.discordapp.com/attachments/841439376733896705/841483861203615764/giphy.gif"
 ]
+
 KISS_GIF_ARRAY = [
     'https://media1.tenor.com/images/32d4f0642ebb373e3eb072b2b91e6064/tenor.gif?itemid=15150255',
     'https://media1.tenor.com/images/a390476cc2773898ae75090429fb1d3b/tenor.gif?itemid=12837192',
@@ -343,3 +272,130 @@ PUSSY_RESPONSE_DICT = {
         "Dirty Slag"
     ]
 }
+
+# Functions
+
+def get_cluster(guild, cluster, clusters = CLUSTERS):
+    val = clusters.get(cluster)
+    return CLUSTER[str(guild)][val]
+
+def update_channel_id(var, _chan_id):
+    _old_value = str(var[0]).split('=')[0]
+
+    if str(var[0]) == 123456789 or len(str(var[0])) <= 9:
+        var.append(_chan_id)
+        var.pop(0) 
+        with open(ROOT +'\protected_vars.env') as file:
+            new_text = file.read().replace(str(_old_value), str(_chan_id))
+            
+        with open(ROOT +'\protected_vars.env', "w") as file:
+            file.write(new_text)
+ 
+def get_level(xp):
+    lvl = 0
+    while True:
+        if xp < ((50*(lvl**2))+(50*(lvl))):
+            break
+        lvl += 1
+    return lvl
+
+def get_rank(member, _db):
+    rankings = _db.find().sort("xp", -1)
+    for iter,rank in enumerate(list(rankings)):
+        if rank["id"] == member.id:
+            return iter + 1
+
+def converter(time):
+    time_converter={
+        's': 1,
+        'm': 60,
+        'h': 3600,
+        'd': 86400,
+        'w': 604800}
+
+    time = re.sub('[^a-zA-Z]+', '', time)
+    return time_converter.get(time,"Invalid Timeframe.")
+
+def query_valid_url(url):
+    request = requests.get(url)
+    if request.status_code == 400:
+        return False
+    return True
+
+def get_command_description(command):
+    return client.get_command(command).help
+
+def get_channel_id(guild_id, channel_name):
+    return get_cluster(guild_id, "CLUSTER_CHANNELS").find_one({"id" : "type_important_channels"})["dict"][channel_name]
+# Functions
+def get_time_elapsed(afk_date):
+    elapsed_time = datetime.utcnow() - afk_date
+    seconds = elapsed_time.total_seconds()
+    days = seconds // 86400
+    hours = seconds // 3600
+    minutes = (seconds % 3600) // 60
+    seconds = seconds % 60
+
+    string = ""
+    if days != 0.0:
+        string += f"{round(days)} day" if days == 1.0 else f"{round(days)} days"
+
+    elif hours != 0.0:
+        string += f"{round(hours)} hour" if hours == 1.0 else f"{round(hours)} hours"
+
+    elif minutes != 0.0:
+        string += f"{round(minutes)} minute" if minutes == 1.0 else f"{round(minutes)} minutes"
+    
+    else:
+        string += f"{round(seconds)} second" if hours == 1.0 else f"{round(seconds)} seconds"
+    return string
+
+def _init_mongo_arr(cluster, _id, default_vars = []):
+    _exists = cluster.find_one({
+        "id": _id
+    })
+
+    if _exists is None:
+        cluster.insert_one({
+            "id": _id, 
+            "array": []
+        })
+        
+        for var in default_vars:
+            cluster.update({
+                "id" : _id}, 
+                    {"$push" : {
+                        "array" : var
+                    }
+                })
+
+def _init_mongo_dict(cluster, _id, default_dict = {}):
+    _exists = cluster.find_one({
+        "id": _id
+    })
+
+    if _exists is None:
+        cluster.insert_one({
+            "id": _id, 
+            "dict": {}
+        })
+    
+        for key, value in default_dict.items():
+            cluster.update({
+                "id" : _id}, 
+                    {"$set" : {
+                        f"dict.{key}" : int(value) 
+                    }
+                })
+
+def _init_mongo_bool(cluster, _id, bool = True):
+        _exists = cluster.find_one({
+            "id": _id
+        })
+
+        if _exists is None:
+            cluster.insert_one({
+                "id": _id, 
+                "bool": bool
+            })
+

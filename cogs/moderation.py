@@ -1,9 +1,9 @@
-from utils.error_handler import MissingArgument, MissingPermissionOnMember, embed_error
+from utils.error_handler import MissingArgument, MissingPermissionOnMember
 import discord, re, asyncio
 from discord.utils import get
 from discord.ext import commands, tasks
 from datetime import datetime, timedelta
-from utils.constants import converter, get_channel_id, get_cluster, get_command_description
+from utils.constants import ALL_GUILD_DATABASES, converter, get_channel_id, get_cluster, get_command_description
 
 
 class Moderation(commands.Cog):
@@ -13,21 +13,32 @@ class Moderation(commands.Cog):
 
     def __init__(self, client):
         self.client = client
-        self._mute_db_check.start(self)
+        self.muted_members_check.start(self)
 
     
-    @tasks.loop(seconds=10.0)
-    async def _mute_db_check(self, ctx):
-        _db = get_cluster(ctx.guild.id, "CLUSTER_MUTE")
+    @tasks.loop(seconds=3)
+    async def muted_members_check(self, ctx):
+        await self.client.wait_until_ready()
+
         time_now = datetime.utcnow()
-        for muted_user in _db.find({}):
-            if time_now > muted_user["end_date"]:
-                try:
-                    member = get(self.client.get_all_members(), id=muted_user["id"])
-                    await self._unmute_user(member)
-                    _db.delete_many({'id': int(member.id)})
-                except:
-                    pass
+
+        for guild_id, value in ALL_GUILD_DATABASES.items():
+            muted_collection = [db for db in value if db == "mute"]
+
+            if muted_collection:
+                _db = get_cluster(guild_id, "CLUSTER_MUTE")
+
+                for muted_user in _db.find({}):
+                    if time_now > muted_user["end_date"]:
+                        member = discord.utils.get(self.client.get_all_members(), id=muted_user["id"])
+                        try:
+                            await self._unmute_user(member)
+                            _db.delete_many({'id': int(member.id)})
+
+                        except TypeError:
+                            # Bot not initiated
+                            pass
+                        
             
     @commands.command()
     @commands.has_permissions(kick_members=True)
@@ -200,8 +211,11 @@ class Moderation(commands.Cog):
             await member.add_roles(muted_role)
                                     
     async def _unmute_user(self, member):
-        channel = self.client.get_channel(self.client.get_channel(get_channel_id(member.guild.id, "channel_general")))
-        channel1 = self.client.get_channel(self.client.get_channel(get_channel_id(member.guild.id, "channel_logs")))
+        try:
+            channel1 = self.client.get_channel(get_channel_id(member.guild.id, "channel_logs"))
+        except AttributeError:
+            pass
+        
         
         muted_role = get(member.guild.roles, name="Muted")
         await member.remove_roles(muted_role)
@@ -212,7 +226,6 @@ class Moderation(commands.Cog):
             ).set_author(name=f"{member} is now unmuted", icon_url=f"{member.avatar_url}"
             ).add_field(name="Unmuted User", value=f"{member.mention}"
         )
-        await channel.send(embed=embed)
         await channel1.send(embed=embed)
 
 
