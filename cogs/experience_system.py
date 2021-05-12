@@ -1,4 +1,4 @@
-from utils.constants import IMAGE_PATH, get_cluster, get_level, get_channel_id, get_rank
+from utils.constants import IMAGE_PATH, get_channel_id, get_cluster, get_level, get_rank
 from cogs.image_manipulation import create_rank_card
 import discord, os
 from discord.ext import commands
@@ -22,7 +22,7 @@ class ExperienceSystem(commands.Cog):
     """
         
 
-    @commands.command(aliases=["rank"])
+    @commands.command(aliases=["rank", "level"])
     async def _rank(self, ctx, member: discord.Member = None):
         """Sends an image of [member]'s rank card"""
         
@@ -67,9 +67,9 @@ class ExperienceSystem(commands.Cog):
         if isinstance(message.channel, discord.channel.DMChannel):
             return
         
-        channel = self.client.get_channel_id(get_channel_id(ctx.message.guild.id, "channel_general"))
+        channel = self.client.get_channel(get_channel_id(message.guild.id, "channel_general"))
 
-        if channel != ctx.messsage.channel:
+        if channel != message.channel:
             return
 
         if not message.author.bot:
