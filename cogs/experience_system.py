@@ -1,4 +1,6 @@
-from utils.constants import IMAGE_PATH, get_channel_id, get_cluster, get_level, get_rank
+from numpy import place
+from utils.error_handler import ExpectedLiteralInt, MissingArgument, embed_error, embed_success
+from utils.constants import IMAGE_PATH, get_channel_id, get_cluster, get_command_description, get_level, get_rank
 from cogs.image_manipulation import create_rank_card
 import discord, os
 from discord.ext import commands
@@ -61,6 +63,56 @@ class ExperienceSystem(commands.Cog):
        
         create_rank_card(member, xp, lvl, rank, background, colour, ctx.guild.member_count)
         await ctx.send(file=discord.File(os.path.join(f"{IMAGE_PATH}//temp//","card_temp.png")))
+
+    @commands.command(aliases=["lb"])
+    async def _leaderboard(self, ctx, placement = None):
+        """Sends an image of [plaement number]'s rank card"""
+        
+        await ctx.message.delete()
+          
+        if placement is None:
+            raise MissingArgument("Placement number", get_command_description("_leaderboard"))
+
+        try:
+            placement = int(placement)
+        except:
+            raise ExpectedLiteralInt
+
+        _db = get_cluster(ctx.message.guild.id, "CLUSTER_EXPERIENCE")
+
+
+        await ctx.channel.trigger_typing()
+        
+        stats = _db.find().sort("xp", -1)
+
+        for i, stat in enumerate(list(stats)):
+            if (i + 1) == placement:
+                stats = stat
+                break
+
+        xp = stats["xp"]
+        lvl = get_level(xp)
+        xp -= ((50*((lvl-1)**2))+(50*(lvl-1)))
+        rank = placement
+        member = discord.utils.get(self.client.get_all_members(), id=stats["id"])
+
+        try:
+            colour = (stats["colour"][0],stats["colour"][1],stats["colour"][2])
+        except KeyError:
+            colour = (65, 178, 138)
+
+        try:
+            background = (stats["background"])
+        except KeyError:
+            background = "https://media.discordapp.net/attachments/665771066085474346/821993295310749716/statementofsolidarity.jpg?width=1617&height=910"
+    
+        
+        create_rank_card(member, xp, lvl, rank, background, colour, ctx.guild.member_count)
+        await ctx.send(file=discord.File(os.path.join(f"{IMAGE_PATH}//temp//","card_temp.png")))
+
+    @_leaderboard.error
+    async def _leaderboard_handler(self, ctx, error):
+        await ctx.send(embed=embed_error("That user has no XP!"))
 
     @commands.Cog.listener()
     async def on_message(self, message):
