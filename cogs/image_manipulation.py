@@ -34,6 +34,8 @@ def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour,
     avatar_img = Image.open(requests.get(member.avatar_url_as(size=1024), stream=True).raw).convert("RGBA")
     empty = Image.open(os.path.join(f"{IMAGE_PATH}//rank//","empty_png.png")).convert("RGBA")
 
+    next_level = int(200*((1/2)*lvl))
+
     '''RESIZE IMAGE'''
     card = card.resize((1260,420))
 
@@ -50,6 +52,7 @@ def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour,
     avatar_img = avatar_img.resize((222,222))
     avatar_img = round_image(avatar_img)
     card.paste(avatar_img, ((84,91)), avatar_img)
+    
     # Paste avatar image
 
     '''DRAW USER STATUS'''
@@ -89,7 +92,7 @@ def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour,
     
     draw.text((340,219), f"{xp}", font=ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 40), fill=colour)
     w, h = draw.textsize(f"{xp}", ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 40))
-    draw.text((340+w+3, 219), f"/ {int(200*((1/2)*lvl))} XP", font=ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 40), fill=(81,81,81))
+    draw.text((340+w+3, 219), f"/ {next_level} XP", font=ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 40), fill=(81,81,81))
     # Place XP text
 
             
@@ -119,12 +122,20 @@ def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour,
 
     card.paste(start, (334, 263), start)
 
-    percentage = round(((xp / int(200*((1/2)*lvl))* 100) * 714) / 100)
-
-    draw.rectangle(((350, 263), (percentage + 333, 309)), fill=colour)
-
+    xp_percentage = xp / next_level * 100
+    percentage = round(((xp_percentage) * 714) / 100)
+    
     start = start.rotate(180)
-    card.paste(start, (percentage + 334, 263), start)
+    print(xp_percentage)
+    if not xp_percentage > 3:
+        print("Over!")
+        card.paste(start, (353, 263), start)
+    else:
+        print("Under!")
+        card.paste(start, (percentage + 334, 263), start)
+
+        draw.rectangle(((353, 263), (percentage + 333, 309)), fill=colour)
+
 
     card.save(os.path.join(f"{IMAGE_PATH}//temp//","card_temp.png"))
 
