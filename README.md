@@ -31,11 +31,20 @@ Welcome Card Example
 - pymongo
 
 # Installation 
+1. Open CMD in the same location as the bot root folder
+2. Execute the following in the terminal:
+```py
+# pip install requirements.txt
+```
+<br>
+
+Alternatively, install the libraries manually:
 ```py
 # pip install discordpy 
 # pip install Pillow
 # pip install pymongo 
 ```
+
 
 # Setup
 1. Open `protected_vars.env`

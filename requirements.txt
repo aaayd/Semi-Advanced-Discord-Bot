@@ -1,0 +1,3 @@
+discordpy
+Pillow
+pymongo
