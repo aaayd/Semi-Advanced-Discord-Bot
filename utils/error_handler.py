@@ -1,9 +1,9 @@
-from PIL import UnidentifiedImageError
 from main import CLUSTER
-from utils.constants     import _init_mongo_arr, _init_mongo_bool, _init_mongo_dict
+from utils.constants     import COMMAND_IS_VALID_REGEX, _init_mongo_arr, _init_mongo_bool, _init_mongo_dict
 from utils.constants import  COLOUR_ROLES_DICT, DEF_SNIPE_GIFS
 from discord import Embed, utils
 from discord.ext import commands
+import re
 
 def embed_error(message):
     return Embed(
@@ -110,14 +110,15 @@ class CommandErrorHandler(commands.Cog):
 
         if isinstance(error, commands.CommandNotFound):
             unfound_command = str(error).split(" ")[1][1:-1]
+
+            if not re.match(COMMAND_IS_VALID_REGEX, unfound_command):
+                return
+            
             embed = embed_error(f"Command `{unfound_command}` is unrecognised.")
 
         if isinstance(error, commands.MemberNotFound):
             user = str(error).split(" ")[1][1:-1]
             embed = embed_error(f"Member `{user}` not found") 
-
-        if isinstance(type(error), type(UnidentifiedImageError)):
-            pass
 
         await ctx.send(embed=embed)
 

@@ -119,10 +119,12 @@ class Misc(commands.Cog):
 
             for key in COLOUR_ROLES_DICT.keys():
                 if discord.utils.get(ctx.message.guild.roles, name=key) in ctx.author.roles:
-                    await ctx.author.remove_roles(discord.utils.get(ctx.guild.roles, name=key))
+                    removed_role = discord.utils.get(ctx.guild.roles, name=key)
+                    await ctx.author.remove_roles(removed_role)
+                    await ctx.send(embed=embed_success(f"**Removed** {removed_role.mention} from {ctx.author.mention}"))
 
             await ctx.author.add_roles(role)
-            await ctx.send(embed=embed_success(f"Added {role.mention} to {ctx.author.mention}"))
+            await ctx.send(embed=embed_success(f"**Added** {role.mention} to {ctx.author.mention}"))
 
         except Forbidden:
             raise MissingPermissionOnMember("Edit role", ctx.author)

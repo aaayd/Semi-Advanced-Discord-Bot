@@ -50,13 +50,9 @@ Alternatively, install the libraries manually:
 1. Open `protected_vars.env`
 2. Set `SRV_URL` to your `MongoDB` Connection URL 
 3. Set `TOKEN` to your bot token 
+4. Save `protected_vars.env`
+5. Run `main.py`
+6. Change your default General and Logs channel 
 
-- Change default `General` text channel 
-1. `?change_channel` `general` `[new_channel_id]`
-
-- Change default `Logs` text channel 
-1. `?change_channel` `logs` `[new_channel_id]`
-
-
-
-
+- Change Default Channels Example: <br>
+![image_example](https://cdn.discordapp.com/attachments/833503537479942155/842426219093688320/unknown.png)

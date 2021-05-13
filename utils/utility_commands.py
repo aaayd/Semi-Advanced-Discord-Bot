@@ -1,5 +1,5 @@
 from utils.constants import get_command_description
-from utils.error_handler import MissingArgument
+from utils.error_handler import MissingArgument, embed_success
 from main import CLUSTER
 import discord
 from discord.ext import commands
@@ -14,8 +14,8 @@ class UtilityCommands(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(administrator=True)
-    async def change_channel(self, ctx, channel = None, id = None):
-        """?change_channel [channel] [new_channel_id]
+    async def defchannel(self, ctx, channel = None, new_channel : discord.TextChannel = None):
+        """?change_channel [channel] [new_channel]
         You can use `general`    or `logs` as a channel parameter 
         """
         
@@ -26,9 +26,12 @@ class UtilityCommands(commands.Cog):
         CLUSTER_UTIL.update({
             "id" : "type_important_channels"
             },{"$set" : {
-                   f"dict.channel_{channel}" : int(id) 
+                   f"dict.channel_{channel}" : new_channel.id
                 }
             })
+
+        embed = embed_success(f"Changed `{channel}` channel to {new_channel.mention}")
+        await ctx.send(embed=embed)
 
         
 def setup(client):

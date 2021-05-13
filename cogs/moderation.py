@@ -35,7 +35,7 @@ class Moderation(commands.Cog):
                             await self._unmute_user(member)
                             _db.delete_many({'id': int(member.id)})
 
-                        except TypeError:
+                        except (TypeError, AttributeError) as e:
                             # Bot not initiated
                             pass
                         

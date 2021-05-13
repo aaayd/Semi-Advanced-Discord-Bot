@@ -10,7 +10,7 @@ ALL_GUILD_DATABASES = dict(
 )
 
 IMAGE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'image_processing')
-
+COMMAND_IS_VALID_REGEX = "[a-zA-Z_]+"
 
 CLUSTERS = {
     "CLUSTER_EXPERIENCE" : "leveling",
