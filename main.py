@@ -16,8 +16,15 @@ with open('protected_vars.env') as ins:
             result[match.group(1)] = match.group(2)
             
 COGS = {
-    "cogs" : ["afk","audio","experience_system","fun","image_manipulation","image","misc", "logger", "moderation", "sticky_roles"],
-    "utils" : ["error_handler", "utility_commands", "help"]
+    "cogs" : [
+        "afk","audio","experience_system",
+        "fun","image_manipulation","image","misc", 
+        "logger", "moderation", "sticky_roles"
+    ],
+    
+    "utils" : [
+        "error_handler", "utility_commands", "help"
+    ]
 }
 
 ROOT = str(__file__)[:-len("main.py")]
