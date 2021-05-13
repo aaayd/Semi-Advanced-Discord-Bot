@@ -36,9 +36,7 @@ class WikipediaSearch(commands.Cog):
 
     def __init__(self, bot: client):
         self.bot = bot
-        self.HTTP_SESSION = ClientSession(
-            connector=TCPConnector(resolver=AsyncResolver(), family=socket.AF_INET6)
-        )
+        self.HTTP_SESSION = ClientSession(trust_env=True)
 
     async def wiki_request(self, channel: TextChannel, search: str) -> Optional[List[str]]:
         """Search wikipedia search string and return formatted first 10 pages found."""
