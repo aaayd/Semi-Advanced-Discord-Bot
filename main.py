@@ -1,13 +1,13 @@
 #!/usr/bin/env python
-
 import os, os.path, sys
 from discord.ext import commands
 from discord import Intents, Game
-from pathlib import Path
+from colorama import Fore, Style
 from discord.flags import Intents
+from colorama import Fore, Style
 from pymongo import MongoClient
-from re import compile
 
+from re import compile
 with open('protected_vars.env') as ins:
     result = {}
     for line in ins:
@@ -15,45 +15,61 @@ with open('protected_vars.env') as ins:
         if match is not None:
             result[match.group(1)] = match.group(2)
             
-TOKEN = result["TOKEN"]
+COGS = {
+    "cogs" : ["afk","audio","experience_system","fun","image_manipulation","image","misc", "logger", "moderation", "sticky_roles"],
+    "utils" : ["error_handler", "utility_commands", "help"]
+}
 
-CLUSTER = MongoClient(result["SRV_URL"])
+ROOT = str(__file__)[:-len("main.py")]
+CLUSTER = MongoClient(result["SRV_URL"]) #mongodb+srv://<username>:<password>@<host>
+
 client = commands.Bot(command_prefix = '?', intents = Intents.all(), case_insensitive=True)
 client.remove_command('help')
 
-CHANNEL_GENERAL = client.get_channel(result["channel_general"])
-CHANNEL_LOGS = client.get_channel(result["channel_logs"])
-
 @client.event
 async def on_ready():
-    await client.change_presence(activity=Game(name="?help"))
+    print(f"{Fore.GREEN}[!]{Style.RESET_ALL} Bot is ready!")
+    await client.change_presence(activity=Game(name=f"?help"))
 
 @client.command()
-@commands.has_permissions(administrator=True)
-async def load(ctx, cog):
-    client.load_extension(f'cogs.{cog}')
+@commands.is_owner()
+async def load(ctx, folder, cog):
+    client.load_extension(f'{folder}.{cog}')
+    await ctx.send(f"Enabled Cog: {cog}")
+
+    print(f"{Fore.GREEN}[ENABLED cog]{Style.RESET_ALL}: {cog}.py")
         
 @client.command()
-@commands.has_permissions(administrator=True)
-async def unload(ctx, cog):
-    client.unload_extension(f'cogs.{cog}')
-        
-@commands.has_permissions(administrator=True)
-async def update(ctx, cogss=[x for x in (os.listdir((Path(__file__) / "../cogs/").resolve()))]):
+@commands.is_owner()
+async def unload(ctx, folder, cog):
+    client.unload_extension(f'{folder}.{cog}')
+    await ctx.send(f"UNLOADED cog: {cog}")
+
+    print(f"{Fore.RED}[DISABLED cog]{Style.RESET_ALL}: {cog}.py")
+
+@client.command()
+@commands.is_owner()
+async def update(ctx, cogs = COGS):
     await ctx.message.delete()
-    for cog in enumerate(cogss): 
-        if cog.endswith('.py') and not cog.startswith("__"):
-            client.unload_extension(f'cogs.{cog[:-3]}')
-            client.load_extension(f'cogs.{cog[:-3]}')
 
+    for key, cogs in cogs.items():
+        for cog in cogs:
+            client.unload_extension(f'{key}.{cog}')
+            try:
+                client.load_extension(f'{key}.{cog}')
 
-@commands.has_permissions(administrator=True)
+            except:
+                print(f"{cog} failed to load" )
+
+@commands.has_role("Developer")
+@commands.is_owner()
 async def restart(ctx):
     await ctx.message.delete()
+    print (f"{Fore.BLUE}[-]{Style.RESET_ALL} Attempting bot restart")
     os.execv(sys.executable, ['python'] + sys.argv)
+    
 
-for filename in os.listdir((Path(__file__) / "../cogs/").resolve()):
-    if filename.endswith('.py'):
-        client.load_extension(f'cogs.{filename[:-3]}')
-
-client.run(TOKEN)
+for key, cogs in COGS.items():
+    for cog in cogs:
+        client.load_extension(f'{key}.{cog}')
+client.run(result["TOKEN"])

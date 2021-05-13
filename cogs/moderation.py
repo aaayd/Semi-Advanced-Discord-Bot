@@ -213,20 +213,20 @@ class Moderation(commands.Cog):
     async def _unmute_user(self, member):
         try:
             channel1 = self.client.get_channel(get_channel_id(member.guild.id, "channel_logs"))
-        except AttributeError:
+        
+            
+            muted_role = get(member.guild.roles, name="Muted")
+            await member.remove_roles(muted_role)
+            embed=discord.Embed(
+                description=f" ", 
+                timestamp=datetime.utcnow(), 
+                color=0xff0000
+                ).set_author(name=f"{member} is now unmuted", icon_url=f"{member.avatar_url}"
+                ).add_field(name="Unmuted User", value=f"{member.mention}"
+            )
+            await channel1.send(embed=embed)
+        except:
             pass
-        
-        
-        muted_role = get(member.guild.roles, name="Muted")
-        await member.remove_roles(muted_role)
-        embed=discord.Embed(
-            description=f" ", 
-            timestamp=datetime.utcnow(), 
-            color=0xff0000
-            ).set_author(name=f"{member} is now unmuted", icon_url=f"{member.avatar_url}"
-            ).add_field(name="Unmuted User", value=f"{member.mention}"
-        )
-        await channel1.send(embed=embed)
 
 
 
