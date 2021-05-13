@@ -28,7 +28,7 @@ COGS = {
 
 
     "games" : [
-        "trivia_quiz._cog", "connect_4"
+        "trivia_quiz._cog", "connect_4", "battle_ships"
     ]
 }
 
