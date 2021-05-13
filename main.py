@@ -30,7 +30,7 @@ COGS = {
 ROOT = str(__file__)[:-len("main.py")]
 CLUSTER = MongoClient(result["SRV_URL"]) #mongodb+srv://<username>:<password>@<host>
 
-client = commands.Bot(command_prefix = '?', intents = Intents.all(), case_insensitive=True)
+client = commands.Bot(command_prefix = ['?', '!'], intents = Intents.all(), case_insensitive=True)
 client.remove_command('help')
 
 @client.event
