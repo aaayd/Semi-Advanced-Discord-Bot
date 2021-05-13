@@ -28,7 +28,7 @@ def change_white(image, colour):
 
 
 def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour, member_count):
-    start_time = time.time()
+    
     try:
         card = Image.open(requests.get(background, stream=True).raw).convert("RGBA")
     except:
@@ -39,14 +39,13 @@ def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour,
     empty = Image.open(os.path.join(f"{IMAGE_PATH}//rank//","empty_png.png")).convert("RGBA")
 
     next_level = int(200*((1/2)*lvl))
-
-    print(time.time()-start_time)
-    start_time = time.time()
+    
+    
     '''RESIZE IMAGE'''
     card = card.resize((1260,420))
 
-    print(time.time()-start_time)
-    start_time = time.time()
+    
+    
     '''PASTE TRANSPARENCY'''
     empty = empty.resize((1260, 420))
     card.paste(empty, ((0,0)), empty)
@@ -55,16 +54,16 @@ def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour,
     
 
     draw = ImageDraw.Draw(card)
-    print(time.time()-start_time)
-    start_time = time.time()
+    
+    
     '''PASTE AVATAR'''
     avatar_img = avatar_img.resize((222,222))
     avatar_img = round_image(avatar_img)
     card.paste(avatar_img, ((84,91)), avatar_img)
     
     # Paste avatar image
-    print(time.time()-start_time)
-    start_time = time.time()
+    
+    
     '''DRAW USER STATUS'''
     start = Image.open(os.path.join(f"{IMAGE_PATH}//rank//","activity_circle.png")).convert("RGBA")
     start = change_white(start, (0,0,0))
@@ -93,9 +92,9 @@ def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour,
     if str(member.status) == "dnd" or str(member.status) == "idle":
         card.paste(special, unique_coord, special)
 
-    print(time.time()-start_time)
+    
 
-    start_time = time.time()
+    
     '''DRAW TEXT'''
     draw.text((340,128), f"{member.name}", font=UNI_SANS_40, fill=colour)
     _w, h = draw.textsize(f"{member.name}", UNI_SANS_40)
@@ -126,8 +125,8 @@ def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour,
 
     draw.text((694,219), f"Level: {lvl}", font=UNI_SANS_40, fill=colour)
     # Place LVL text
-    print(time.time()-start_time)
-    start_time = time.time()
+    
+    
     '''DRAW XP BAR'''
     start = Image.open(os.path.join(f"{IMAGE_PATH}//rank//","half_circle.png")).convert("RGBA")
     start = change_white(start, colour)
@@ -138,19 +137,17 @@ def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour,
     percentage = round(((xp_percentage) * 714) / 100)
     
     start = start.rotate(180)
-    print(xp_percentage)
+
     if not xp_percentage > 3:
-        print("Over!")
         card.paste(start, (353, 263), start)
     else:
-        print("Under!")
         card.paste(start, (percentage + 334, 263), start)
 
         draw.rectangle(((353, 263), (percentage + 333, 309)), fill=colour)
 
 
     card.save(os.path.join(f"{IMAGE_PATH}//temp//","card_temp.png"))
-    print(time.time()-start_time)
+    
 
 class ImageManipulation(commands.Cog):
     """
