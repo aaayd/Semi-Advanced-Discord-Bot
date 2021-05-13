@@ -14,8 +14,13 @@ from games.trivia_quiz._game import Game
 
 logger = logging.getLogger(__name__)
 
-with open(ROOT + "games\\trivia_quiz\\utils\\trivia_quiz.json", encoding="utf8") as json_data:
-    QUESTIONS = json.load(json_data)
+try:
+    with open(ROOT + "games\\trivia_quiz\\utils\\trivia_quiz.json", encoding="utf8") as json_data:
+        QUESTIONS = json.load(json_data)
+except:
+    with open(ROOT + "games/trivia_quiz/utils/trivia_quiz.json", encoding="utf8") as json_data:
+        QUESTIONS = json.load(json_data)
+
 
 
 

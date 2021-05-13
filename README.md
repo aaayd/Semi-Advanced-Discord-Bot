@@ -30,6 +30,7 @@ Welcome Card Example
 - Pillow 
 - pymongo
 - aiodns
+- fuzzywuzzy
 
 # Installation 
 1. Open CMD in the same location as the bot root folder
@@ -43,7 +44,8 @@ Alternatively, install the libraries manually:
 ```py
 # pip install discordpy 
 # pip install Pillow
-# pip install pymongo 
+# pip install pymongo
+# pip install fuzzywuzzy 
 # pip install aiodns
 ```
 
