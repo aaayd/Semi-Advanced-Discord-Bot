@@ -401,3 +401,59 @@ def _init_mongo_bool(cluster, _id, bool = True):
                 "bool": bool
             })
 
+class Emojis:
+    cross_mark = "\u274C"
+    star = "\u2B50"
+    christmas_tree = "\U0001F384"
+    check = "\u2611"
+    envelope = "\U0001F4E8"
+    trashcan = os.environ.get("TRASHCAN_EMOJI", "<:trashcan:637136429717389331>")
+    ok_hand = ":ok_hand:"
+    hand_raised = "\U0001f64b"
+
+    dice_1 = "<:dice_1:755891608859443290>"
+    dice_2 = "<:dice_2:755891608741740635>"
+    dice_3 = "<:dice_3:755891608251138158>"
+    dice_4 = "<:dice_4:755891607882039327>"
+    dice_5 = "<:dice_5:755891608091885627>"
+    dice_6 = "<:dice_6:755891607680843838>"
+
+    issue = "<:IssueOpen:629695470327037963>"
+    issue_closed = "<:IssueClosed:629695470570307614>"
+    pull_request = "<:PROpen:629695470175780875>"
+    pull_request_closed = "<:PRClosed:629695470519713818>"
+    pull_request_draft = "<:PRDraft:829755345425399848>"
+    merge = "<:PRMerged:629695470570176522>"
+
+    number_emojis = {
+        1: "\u0031\ufe0f\u20e3",
+        2: "\u0032\ufe0f\u20e3",
+        3: "\u0033\ufe0f\u20e3",
+        4: "\u0034\ufe0f\u20e3",
+        5: "\u0035\ufe0f\u20e3",
+        6: "\u0036\ufe0f\u20e3",
+        7: "\u0037\ufe0f\u20e3",
+        8: "\u0038\ufe0f\u20e3",
+        9: "\u0039\ufe0f\u20e3"
+    }
+
+    confirmation = "\u2705"
+    decline = "\u274c"
+    incident_unactioned = "<:incident_unactioned:719645583245180960>"
+
+    x = "\U0001f1fd"
+    o = "\U0001f1f4"
+
+    status_online = "<:status_online:470326272351010816>"
+    status_idle = "<:status_idle:470326266625785866>"
+    status_dnd = "<:status_dnd:470326272082313216>"
+    status_offline = "<:status_offline:470326266537705472>"
+
+    # Reddit emojis
+    reddit = "<:reddit:676030265734332427>"
+    reddit_post_text = "<:reddit_post_text:676030265910493204>"
+    reddit_post_video = "<:reddit_post_video:676030265839190047>"
+    reddit_post_photo = "<:reddit_post_photo:676030265734201344>"
+    reddit_upvote = "<:reddit_upvote:755845219890757644>"
+    reddit_comments = "<:reddit_comments:755845255001014384>"
+    reddit_users = "<:reddit_users:755845303822974997>"

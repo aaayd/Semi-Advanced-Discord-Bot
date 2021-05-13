@@ -33,7 +33,7 @@ class TriviaQuiz(commands.Cog):
         self.wiki_questions: t.List = []
         self.games: t.Dict = {}
         self.HTTP_SESSION = ClientSession(
-            connector=TCPConnector(resolver=AsyncResolver(), family=socket.AF_INET)
+            connector=TCPConnector(resolver=AsyncResolver(), family=socket.AF_INET6)
         )
 
 
