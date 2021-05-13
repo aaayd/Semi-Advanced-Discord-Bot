@@ -61,13 +61,13 @@ async def update(ctx, cogs = COGS):
             except:
                 print(f"{cog} failed to load" )
 
-@commands.has_role("Developer")
+@client.command()
 @commands.is_owner()
 async def restart(ctx):
     await ctx.message.delete()
     print (f"{Fore.BLUE}[-]{Style.RESET_ALL} Attempting bot restart")
     os.execv(sys.executable, ['python'] + sys.argv)
-    
+
 
 for key, cogs in COGS.items():
     for cog in cogs:
