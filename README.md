@@ -52,11 +52,7 @@ Alternatively, install the libraries manually:
 3. Set `TOKEN` to your bot token 
 4. Save `protected_vars.env`
 5. Run `main.py`
-6. Change your default General and Logs channel 
+6. Change your default `general` and `logs` channel 
 
 - Change Default Channels Example: <br>
-<<<<<<< HEAD
 ![image_example](https://cdn.discordapp.com/attachments/833503537479942155/842426219093688320/unknown.png)
-=======
-![image_example](https://cdn.discordapp.com/attachments/833503537479942155/842426219093688320/unknown.png)
->>>>>>> f5a1f3dcc8aea696a355986a80a7255568d9f475
