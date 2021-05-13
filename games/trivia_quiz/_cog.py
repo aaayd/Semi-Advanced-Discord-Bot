@@ -32,10 +32,7 @@ class TriviaQuiz(commands.Cog):
         # Dict to store questions got through wikipedia API
         self.wiki_questions: t.List = []
         self.games: t.Dict = {}
-        self.HTTP_SESSION = ClientSession(
-            connector=TCPConnector(resolver=AsyncResolver(), family=socket.AF_INET6)
-        )
-
+        self.HTTP_SESSION = ClientSession(trust_env=True)
 
         self.get_wiki_questions.start()
 

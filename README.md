@@ -46,7 +46,7 @@ Alternatively, install the libraries manually:
 # pip install Pillow
 # pip install pymongo
 # pip install fuzzywuzzy 
-# pip install aiodns
+# pip install emoji
 ```
 
 

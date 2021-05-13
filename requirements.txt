@@ -1,4 +1,4 @@
 discordpy
 Pillow
 pymongo
-aiodns
+emoji
