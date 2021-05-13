@@ -25,6 +25,14 @@ class ExpectedLiteralInt(commands.CommandError):
     def __str__(self):
         return "Expected `number`, not `word`"
 
+class NotInDatabase(commands.CommandError):
+    def __init__(self, member, database):
+        self.member = member
+        self.database = database
+
+    def __str__(self):
+        return f"{self.member.mention} is not in the `{self.database}` database"
+
 class RoleNotFound(commands.CommandError):
     def __init__(self, role : str):
         self.role = role

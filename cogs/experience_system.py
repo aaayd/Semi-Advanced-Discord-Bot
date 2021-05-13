@@ -1,5 +1,4 @@
-from numpy import place
-from utils.error_handler import ExpectedLiteralInt, MissingArgument, embed_error, embed_success
+from utils.error_handler import ExpectedLiteralInt, MissingArgument, NotInDatabase, embed_error, embed_success
 from utils.constants import IMAGE_PATH, get_channel_id, get_cluster, get_command_description, get_level, get_rank
 from cogs.image_manipulation import create_rank_card
 import discord, os
@@ -43,8 +42,7 @@ class ExperienceSystem(commands.Cog):
         })
 
         if stats is None:
-            await ctx.send("This user has no XP")
-            return
+            raise NotInDatabase(member, "experience")
 
         xp = stats["xp"]
         lvl = get_level(xp)
@@ -89,12 +87,16 @@ class ExperienceSystem(commands.Cog):
             if (i + 1) == placement:
                 stats = stat
                 break
-
-        xp = stats["xp"]
-        lvl = get_level(xp)
-        xp -= ((50*((lvl-1)**2))+(50*(lvl-1)))
-        rank = placement
-        member = discord.utils.get(self.client.get_all_members(), id=stats["id"])
+        
+        try:
+            xp = stats["xp"]
+            lvl = get_level(xp)
+            xp -= ((50*((lvl-1)**2))+(50*(lvl-1)))
+            rank = placement
+            member = discord.utils.get(self.client.get_all_members(), id=stats["id"])
+        except:
+            await ctx.send(embed=embed_error(f"Member in place `{placement}` has no XP"))
+            return
 
         try:
             colour = (stats["colour"][0],stats["colour"][1],stats["colour"][2])
@@ -109,10 +111,6 @@ class ExperienceSystem(commands.Cog):
         
         create_rank_card(member, xp, lvl, rank, background, colour, ctx.guild.member_count)
         await ctx.send(file=discord.File(os.path.join(f"{IMAGE_PATH}//temp//","card_temp.png")))
-
-    @_leaderboard.error
-    async def _leaderboard_handler(self, ctx, error):
-        await ctx.send(embed=embed_error("That user has no XP!"))
 
     @commands.Cog.listener()
     async def on_message(self, message):
