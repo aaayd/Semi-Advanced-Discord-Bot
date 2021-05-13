@@ -109,8 +109,11 @@ class ExperienceSystem(commands.Cog):
             background = "https://media.discordapp.net/attachments/665771066085474346/821993295310749716/statementofsolidarity.jpg?width=1617&height=910"
     
         
-        create_rank_card(member, xp, lvl, rank, background, colour, ctx.guild.member_count)
-        await ctx.send(file=discord.File(os.path.join(f"{IMAGE_PATH}//temp//","card_temp.png")))
+        try:
+            create_rank_card(member, xp, lvl, rank, background, colour, ctx.guild.member_count)
+            await ctx.send(file=discord.File(os.path.join(f"{IMAGE_PATH}//temp//","card_temp.png")))
+        except:
+            await ctx.send(embed=embed_error("That user is no longer in the server"))
 
     @commands.Cog.listener()
     async def on_message(self, message):
