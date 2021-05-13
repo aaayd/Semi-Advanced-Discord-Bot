@@ -14,8 +14,6 @@ import requests
 from main import client
 from utils.pagination import LinePaginator
 
-log = logging.getLogger(__name__)
-
 SEARCH_API = (
     "https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&"
     "format=json&origin=*&srlimit={number_of_results}&srsearch={string}"
@@ -70,7 +68,6 @@ class WikipediaSearch(commands.Cog):
                     )
                     return
             else:
-                log.info(f"Unexpected response `{resp.status}` while searching wikipedia for `{search}`")
                 await channel.send(
                     "Whoops, the Wikipedia API is having some issues right now. Try again later."
                 )
