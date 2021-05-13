@@ -77,6 +77,8 @@ class TriviaQuiz(commands.Cog):
         Questions for the quiz can be selected from the following categories:
         - general : Test your general knowledge. (default)
         - wikipedia : Test your wikipedia knowledge
+        - math : Test your math knowledge
+        - science : Test your science knowledge
         """
         # If a game is already running in the channel
         if ctx.channel.id in self.games:

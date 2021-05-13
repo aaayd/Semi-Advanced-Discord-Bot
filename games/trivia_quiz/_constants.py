@@ -14,9 +14,11 @@ WINNER_RESPONSE = (
 
 
 CATEGORIES = {
-    "general": "Test your general knowledge",
-    "wikipedia": "Guess the title of random wikipedia passages."
-    # "retro": "Questions related to retro gaming."
+    "general" : "Test your general knowledge",
+    "wikipedia" : "Guess the title of random wikipedia passages.",
+    "math" : "Test your knowledge on maths",
+    "science" : "Test your scientific knowledge",
+    "retro" : "Questions related to retro gaming."
 }
 RULES = (
     "No cheating and have fun!",
