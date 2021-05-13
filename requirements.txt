@@ -1,3 +1,4 @@
 discordpy
 Pillow
 pymongo
+aiodns

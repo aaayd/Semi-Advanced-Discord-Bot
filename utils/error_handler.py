@@ -29,6 +29,7 @@ class NotInDatabase(commands.CommandError):
     def __init__(self, member, database):
         self.member = member
         self.database = database
+        
 
     def __str__(self):
         return f"{self.member.mention} is not in the `{self.database}` database"

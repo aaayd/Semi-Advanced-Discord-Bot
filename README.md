@@ -29,6 +29,7 @@ Welcome Card Example
 - discordpy 
 - Pillow 
 - pymongo
+- aiodns
 
 # Installation 
 1. Open CMD in the same location as the bot root folder
@@ -43,6 +44,7 @@ Alternatively, install the libraries manually:
 # pip install discordpy 
 # pip install Pillow
 # pip install pymongo 
+# pip install aiodns
 ```
 
 

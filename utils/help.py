@@ -23,6 +23,7 @@ class Help(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+
     @commands.command()
     # @commands.bot_has_permissions(add_reactions=True,embed_links=True)
     async def help(self, ctx, *input):

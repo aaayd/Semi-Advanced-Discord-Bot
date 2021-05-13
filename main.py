@@ -24,6 +24,10 @@ COGS = {
     
     "utils" : [
         "error_handler", "utility_commands", "help"
+    ],
+
+    "games" : [
+        "trivia_quiz._cog"
     ]
 }
 
