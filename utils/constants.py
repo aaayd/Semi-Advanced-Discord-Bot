@@ -2,6 +2,7 @@
 from datetime import datetime
 from main import ROOT, CLUSTER, client
 import os, re, requests
+from PIL import ImageFont
 
 # Variables 
 
@@ -11,6 +12,7 @@ ALL_GUILD_DATABASES = dict(
 
 IMAGE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'image_processing')
 COMMAND_IS_VALID_REGEX = "[a-zA-Z_]+"
+UNI_SANS_40 = ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 40)
 
 CLUSTERS = {
     "CLUSTER_EXPERIENCE" : "leveling",

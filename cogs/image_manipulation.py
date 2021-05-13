@@ -1,10 +1,12 @@
 import discord, requests, os, random
 import numpy as np
-from PIL import ImageColor, UnidentifiedImageError
+import time
+
+from PIL import ImageColor
 from discord.ext import commands
 from PIL import Image, ImageFont, ImageDraw, ImageChops
 from requests.models import InvalidURL
-from utils.constants import IMAGE_PATH, get_channel_id, get_command_description, get_level, get_rank, query_valid_url, get_cluster
+from utils.constants import IMAGE_PATH, UNI_SANS_40, get_channel_id, get_command_description, get_level, get_rank, query_valid_url, get_cluster
 from utils.error_handler import embed_error, MissingArgument
 
 
@@ -24,21 +26,27 @@ def change_white(image, colour):
     data[..., :-1][white_areas.T] = colour 
     return Image.fromarray(data)
 
+
 def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour, member_count):
+    start_time = time.time()
     try:
         card = Image.open(requests.get(background, stream=True).raw).convert("RGBA")
     except:
         background = "https://media.discordapp.net/attachments/665771066085474346/821993295310749716/statementofsolidarity.jpg?width=1617&height=910"
         card = Image.open(requests.get(background, stream=True).raw).convert("RGBA")
 
-    avatar_img = Image.open(requests.get(member.avatar_url_as(size=1024), stream=True).raw).convert("RGBA")
+    avatar_img = Image.open(requests.get(member.avatar_url_as(size=512), stream=True).raw).convert("RGBA")
     empty = Image.open(os.path.join(f"{IMAGE_PATH}//rank//","empty_png.png")).convert("RGBA")
 
     next_level = int(200*((1/2)*lvl))
 
+    print(time.time()-start_time)
+    start_time = time.time()
     '''RESIZE IMAGE'''
     card = card.resize((1260,420))
 
+    print(time.time()-start_time)
+    start_time = time.time()
     '''PASTE TRANSPARENCY'''
     empty = empty.resize((1260, 420))
     card.paste(empty, ((0,0)), empty)
@@ -47,14 +55,16 @@ def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour,
     
 
     draw = ImageDraw.Draw(card)
-
+    print(time.time()-start_time)
+    start_time = time.time()
     '''PASTE AVATAR'''
     avatar_img = avatar_img.resize((222,222))
     avatar_img = round_image(avatar_img)
     card.paste(avatar_img, ((84,91)), avatar_img)
     
     # Paste avatar image
-
+    print(time.time()-start_time)
+    start_time = time.time()
     '''DRAW USER STATUS'''
     start = Image.open(os.path.join(f"{IMAGE_PATH}//rank//","activity_circle.png")).convert("RGBA")
     start = change_white(start, (0,0,0))
@@ -83,22 +93,23 @@ def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour,
     if str(member.status) == "dnd" or str(member.status) == "idle":
         card.paste(special, unique_coord, special)
 
+    print(time.time()-start_time)
+
+    start_time = time.time()
     '''DRAW TEXT'''
-    draw.text((340,128), f"{member.name}", font=ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 40), fill=colour)
-    _w, h = draw.textsize(f"{member.name}", ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 40))
+    draw.text((340,128), f"{member.name}", font=UNI_SANS_40, fill=colour)
+    _w, h = draw.textsize(f"{member.name}", UNI_SANS_40)
     # Get width of text 
-    draw.text((340 + _w + 3,128), f"#{member.discriminator}", font=ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 40), fill=(81,81,81))
+    draw.text((340 + _w + 3,128), f"#{member.discriminator}", font=UNI_SANS_40, fill=(81,81,81))
     # Put #2431 using width of text
     
-    draw.text((340,219), f"{xp}", font=ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 40), fill=colour)
-    w, h = draw.textsize(f"{xp}", ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 40))
-    draw.text((340+w+3, 219), f"/ {next_level} XP", font=ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 40), fill=(81,81,81))
+    draw.text((340,219), f"{xp}", font=UNI_SANS_40, fill=colour)
+    w, h = draw.textsize(f"{xp}", UNI_SANS_40)
+    draw.text((340+w+3, 219), f"/ {next_level} XP", font=UNI_SANS_40, fill=(81,81,81))
     # Place XP text
 
-            
-    #draw.text((1016,58), f"{rank}", font=ImageFont.truetype(os.path.join(f"{path}//font//","uni-sans-light.ttf"), 40), fill=colour)
     while True:
-        w, h = draw.textsize(f"#{rank} / {member_count}", ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 40))
+        w, h = draw.textsize(f"#{rank} / {member_count}", UNI_SANS_40)
         border = 1181
 
         if (w + 1016) > border:
@@ -108,14 +119,15 @@ def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour,
         difference = 0
         break
     
-    draw.text((1016 - difference,58), f"#{rank}", font=ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 40), fill=colour)
-    w, h = draw.textsize(f"#{rank}", ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 40))
-    draw.text(((1016+w+3) - difference, 58), f" / {member_count}", font=ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 40), fill=(81,81,81))
+    draw.text((1016 - difference,58), f"#{rank}", font=UNI_SANS_40, fill=colour)
+    w, h = draw.textsize(f"#{rank}", UNI_SANS_40)
+    draw.text(((1016+w+3) - difference, 58), f" / {member_count}", font=UNI_SANS_40, fill=(81,81,81))
     # Place RANK text
 
-    draw.text((694,219), f"Level: {lvl}", font=ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 40), fill=colour)
+    draw.text((694,219), f"Level: {lvl}", font=UNI_SANS_40, fill=colour)
     # Place LVL text
-
+    print(time.time()-start_time)
+    start_time = time.time()
     '''DRAW XP BAR'''
     start = Image.open(os.path.join(f"{IMAGE_PATH}//rank//","half_circle.png")).convert("RGBA")
     start = change_white(start, colour)
@@ -138,6 +150,7 @@ def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour,
 
 
     card.save(os.path.join(f"{IMAGE_PATH}//temp//","card_temp.png"))
+    print(time.time()-start_time)
 
 class ImageManipulation(commands.Cog):
     """
