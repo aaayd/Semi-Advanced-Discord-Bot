@@ -56,6 +56,9 @@ class Logger(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_delete(self, message):
+        if message.content == "":
+            return
+
         async for entry in message.guild.audit_logs(action=discord.AuditLogAction.message_delete, limit=1):
             now = datetime.utcnow()
 
