@@ -2,7 +2,7 @@
 from datetime import datetime
 from main import ROOT, CLUSTER, client
 import os, re, requests
-from PIL import ImageFont
+from PIL import ImageFont, Image
 
 # Variables 
 
@@ -16,7 +16,16 @@ UNI_SANS_40 = ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-
 UNI_SANS_55 = ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 55)
 UNI_SANS_70 = ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 70)
 
+# Rank Card Vars
+DEFAULT_RANK_CARD_BACKGROUND = Image.open(requests.get("https://media.discordapp.net/attachments/665771066085474346/821993295310749716/statementofsolidarity.jpg?width=1617&height=910", stream=True).raw).convert("RGBA")
+ALPHA_PLATE = Image.open(os.path.join(f"{IMAGE_PATH}//rank//","empty_png.png")).convert("RGBA")
 
+ACTIVITY_BASE = Image.open(os.path.join(f"{IMAGE_PATH}//rank//","activity_circle.png")).convert("RGBA")
+ACTIVITY_CIRCLE = Image.open(os.path.join(f"{IMAGE_PATH}//rank//","activity_circle_inner.png")).convert("RGBA")
+ACTIVITY_IDLE = Image.open(os.path.join(f"{IMAGE_PATH}//rank//","activity_circle_eclipse.png")).convert("RGBA")
+ACTIVITY_DND = Image.open(os.path.join(f"{IMAGE_PATH}//rank//","activity_circle_dnd.png")).convert("RGBA")
+
+HALF_CIRCLE = Image.open(os.path.join(f"{IMAGE_PATH}//rank//","half_circle.png")).convert("RGBA")
 CLUSTERS = {
     "CLUSTER_EXPERIENCE" : "leveling",
     "CLUSTER_RATELIMIT" : "xp_rate_limit",

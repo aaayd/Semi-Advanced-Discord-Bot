@@ -6,7 +6,7 @@ from PIL import ImageColor
 from discord.ext import commands
 from PIL import Image, ImageFont, ImageDraw, ImageChops
 from requests.models import InvalidURL
-from utils.constants import IMAGE_PATH, UNI_SANS_40, get_channel_id, get_command_description, get_level, get_rank, query_valid_url, get_cluster
+from utils.constants import ACTIVITY_BASE, ACTIVITY_CIRCLE, ACTIVITY_DND, ACTIVITY_IDLE, ALPHA_PLATE, DEFAULT_RANK_CARD_BACKGROUND, HALF_CIRCLE, IMAGE_PATH, UNI_SANS_40, get_channel_id, get_command_description, get_level, get_rank, query_valid_url, get_cluster
 from utils.error_handler import embed_error, MissingArgument
 
 
@@ -32,11 +32,10 @@ def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour,
     try:
         card = Image.open(requests.get(background, stream=True).raw).convert("RGBA")
     except:
-        background = "https://media.discordapp.net/attachments/665771066085474346/821993295310749716/statementofsolidarity.jpg?width=1617&height=910"
-        card = Image.open(requests.get(background, stream=True).raw).convert("RGBA")
+        card = DEFAULT_RANK_CARD_BACKGROUND
 
     avatar_img = Image.open(requests.get(member.avatar_url_as(size=512), stream=True).raw).convert("RGBA")
-    empty = Image.open(os.path.join(f"{IMAGE_PATH}//rank//","empty_png.png")).convert("RGBA")
+    empty = ALPHA_PLATE
 
     next_level = int(200*((1/2)*lvl))
     
@@ -65,7 +64,7 @@ def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour,
     
     
     '''DRAW USER STATUS'''
-    start = Image.open(os.path.join(f"{IMAGE_PATH}//rank//","activity_circle.png")).convert("RGBA")
+    start = ACTIVITY_BASE
     start = change_white(start, (0,0,0))
     card.paste(start, (244, 248), start)
 
@@ -75,17 +74,16 @@ def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour,
     elif str(member.status) == "idle":
         fill_colour = (237, 126, 27)
         unique_coord = (247, 252)
-        special = Image.open(os.path.join(f"{IMAGE_PATH}//rank//","activity_circle_eclipse.png")).convert("RGBA")
+        special = ACTIVITY_IDLE
 
     elif str(member.status) == "dnd":
         fill_colour = (174, 27, 27)
         unique_coord = (255, 277)
-        special = Image.open(os.path.join(f"{IMAGE_PATH}//rank//","activity_circle_dnd.png")).convert("RGBA")
-
+        special = ACTIVITY_DND
     else:
         fill_colour = (81,81,81)
 
-    start = Image.open(os.path.join(f"{IMAGE_PATH}//rank//","activity_circle_inner.png")).convert("RGBA")
+    start = ACTIVITY_CIRCLE
     start = change_white(start, fill_colour)
     card.paste(start, (247, 251), start)
 
@@ -128,7 +126,7 @@ def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour,
     
     
     '''DRAW XP BAR'''
-    start = Image.open(os.path.join(f"{IMAGE_PATH}//rank//","half_circle.png")).convert("RGBA")
+    start = HALF_CIRCLE
     start = change_white(start, colour)
 
     card.paste(start, (334, 263), start)
