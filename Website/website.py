@@ -45,24 +45,14 @@ async def dashboard():
 		return redirect(url_for("login")) 
 
 	guild_count = await ipc_client.request("get_guild_count")
-
 	user_guilds = await discord.fetch_guilds()
 	
-
-	guilds = []
-
-	for guild in user_guilds:
-		if guild.permissions.administrator:			
-			guilds.append(guild)
+	guilds = [guild for guild in user_guilds if guild.permissions.administrator]
 
 	member = await discord.fetch_user()
 
-	name = member.username
-	discriminator = member.discriminator
-	av = member.avatar_url
-
 	return await render_template(
-		"dashboard.html", guild_count = guild_count, guilds = guilds, username=name, discriminator=discriminator, av_url=av
+		"dashboard.html", guild_count = guild_count, guilds = guilds, member=member
 		)
 
 @app.route("/dashboard/<int:guild_id>")
