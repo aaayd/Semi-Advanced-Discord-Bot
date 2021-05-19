@@ -7,6 +7,33 @@ from discord.flags import Intents
 from colorama import Fore, Style
 from pymongo import MongoClient
 
+#TODO  - Load cog
+class Bot(commands.Bot):
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+
+        self.COGS = {
+            "cogs" : [
+                "afk","audio","experience_system",
+                "fun","image_manipulation","image","misc", 
+                "logger", "moderation", "sticky_roles"
+            ],
+            
+            "utils" : [
+                "error_handler", "utility_commands", "help"
+            ],
+
+
+            "games" : [
+                "trivia_quiz._cog", "connect_4", "battle_ships"
+            ]
+        }
+
+    async def on_ready(self):
+        print(f"{Fore.GREEN}[!]{Style.RESET_ALL} Bot is ready!")
+        await client.change_presence(activity=Game(name=f"?help"))
+
+
 from re import compile
 with open('protected_vars.env') as ins:
     result = {}
@@ -14,34 +41,13 @@ with open('protected_vars.env') as ins:
         match = compile(r'''^([^\s=]+)=(?:[\s"']*)(.+?)(?:[\s"']*)$''').match(line)
         if match is not None:
             result[match.group(1)] = match.group(2)
-            
-COGS = {
-    "cogs" : [
-        "afk","audio","experience_system",
-        "fun","image_manipulation","image","misc", 
-        "logger", "moderation", "sticky_roles"
-    ],
-    
-    "utils" : [
-        "error_handler", "utility_commands", "help"
-    ],
-
-
-    "games" : [
-        "trivia_quiz._cog", "connect_4", "battle_ships"
-    ]
-}
 
 ROOT = str(__file__)[:-len("main.py")]
-CLUSTER = MongoClient(result["SRV_URL"]) #mongodb+srv://<username>:<password>@<host>
+CLUSTER = MongoClient(result["SRV_URL"])
 
-client = commands.Bot(command_prefix = ['?', '!'], intents = Intents.all(), case_insensitive=True)
+client = Bot(command_prefix = ['?', '!'], intents = Intents.all(), case_insensitive=True)
 client.remove_command('help')
 
-@client.event
-async def on_ready():
-    print(f"{Fore.GREEN}[!]{Style.RESET_ALL} Bot is ready!")
-    await client.change_presence(activity=Game(name=f"?help"))
 
 @client.command()
 @commands.is_owner()
@@ -50,21 +56,21 @@ async def load(ctx, folder, cog):
     await ctx.send(f"Enabled Cog: {cog}")
 
     print(f"{Fore.GREEN}[ENABLED cog]{Style.RESET_ALL}: {cog}.py")
-        
+
 @client.command()
 @commands.is_owner()
 async def unload(ctx, folder, cog):
     client.unload_extension(f'{folder}.{cog}')
-    await ctx.send(f"UNLOADED cog: {cog}")
+    await ctx.send(f"Disabled Cog: {cog}")
 
-    print(f"{Fore.RED}[DISABLED cog]{Style.RESET_ALL}: {cog}.py")
+    print(f"{Fore.GREEN}[DISABLED cog]{Style.RESET_ALL}: {cog}.py")
 
 @client.command()
 @commands.is_owner()
-async def update(ctx, cogs = COGS):
+async def update(ctx):
     await ctx.message.delete()
 
-    for key, cogs in cogs.items():
+    for key, cogs in client.COGS.items():
         for cog in cogs:
             client.unload_extension(f'{key}.{cog}')
             try:
@@ -81,7 +87,8 @@ async def restart(ctx):
     os.execv(sys.executable, ['python'] + sys.argv)
 
 
-for key, cogs in COGS.items():
+for key, cogs in client.COGS.items():
     for cog in cogs:
         client.load_extension(f'{key}.{cog}')
+
 client.run(result["TOKEN"])
