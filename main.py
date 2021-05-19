@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import os, os.path, sys
+import os, os.path, sys, subprocess
 from discord.ext import commands, ipc
 from discord import Intents, Game
 from colorama import Fore, Style
@@ -37,6 +37,8 @@ class Bot(commands.Bot):
         
     async def on_ipc_ready(self):
         print(f"{Fore.GREEN}[!]{Style.RESET_ALL} IPC Server is ready!")
+        subprocess.Popen('python Website/website.py')
+
         
     async def on_ipc_error(self, endpoint, error):
         print(endpoint, "raised", error)
