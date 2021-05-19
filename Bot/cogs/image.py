@@ -1,6 +1,6 @@
-import requests, discord
-from utils.constants import get_command_description
-from utils.error_handler import MissingArgument
+import requests
+from Bot.utils.constants import get_command_description
+from Bot.utils.error_handler import MissingArgument
 from discord.ext import commands
 from discord import Embed
 from animals import Animals

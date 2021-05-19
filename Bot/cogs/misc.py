@@ -1,10 +1,10 @@
 from discord.errors import Forbidden
-from utils.error_handler import MissingArgument, MissingPermissionOnMember, RoleNotFound, embed_success
+from Bot.utils.error_handler import MissingArgument, MissingPermissionOnMember, RoleNotFound, embed_success
 import discord, praw
 from discord.ext import commands
 from datetime import datetime
 from main import CLUSTER
-from utils.constants import  COLOUR_ROLES_DICT, get_channel_id, get_command_description
+from Bot.utils.constants import  COLOUR_ROLES_DICT, get_channel_id, get_command_description
 
 r = praw.Reddit(client_id="7oE7yB5GJJua2Q", client_secret="ooidPB-ETJxbRflpja6a65KX03g", user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36', username="PhantomVipermon", check_for_async=False)
 last_check = datetime.utcnow

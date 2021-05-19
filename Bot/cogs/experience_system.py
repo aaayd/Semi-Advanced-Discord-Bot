@@ -1,6 +1,6 @@
-from utils.error_handler import ExpectedLiteralInt, MissingArgument, NotInDatabase, embed_error, embed_success
-from utils.constants import IMAGE_PATH, get_channel_id, get_cluster, get_command_description, get_level, get_rank
-from cogs.image_manipulation import create_rank_card
+from Bot.utils.error_handler import ExpectedLiteralInt, MissingArgument, NotInDatabase, embed_error, embed_success
+from Bot.utils.constants import IMAGE_PATH, get_channel_id, get_cluster, get_command_description, get_level, get_rank
+from Bot.cogs.image_manipulation import create_rank_card
 import discord, os
 from discord.ext import commands
 

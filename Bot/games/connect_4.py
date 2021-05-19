@@ -9,7 +9,7 @@ from discord.ext.commands import guild_only
 
 import emojis
 
-from utils.constants import Emojis
+from Bot.utils.constants import Emojis
 
 NUMBERS = list(Emojis.number_emojis.values())
 CROSS_EMOJI = Emojis.x

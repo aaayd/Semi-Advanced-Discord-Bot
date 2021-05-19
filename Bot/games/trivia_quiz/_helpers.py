@@ -1,6 +1,6 @@
 import discord
 
-from games.trivia_quiz import _constants
+from Bot.games.trivia_quiz import _constants
 
 __all__ = (
     'category_embed',

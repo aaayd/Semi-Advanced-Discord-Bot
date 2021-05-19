@@ -4,21 +4,20 @@ import random
 import typing as t
 
 from discord.ext import commands, tasks
-from aiohttp import AsyncResolver, ClientSession, TCPConnector
-import socket
+from aiohttp import ClientSession
 
 from main import ROOT, client
-from games.trivia_quiz import _constants
-from games.trivia_quiz import _helpers
-from games.trivia_quiz._game import Game
+from Bot.games.trivia_quiz import _constants
+from Bot.games.trivia_quiz import _helpers
+from Bot.games.trivia_quiz._game import Game
 
 logger = logging.getLogger(__name__)
 
 try:
-    with open(ROOT + "games\\trivia_quiz\\utils\\trivia_quiz.json", encoding="utf8") as json_data:
+    with open("Bot\\games\\trivia_quiz\\utils\\trivia_quiz.json", encoding="utf8") as json_data:
         QUESTIONS = json.load(json_data)
 except:
-    with open(ROOT + "games/trivia_quiz/utils/trivia_quiz.json", encoding="utf8") as json_data:
+    with open("Bot\\games/trivia_quiz/utils/trivia_quiz.json", encoding="utf8") as json_data:
         QUESTIONS = json.load(json_data)
 
 

@@ -1,13 +1,12 @@
 import discord, requests, os, random
 import numpy as np
-import time
 
 from PIL import ImageColor
 from discord.ext import commands
 from PIL import Image, ImageFont, ImageDraw, ImageChops
 from requests.models import InvalidURL
-from utils.constants import IMAGE_PATH, UNI_SANS_40, get_channel_id, get_command_description, get_level, get_rank, query_valid_url, get_cluster
-from utils.error_handler import embed_error, MissingArgument
+from Bot.utils.constants import IMAGE_PATH, UNI_SANS_40, get_channel_id, get_command_description, get_level, get_rank, query_valid_url, get_cluster
+from Bot.utils.error_handler import embed_error, MissingArgument
 
 
 def round_image(image):

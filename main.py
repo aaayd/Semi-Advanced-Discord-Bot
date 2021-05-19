@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import os, os.path, sys
-from discord.ext import commands
+from discord.ext import commands, ipc
 from discord import Intents, Game
 from colorama import Fore, Style
 from discord.flags import Intents
@@ -11,6 +11,8 @@ from pymongo import MongoClient
 class Bot(commands.Bot):
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
+
+        self.ipc = ipc.Server(self,secret_key = "Swas")
 
         self.COGS = {
             "cogs" : [
@@ -32,6 +34,13 @@ class Bot(commands.Bot):
     async def on_ready(self):
         print(f"{Fore.GREEN}[!]{Style.RESET_ALL} Bot is ready!")
         await client.change_presence(activity=Game(name=f"?help"))
+        
+    async def on_ipc_ready(self):
+        print(f"{Fore.GREEN}[!]{Style.RESET_ALL} IPC Server is ready!")
+        
+    async def on_ipc_error(self, endpoint, error):
+        print(endpoint, "raised", error)
+
 
 
 from re import compile
@@ -52,7 +61,7 @@ client.remove_command('help')
 @client.command()
 @commands.is_owner()
 async def load(ctx, folder, cog):
-    client.load_extension(f'{folder}.{cog}')
+    client.load_extension(f'Bot.{folder}.{cog}')
     await ctx.send(f"Enabled Cog: {cog}")
 
     print(f"{Fore.GREEN}[ENABLED cog]{Style.RESET_ALL}: {cog}.py")
@@ -60,7 +69,7 @@ async def load(ctx, folder, cog):
 @client.command()
 @commands.is_owner()
 async def unload(ctx, folder, cog):
-    client.unload_extension(f'{folder}.{cog}')
+    client.unload_extension(f'Bot.{folder}.{cog}')
     await ctx.send(f"Disabled Cog: {cog}")
 
     print(f"{Fore.GREEN}[DISABLED cog]{Style.RESET_ALL}: {cog}.py")
@@ -72,9 +81,9 @@ async def update(ctx):
 
     for key, cogs in client.COGS.items():
         for cog in cogs:
-            client.unload_extension(f'{key}.{cog}')
+            client.unload_extension(f'Bot.{key}.{cog}')
             try:
-                client.load_extension(f'{key}.{cog}')
+                client.load_extension(f'Bot.{key}.{cog}')
 
             except:
                 print(f"{cog} failed to load" )
@@ -87,8 +96,33 @@ async def restart(ctx):
     os.execv(sys.executable, ['python'] + sys.argv)
 
 
+@client.ipc.route()
+async def get_guild_count(data):
+	return len(client.guilds) # returns the len of the guilds to the client
+
+@client.ipc.route()
+async def get_guild_ids(data):
+	final = []
+	for guild in client.guilds:
+		final.append(guild.id)
+	return final # returns the guild ids to the client
+
+@client.ipc.route()
+async def get_guild(data):
+	guild = client.get_guild(data.guild_id)
+	if guild is None: return None
+
+	guild_data = {
+		"name": guild.name,
+		"id": guild.id,
+		"prefix" : "?"
+	}
+
+	return guild_data
+
 for key, cogs in client.COGS.items():
     for cog in cogs:
-        client.load_extension(f'{key}.{cog}')
+        client.load_extension(f'Bot.{key}.{cog}')
 
+client.ipc.start()
 client.run(result["TOKEN"])
