@@ -186,12 +186,5 @@ class Misc(commands.Cog):
         )
         await ctx.send(embed=embed)
     
-    """
-    @commands.command()
-    @commands.has_permissions(add_reactions=True,embed_links=True)
-    async def help(self,ctx, word = "None"):
-        # TODO
-        pass
-    """
 def setup(client):
     client.add_cog(Misc(client))
