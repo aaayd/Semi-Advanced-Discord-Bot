@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <title>Untitled Document</title>
+      <link rel="stylesheet" type="text/css" href="static/index.css" />
+      <link rel="stylesheet" type="text/css" href="static/bootstrap-4.4.1.css" />
+      <link rel="stylesheet" type="text/css" href="static/dashboard.css" />
+    </head>
+
+
+  <body>
+      <nav class="navbar navbar-expand-lg nav">
+          <a class="navbar-brand" href="#">Zen Bot</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                  <li class="nav-item">
+                      <a class="nav-link nav_text" href="#">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">Commands</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">Leaderboard</a>
+                  </li>
+              </ul>
+          </div>
+      </nav>
+      
+      <div class="container user">
+          <div class="user-avatar">
+              <img alt="Your discord avatar" class="av_image" src="{{av_url}}?size=128">
+          </div>
+          <div class="user-details">
+              <h3><span class="user-name">{{username}}</span><span class="discriminator">#{{discriminator}}</span></h3>
+              <h5><span class="subtitle">In</span> <span class="discriminator">{{guild_count}}</span><span class="subtitle"> guilds</span></h5>
+          </div>
+
+      </div>
+      
+      
+      <div class="container guild">
+        {% for guild in guilds %}
+            <div class="card" style="width: 12rem;">
+                <img class="card-img-top" src="{{guild.icon_url}}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title text_primary">{{guild.name}}</h5>
+                </div>
+            </div>   
+        {% endfor %}     
+        </div>
+
+  </body>
+</html>
