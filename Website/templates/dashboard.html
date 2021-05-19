@@ -45,7 +45,13 @@
       <div class="container guild">
         {% for guild in guilds %}
             <div class="card" style="width: 12rem;">
-                <img class="card-img-top" src="{{guild.icon_url}}" alt="Card image cap">
+
+                {% if guild.icon_url is not none %}
+                    <img class="card-img-top" src="{{guild.icon_url}}" alt="Card image cap">
+                {% else %}
+                    <img class="card-img-top" src="https://cdn.discordapp.com/attachments/833503537479942155/844650622342922310/Zeny_Bot_Gray.png" alt="Card image cap">
+                {% endif %}
+
                 <div class="card-body">
                     <h5 class="card-title text_primary">{{guild.name}}</h5>
                 </div>
