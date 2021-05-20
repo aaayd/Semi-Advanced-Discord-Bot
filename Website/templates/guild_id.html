@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en"><head>
+        <title>Sidebar 09</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" type="text/css" href="/static/guild.css" />
+        <link rel="stylesheet" type="text/css" href="/static/index.css" />
+        <link rel="stylesheet" type="text/css" href="/static/bootstrap-4.4.1.css" />
+  
+    </head>
+    <body style="background-color: #141617;">
+        <nav class="navbar navbar-expand-lg nav">
+            <a class="navbar-brand" href="#">Zen Bot</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link nav_text" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Commands</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Leaderboard</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="wrapper d-flex align-items-stretch">
+            <nav id="sidebar">
+                <div class="custom-menu">
+                </div>
+                <div class="img bg-wrap text-center py-4" style="background-image: url();">
+                    <div class="user-logo">
+                        <div class="img" style="background-image: url({{guild.icon_url}}?size=128);"></div>
+                        <h3>{{guild.name}}</h3>
+                    </div>
+                </div>
+                <ul class="list-unstyled components mb-5">
+                    <li class="active">
+                        <a href="#"><span class="fa fa-home mr-3"></span> Home</a>
+                    </li>
+                    <li>
+                        <a href="#"><span class="fa fa-gift mr-3"></span> Home</a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Page Content  -->
+            <div id="content" class="p-4 p-md-5 pt-5">
+            </div>
+        </div>
+    </body>
+</html>

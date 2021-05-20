@@ -19,7 +19,6 @@ app.config["DISCORD_CLIENT_SECRET"] = str(result["DISCORD_CLIENT_SECRET"])   # D
 app.config["DISCORD_REDIRECT_URI"] = str(result["DISCORD_REDIRECT_URI"])
 
 
-
 discord = DiscordOAuth2Session(app)
 
 @app.route("/")
@@ -49,10 +48,17 @@ async def dashboard():
 	
 	guilds = [guild for guild in user_guilds if guild.permissions.administrator]
 
-	member = await discord.fetch_user()
+	for guild in guilds:
+		guild_temp = await ipc_client.request("get_guild", guild_id = guild.id)
 
+		if guild_temp is None:
+			guild.in_server = False
+		else:
+			guild.in_server = True
+
+	member = await discord.fetch_user()
 	return await render_template(
-		"dashboard.html", guild_count = guild_count, guilds = guilds, member=member
+		"dashboard.html", guild_count = guild_count, guilds = guilds, member=member, join_url = f'https://discord.com/api/oauth2/authorize?client_id=813239350702637058&permissions=8&scope=bot'
 		)
 
 @app.route("/dashboard/<int:guild_id>")
@@ -61,10 +67,18 @@ async def dashboard_server(guild_id):
 		return redirect(url_for("login")) 
 
 	guild = await ipc_client.request("get_guild", guild_id = guild_id)
+
+	
 	if guild is None:
 		return redirect(f'https://discord.com/oauth2/authorize?&client_id={app.config["DISCORD_CLIENT_ID"]}&scope=bot&permissions=8&guild_id={guild_id}&response_type=code&redirect_uri={app.config["DISCORD_REDIRECT_URI"]}')
-	return guild["name"]
+	
+	guilds = await discord.fetch_guilds()
+	guild = [guild for guild in guilds if int(guild.id) == int(guild_id)][0]
+	print(guild)
+	return await render_template(
+		"guild_id.html", guild=guild
+	)
 
 
 if __name__ == "__main__":
-	app.run(debug=False)
+	app.run(debug=True)

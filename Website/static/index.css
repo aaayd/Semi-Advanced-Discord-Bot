@@ -1,10 +1,26 @@
 body {
-    background: #1f1f1f
-        
+    background-color: #141617;    
 }
 
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  border: 3px solid green;
+}
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+
 nav {
-    background: #2a2a2a 
+    background: #1b1d1f 
     
 }
 

@@ -9,7 +9,7 @@
     </head>
 
 
-  <body>
+  <body style="background-color: #141617;">
       <nav class="navbar navbar-expand-lg nav">
           <a class="navbar-brand" href="#">Zen Bot</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,22 +42,33 @@
       </div>
       
       
-      <div class="container guild">
+      <div class="container guilds">
         {% for guild in guilds %}
-            <div class="card" style="width: 12rem;">
-
-                {% if guild.icon_url is not none %}
-                    <img class="card-img-top" src="{{guild.icon_url}}" alt="Card image cap">
-                {% else %}
-                    <img class="card-img-top" src="https://cdn.discordapp.com/attachments/833503537479942155/844650622342922310/Zeny_Bot_Gray.png" alt="Card image cap">
-                {% endif %}
-
-                <div class="card-body">
-                    <h5 class="card-title text_primary">{{guild.name}}</h5>
+            <div class="row" style="height: 96px;">
+                <div class="col-sm-1">
+                    {% if guild.icon_url is not none %}
+                    <img class="vertical-center av_image" style="margin-left: 5px; width: 64px; height: 64px;" src="{{guild.icon_url}}" alt="Card image cap">
+                    {% else %}
+                    <img class="vertical-center av_image" style="margin-left: 5px; width: 64px; height: 64px;" src="https://cdn.discordapp.com/attachments/833503537479942155/844650622342922310/Zeny_Bot_Gray.png" alt="Card image cap">
+                    {% endif %}
                 </div>
-            </div>   
-        {% endfor %}     
+                
+                <div class="col-sm-9">
+                    <h5><span class="text_primary vertical-center">{{guild.name}}</span></h5>
+                </div>
+
+                
+                <div class="col-sm">
+                    {% if guild.in_server is true %}
+                        <a href="/dashboard/{{guild.id}}" class="btn btn-warning vertical-center float-right" role="button">Open Dashboard</a>
+                    {% else %}
+                        <a href="{{join_url}}" class="btn btn-dark vertical-center float-right" role="button">Invite to server</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}  
         </div>
+    </div>      
 
   </body>
 </html>
