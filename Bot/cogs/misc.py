@@ -16,9 +16,12 @@ class Misc(commands.Cog):
     def __init__(self, client):
         self.client = client
     
-    @commands.command(aliases=["st", "shower", "showerthought"])
+    @commands.command(name="showerthought", aliases=["st"])
     async def _get_shower_thought(self, ctx):
-        """Sends random shower thought from r/showerthoughts"""
+        """
+        Sends random shower thought from r/showerthoughts.
+        ?showerthought
+        """
 
         sub = r.subreddit('showerthoughts')
         sub = sub.random()
@@ -38,7 +41,10 @@ class Misc(commands.Cog):
 
     @commands.command()
     async def invites(self, ctx, member : discord.Member = None):
-        """Sends amount of invites [member] has"""
+        """
+        Sends amount of invites a member has.
+        ?invites [user]
+        """
 
         if member is None:
             member = ctx.author
@@ -49,7 +55,10 @@ class Misc(commands.Cog):
 
     @commands.command(aliases=['m'])
     async def mirror(self, ctx):        
-        """?mirror [message]"""
+        """
+        Repeats the message sent.
+        ?mirror [message]
+        """
         message = ctx.message.content
         message = message.partition(' ')[2]
         
@@ -67,7 +76,10 @@ class Misc(commands.Cog):
 
     @commands.command()
     async def serverinfo(self, ctx):
-        """Sends information about the server"""
+        """
+        Sends information about the server.
+        ?serverinfo
+        """
 
         embed = discord.Embed(
             title=str(ctx.guild.name) + " Server Information",
@@ -82,31 +94,13 @@ class Misc(commands.Cog):
         )
 
         await ctx.reply(embed=embed)
- 
-    '''
-    @commands.command()
-    async def confess(self, ctx, *, confession = None):
-        """?confess [confession]"""
-        if isinstance(ctx.channel, discord.channel.DMChannel) and CONFESSION_BOOL:
-
-            if confession is None:
-                raise MissingArgument("Confession", get_command_description("confess"))
-            channel = self.client.get_channel(int(CHANNEL_CONFESSION_ID))
-
-            embed=discord.Embed(
-                title=f"New Anonymous Confession!", 
-                description=confession
-            )
-
-            await channel.send(embed=embed)
-
-        elif isinstance(ctx.channel, discord.channel.DMChannel) and CONFESSION_BOOL == False:
-            await ctx.send("Confess is disabled due to misuse of the command.")
-    '''
-    
-    @commands.command(aliases=['color', 'colour', 'role'])
+     
+    @commands.command(name="colour", aliases=['color', 'role'])
     async def _colour(self, ctx, colour : str = None):
-        """?colour <colour>"""
+        """
+        Change colour role.
+        ?colour <colour>
+        """
 
         if colour is None:
             raise MissingArgument("Colour", get_command_description("_colour"))
@@ -134,14 +128,20 @@ class Misc(commands.Cog):
                 
     @commands.command()
     async def ping(self, ctx):
-        """Sends the ping of the bot"""
+        """
+        Sends the ping of the bot.
+        ?ping
+        """
 
         embed=discord.Embed(title=f"", description=f'Pong :ping_pong:    {round(self.client.latency * 1000)}ms!')
         await ctx.reply(embed=embed)
         
     @commands.command(aliases=["av"])
     async def avatar(self, ctx, member : discord.Member=None):
-        """Sends an avatar image / gif of [member]"""
+        """
+        Sends an avatar image / gif of a member.
+        ?avatar [user]
+        """
 
         if member == None:
             member = ctx.message.author    
@@ -167,7 +167,10 @@ class Misc(commands.Cog):
     
     @commands.command(aliases=["whois"])
     async def userinfo(self,ctx, member: discord.Member = None):
-        """Sends information about [member]"""
+        """
+        Sends information about a member.
+        ?userinfo [user]
+        """
 
         if not member:
             member = ctx.message.author

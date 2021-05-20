@@ -15,8 +15,9 @@ class UtilityCommands(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def defchannel(self, ctx, channel = None, new_channel : discord.TextChannel = None):
-        """?change_channel [channel] [new_channel]
-        You can use `general`    or `logs` as a channel parameter 
+        """
+        Changes default channel for selected channels.
+        ?defchannel [old-channel] #[new-channel]
         """
         
         if channel is None:

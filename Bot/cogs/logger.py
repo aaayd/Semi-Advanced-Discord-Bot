@@ -18,7 +18,10 @@ class Logger(commands.Cog):
     @commands.command()
     @commands.has_permissions(manage_messages=True)
     async def purge(self, ctx, amount):
-        '''?purge [amount]'''
+        """
+        Purge messages in a channel.
+        ?purge [amount]
+        """
      
         await ctx.channel.trigger_typing()
         if amount is None:
@@ -123,7 +126,10 @@ class Logger(commands.Cog):
     
     @commands.command()
     async def snipe(self, ctx):
-        """Sends most recent deleted messages by [member]"""
+        """
+        Sends most recent deleted messages by a member.
+        ?snipe
+        """
 
         if not deleted_messages:
             await ctx.send("Nothing to snipe!")
@@ -165,7 +171,10 @@ class Logger(commands.Cog):
 
     @commands.command()
     async def esnipe(self, ctx):
-        """Sends most recent edited messages by [member]"""
+        """
+        Sends most recent edited messages by a member.
+        ?esnipe
+        """
 
         try:
             before_edit = self.temp_message_edit_before

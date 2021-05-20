@@ -15,7 +15,10 @@ class AFKSystem(commands.Cog):
 
     @commands.command()
     async def afk(self, ctx, *, status="No status"):
-        """?afk [afk message]"""
+        """
+        Set AFK Status.
+        ?afk [afk message]
+        """
         
         await ctx.channel.trigger_typing()
         _db = get_cluster(ctx.message.guild.id, "CLUSTER_AFK")

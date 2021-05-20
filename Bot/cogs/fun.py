@@ -15,7 +15,11 @@ class Fun(commands.Cog):
 
     @commands.command()
     async def kiss(self, ctx, member: discord.Member = None):
-        '''?kiss [@user]'''
+        """
+        Send a random kiss gif a user.
+        ?kiss [user]
+        """
+
         if member is None:
             raise MissingArgument("Discord Member", get_command_description("kiss"))
 
@@ -28,7 +32,11 @@ class Fun(commands.Cog):
 
     @commands.command()
     async def punch(self, ctx, member: discord.Member = None):
-        '''?punch [@user]'''
+        """
+        Send a random punch gif to a user.
+        ?punch [user]
+        """
+
         if member is None:
             raise MissingArgument("Discord Member", get_command_description("kiss"))
 
@@ -41,7 +49,10 @@ class Fun(commands.Cog):
 
     @commands.command(aliases=["pat"])
     async def headpat(self, ctx, member : discord.Member = None):
-        '''?headpat [@user]'''
+        """
+        Send a random headpat gif to a user.
+        ?headpat [user]
+        """
         
         if member is None:
             raise MissingArgument("Discord Member", get_command_description("headpat"))
@@ -58,7 +69,10 @@ class Fun(commands.Cog):
 
     @commands.command()
     async def hug(self, ctx, member : discord.Member = None):
-        '''?hug [@user]'''
+        """
+        Send a random hug gif to a user.
+        ?hug [user]
+        """
         
         if member is None:
             raise MissingArgument("Discord Member", get_command_description("hug"))
@@ -76,7 +90,10 @@ class Fun(commands.Cog):
 
     @commands.command(aliases=["diceroll"])
     async def rolldice(self, ctx):
-        """Roll some die"""
+        """
+        Roll a dice.
+        ?rolldice
+        """
 
         embed= discord.Embed(
             description=f"You rolled a {random.randint(1, 6)}!", 
@@ -88,7 +105,10 @@ class Fun(commands.Cog):
 
     @commands.command(aliases=["flipcoin", "fiftyfifty", "5050"])
     async def coinflip(self, ctx):
-        """Flip a coin"""
+        """
+        Flip a coin.
+        ?coinflip
+        """
         choices = ["heads", "tails"]
 
         embed= discord.Embed(
@@ -101,7 +121,10 @@ class Fun(commands.Cog):
 
     @commands.command()
     async def gayav(self, ctx, member : discord.Member = None):
-        """?gayav [@user]"""
+        """
+        Sends gay-ified avatar.
+        ?gayav [@user]
+        """
         if member is None:
             member = ctx.author
 
@@ -119,7 +142,10 @@ class Fun(commands.Cog):
 
     @commands.command(aliases=["simp"])
     async def ship(self, ctx, member : discord.Member = None, member2 : discord.Member = None):
-        """?ship @user_1 @user_2"""
+        """
+        Rate love between two users.
+        ?ship [user_1] [user_2]
+        """
 
         if member is None or member2 is None:
             raise MissingArgument("@user", get_command_description("ship"))
@@ -196,7 +222,10 @@ class Fun(commands.Cog):
     
     @commands.command(aliases=['8ball'])
     async def eightball(self, ctx, *, _ballInput = None):
-        """?8ball [question]"""
+        """
+        Have 8ball give the answer.
+        ?8ball [question]
+        """
 
         if _ballInput is None:
             raise MissingArgument("Question", get_command_description("eightball"))
@@ -224,7 +253,10 @@ class Fun(commands.Cog):
 
     @commands.command(aliases=['gay-scanner', 'gayscanner', 'gay'])
     async def gay_scanner(self, ctx, member : discord.Member=None):
-        """?gay [@user]"""
+        """
+        Detect how gay someone is.
+        ?gay [@user]
+        """
 
         if member == None:
             member = ctx.author
@@ -268,7 +300,10 @@ class Fun(commands.Cog):
 
     @commands.command(aliases=['pussy'])
     async def pussy_size(self, ctx, member : discord.Member=None):
-        """?pussy [@user]"""
+        """
+        Get size of a user pussy.
+        ?pussy [user]
+        """
 
         if member == None:
             member = ctx.author
@@ -308,7 +343,10 @@ class Fun(commands.Cog):
 
     @commands.command()
     async def dick(self, ctx, member : discord.Member=None):
-        """?dick [@user]"""
+        """
+        Get size of a user dick.
+        ?dick [user]
+        """
 
         if member == None:
             member = ctx.author

@@ -374,11 +374,8 @@ class ConnectFour(commands.Cog):
             emoji2: EMOJI_CHECK = "\U0001f534"
     ) -> None:
         """
-        Play the classic game of Connect Four with someone!
-
-        Sets up a message waiting for someone else to react and play along.
-        The game will start once someone has reacted.
-        All inputs will be through reactions.
+        Play Connect 4.
+        ?connect4 [ai]
         """
         check, emoji = self.check_emojis(emoji1, emoji2)
         if not check:

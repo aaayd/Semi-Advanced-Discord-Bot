@@ -43,7 +43,10 @@ class Moderation(commands.Cog):
     @commands.command()
     @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, member : discord.Member = None, *, reason=None):
-        '''?kick [member] [reason]'''
+        """
+        Kick a member.
+        ?kick [member] [reason]
+        """
         
         if member is None:
             raise MissingArgument("Discord User", get_command_description("kick"))
@@ -70,7 +73,10 @@ class Moderation(commands.Cog):
     @commands.command()
     @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, member : discord.Member = None, *, reason=None):
-        '''?ban [member] [reason]'''
+        """
+        Ban a member.
+        ?ban [member] [reason]
+        """
 
         if member is None:
             raise MissingArgument("Discord User", get_command_description("ban"))
@@ -101,7 +107,10 @@ class Moderation(commands.Cog):
     @commands.command()
     @commands.has_permissions(manage_messages=True)
     async def clear(self, ctx, member : discord.Member = None, limit: int=None):
-        '''?clear [member] [amount to delete]'''
+        """
+        Purge messages by a user.
+        ?clear [member] [amount to delete]
+        """
 
         if member is None:
             raise MissingArgument("Discord User", get_command_description("clear"))
@@ -119,7 +128,10 @@ class Moderation(commands.Cog):
     @commands.command()
     @commands.has_guild_permissions(mute_members=True)
     async def mute(self, ctx, member : discord.Member = None, time="Indefinite", *, reason="None"):
-        '''?mute [member] [time] [reason]'''
+        """
+        Mute a user.
+        ?mute [member] [time] [reason]
+        """
 
         if member is None:
             raise MissingArgument("Discord User", get_command_description("mute"))
@@ -152,7 +164,10 @@ class Moderation(commands.Cog):
     @commands.command()
     @commands.has_guild_permissions(mute_members=True)
     async def unmute(self, ctx, member : discord.Member=None):
-        '''?unmute [member]'''
+        """
+        Unmute a user.
+        ?unmute [member]
+        """
 
 
         await ctx.message.delete()

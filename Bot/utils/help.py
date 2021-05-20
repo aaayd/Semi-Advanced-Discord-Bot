@@ -59,7 +59,10 @@ class Help(commands.Cog):
             commands_desc = ''
             for command in self.bot.walk_commands():
                 if not command.cog_name and not command.hidden:
-                    commands_desc += f'{command.name} - {command.help}\n'
+                    try:
+                        commands_desc += f'{command.name} - {str(command.help).split(".")[1]}\n'
+                    except:
+                        commands_desc += f'{command.name} - None\n'
 
             emb.add_field(name="About", value=f"This bot is developed by {owner}, based on discord.py.\n\
                                     Please visit https://github.com/azenyx/Zenyx-Bot to submit ideas or bugs.")

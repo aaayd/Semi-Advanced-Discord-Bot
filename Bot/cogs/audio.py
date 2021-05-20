@@ -278,9 +278,8 @@ class Music(commands.Cog):
     @commands.command(name='playlist', aliases=['sing'])
     async def list_(self, ctx, *, search: str):
         """
-        Request a playlist from youube and add them to the queue.
-        This command attempts to join a valid voice channel if the bot is not already in one.
-        Uses playlist URL to automatically retrieve a playlist.
+        Adds playlist to song queue.
+        ?list [url]
         """
         await ctx.trigger_typing()
 
@@ -306,7 +305,10 @@ class Music(commands.Cog):
 
     @commands.command(name='play', aliases=['single'])
     async def play_(self, ctx, *, search: str = None):
-        """?play [link / query]"""
+        """
+        Plays requested song.
+        ?play [link / query]
+        """
 
         if search is None:
             raise MissingArgument("Search query", get_command_description("play_"))
@@ -331,7 +333,10 @@ class Music(commands.Cog):
 
     @commands.command(name='pause')
     async def pause_(self, ctx):
-        """Pause the currently playing song."""
+        """
+        Pause the currently playing song.
+        ?pause
+        """
         vc = ctx.voice_client
 
         if not vc or not vc.is_playing():
@@ -344,7 +349,10 @@ class Music(commands.Cog):
 
     @commands.command(name='resume')
     async def resume_(self, ctx):
-        """Resume the currently paused song."""
+        """
+        Resume the currently paused song.
+        ?resume
+        """
         vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
@@ -357,7 +365,11 @@ class Music(commands.Cog):
 
     @commands.command(name='skip')
     async def skip_(self, ctx):
-        """Skip the song."""
+        """
+        Skip the song.
+        ?skip
+        
+        """
         vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
@@ -373,7 +385,10 @@ class Music(commands.Cog):
 
     @commands.command(name='queue', aliases=['q'])
     async def queue_info(self, ctx):
-        """Retrieve a basic queue of upcoming songs."""
+        """
+        Retrieve a basic queue of upcoming songs.
+        ?queue
+        """
         vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
@@ -393,7 +408,10 @@ class Music(commands.Cog):
 
     @commands.command(name='now_playing', aliases=['np', 'current', 'currentsong', 'playing'])
     async def now_playing_(self, ctx):
-        """Display information about the currently playing song."""
+        """
+        Display current song.
+        ?current
+        """
         vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
@@ -414,7 +432,10 @@ class Music(commands.Cog):
 
     @commands.command(name='volume', aliases=['vol'])
     async def change_volume(self, ctx, *, vol: float = None):
-        """?vol [number between 1 - 100]"""
+        """
+        Set audio volume.
+        ?volume [1-100]
+        """
 
         if vol is None:
             raise MissingArgument("Volume Number", get_command_description("change_volume"))
@@ -437,9 +458,9 @@ class Music(commands.Cog):
 
     @commands.command(name='stop')
     async def stop_(self, ctx):
-        """Stop the currently playing song and destroy the player.
-        !Warning!
-            This will destroy the player assigned to your guild, also deleting any queued songs and settings.
+        """
+        Stop the currently playing song.
+        ?stop
         """
         vc = ctx.voice_client
 

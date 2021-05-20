@@ -23,9 +23,12 @@ class ExperienceSystem(commands.Cog):
     """
         
 
-    @commands.command(aliases=["rank", "level"])
+    @commands.command(name="rank", aliases=["level"])
     async def _rank(self, ctx, member: discord.Member = None):
-        """Sends an image of [member]'s rank card"""
+        """
+        Sends an image of [member]'s rank card.
+        ?rank [member]
+        """
         
         await ctx.message.delete()
           
@@ -62,9 +65,12 @@ class ExperienceSystem(commands.Cog):
         create_rank_card(member, xp, lvl, rank, background, colour, ctx.guild.member_count)
         await ctx.send(file=discord.File(os.path.join(f"{IMAGE_PATH}//temp//","card_temp.png")))
 
-    @commands.command(aliases=["lb"])
+    @commands.command(name="leaderboard", aliases=["lb"])
     async def _leaderboard(self, ctx, placement = None):
-        """Sends an image of [plaement number]'s rank card"""
+        """
+        Sends an image of [placement number]'s rank card.
+        ?leaderboard [number]
+        """
         
         await ctx.message.delete()
           

@@ -72,12 +72,8 @@ class TriviaQuiz(commands.Cog):
     @commands.group(name="quiz", aliases=["trivia"], invoke_without_command=True)
     async def quiz_game(self, ctx: commands.Context, category: str = None) -> None:
         """
-        Start a quiz!
-        Questions for the quiz can be selected from the following categories:
-        - general : Test your general knowledge. (default)
-        - wikipedia : Test your wikipedia knowledge
-        - math : Test your math knowledge
-        - science : Test your science knowledge
+        Start a quiz.
+        ?quiz [genre]
         """
         # If a game is already running in the channel
         if ctx.channel.id in self.games:

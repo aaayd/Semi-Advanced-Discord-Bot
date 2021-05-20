@@ -16,7 +16,10 @@ class Image(commands.Cog):
 
     @commands.command()
     async def meme(self, ctx):
-        """Sends random meme."""
+        """
+        Sends random meme.
+        ?meme
+        """
 
         meme = requests.get("https://some-random-api.ml/meme").json()
         meme = meme["image"]
@@ -25,7 +28,10 @@ class Image(commands.Cog):
 
     @commands.command()
     async def animal(self, ctx, name = None):
-        """?animal [animal_name]"""
+        """
+        Sends an image of an animal.
+        ?animal [animal_name]
+        """
 
         if name is None:
             raise MissingArgument("Animal Name", get_command_description("animal"))

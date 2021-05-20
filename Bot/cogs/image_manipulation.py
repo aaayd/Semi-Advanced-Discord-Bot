@@ -158,7 +158,10 @@ class ImageManipulation(commands.Cog):
 
     @commands.command(aliases=["bg"])
     async def set_background(self, ctx, link="NoLinkSpecified"):
-        '''?set_background [image_link]'''
+        """
+        Change rank card background image.
+        ?set_background [image_link]
+        """
 
         await ctx.trigger_typing()
 
@@ -206,7 +209,10 @@ class ImageManipulation(commands.Cog):
 
     @commands.command(aliases=["cr"])
     async def set_colour(self, ctx, r = None):
-        '''?set_colour [hex]''' 
+        """
+        Change colour in rank card.
+        ?set_colour [hex] 
+        """
 
         _db = get_cluster(ctx.message.guild.id, "CLUSTER_EXPERIENCE")
 

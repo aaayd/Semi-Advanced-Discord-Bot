@@ -370,10 +370,7 @@ class Battleship(commands.Cog):
     async def battleship(self, ctx: commands.Context) -> None:
         """
         Play a game of Battleship with someone else!
-
-        This will set up a message waiting for someone else to react and play along.
-        The game takes place entirely in DMs.
-        Make sure you have your DMs open so that the bot can message you.
+        ?battleship
         """
         if self.already_playing(ctx.author):
             return await ctx.send("You're already playing a game!")
