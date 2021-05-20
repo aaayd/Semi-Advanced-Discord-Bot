@@ -91,6 +91,7 @@ async def dashboard_server(guild_id):
 
 	guild = await ipc_client.request("get_guild", guild_id = guild_id)
 	commands  = await ipc_client.request("get_all_commands")
+	print(commands)
 	_db_important_channels = get_cluster(guild_id, "CLUSTER_CHANNELS").find_one({"id" : "type_important_channels"})["dict"]
 
 

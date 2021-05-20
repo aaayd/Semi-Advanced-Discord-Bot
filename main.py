@@ -107,7 +107,16 @@ async def get_all_commands(data):
 
     cmds = {}
     for command in client.commands:
-        cmds[command.name] = command.help
+        try:
+            description = str(command.help).split(".")[0]
+            
+            if description is not None or description != "None":
+                help = str(command.help).split(".")[1]
+                cmds[command.name] = [description, help]
+        except:
+            pass
+
+        
         
     return cmds
 
