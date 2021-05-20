@@ -62,6 +62,23 @@ a:focus {
     width: 100%;
 }
 
+.tabcontent {
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s;
+}
+  
+@-webkit-keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+  
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+  
+
 #sidebar {
     min-width: 300px;
     max-width: 300px;

@@ -66,6 +66,7 @@ async def dashboard_server(guild_id):
 		return redirect(url_for("login")) 
 
 	guild = await ipc_client.request("get_guild", guild_id = guild_id)
+	print(guild["name"])
 	
 	if guild is None:
 		return redirect(f'https://discord.com/oauth2/authorize?&client_id={app.config["DISCORD_CLIENT_ID"]}&scope=bot&permissions=8&guild_id={guild_id}&response_type=code&redirect_uri={app.config["DISCORD_REDIRECT_URI"]}')

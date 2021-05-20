@@ -3,12 +3,17 @@
         <title>Sidebar 09</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+        <meta http-equiv="Pragma" content="no-cache"/>
+        <meta http-equiv="Expires" content="0"/>
+        
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <link rel="stylesheet" type="text/css" href="/static/guild.css" />
         <link rel="stylesheet" type="text/css" href="/static/index.css" />
         <link rel="stylesheet" type="text/css" href="/static/bootstrap-4.4.1.css" />
+        <script type="text/javascript" src="/static/js.js"></script>
+
   
     </head>
     <body style="background-color: #141617;">
@@ -47,20 +52,46 @@
                     </div>
                 </div>
                 <ul class="list-unstyled components mb-5">
-                    <li class="active">
-                        <a href="#"><span class="fa fa-home mr-3"></span> Server Information</a>
+                    <li class="tablinks" onclick="openTab(event, 'ServerInformation')">
+                        <a href="javascript:void(0)" id="defaultTab"><span class="fa fa-home mr-3"></span> Server Information</a>
                     </li>
-                    <li>
-                        <a href="#"><span class="fa fa-gift mr-3"></span> Unfinished</a>
+                    <li class="tablinks" onclick="openTab(event, 'LOL')">
+                        <a href="javascript:void(0)"><span class="fa fa-gift mr-3"></span> Unfinished</a>
                     </li>
                 </ul>
             </nav>
             <!-- Page Content  -->
             <div id="content" class="p-4 p-md-5 pt-5 float-right">
-                <div class="container">
+                <div class="container tabcontent" id="ServerInformation">
                     <div class="row">
                        <div class="col">
                           <span class="text-title-card">SERVER INFORMATION</span>
+                       </div>
+                    </div>
+                    <div class="row" style="width: 1000px;">
+                       <div class="col-4 card-text">
+                          <a>Members: </a> <span>{{guild.member_count}}</span></div><div class="col-4 card-text">
+                          <a>Categories:</a> <span>{{guild.category_count}}</span></div><div class="col-4 card-text">
+                          <a>Channels:</a> <span>{{guild.channel_count}}</span></div><div class="col-4 card-text">
+                       </div>
+                     </div>
+                    <div class="row">
+                       <div class="col-4 card-text">
+                          <a>Roles:</a> <span>{{guild.role_count}}</span>
+                       </div>
+                       <div class="col-4 card-text">
+                          <a>Region:</a> <span>{{guild.region}}</span>
+                       </div>
+                       <div class="col-4 card-text">
+                          <a>Server ID:</a> <span>{{guild.id}}</span>
+                       </div>
+                     </div>
+                 </div>   
+
+                 <div class="container tabcontent" id="LOL">
+                    <div class="row">
+                       <div class="col">
+                          <span class="text-title-card">AWDAWDAWDAWDWAD</span>
                        </div>
                     </div>
                     <div class="row" style="width: 1000px;">
@@ -85,6 +116,10 @@
                  </div>         
             </div>
 
+            <script>
+                document.getElementById("defaultTab").click();
+
+            </script>
  
         </div>
     </body>
