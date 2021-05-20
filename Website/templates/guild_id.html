@@ -37,16 +37,21 @@
                 </div>
                 <div class="img bg-wrap text-center py-4" style="background-image: url();">
                     <div class="user-logo">
-                        <div class="img" style="background-image: url({{guild.icon_url}}?size=128);"></div>
+                        {% if guild.icon_url|length > 15 %}
+                            <div class="img" style="background-image: url({{guild.icon_url}}?size=128);"></div>
+                        {% else %}    
+                            <div class="img" style="background-image: url(https://cdn.discordapp.com/attachments/833503537479942155/844650622342922310/Zeny_Bot_Gray.png?size=128);"></div>
+                        {% endif %}
+
                         <h3>{{guild.name}}</h3>
                     </div>
                 </div>
                 <ul class="list-unstyled components mb-5">
                     <li class="active">
-                        <a href="#"><span class="fa fa-home mr-3"></span> Home</a>
+                        <a href="#"><span class="fa fa-home mr-3"></span> Server Information</a>
                     </li>
                     <li>
-                        <a href="#"><span class="fa fa-gift mr-3"></span> Home</a>
+                        <a href="#"><span class="fa fa-gift mr-3"></span> Unfinished</a>
                     </li>
                 </ul>
             </nav>
