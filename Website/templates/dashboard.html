@@ -30,19 +30,9 @@
           </div>
       </nav>
       
-      <div class="container user">
-          <div class="user-avatar">
-              <img alt="Your discord avatar" class="av_image" src="{{member.avatar_url}}?size=128">
-          </div>
-          <div class="user-details">
-              <h3><span class="user-name">{{member.username}}</span><span class="discriminator">#{{member.discriminator}}</span></h3>
-              <h5><span class="subtitle">In</span> <span class="discriminator">{{guild_count}}</span><span class="subtitle"> guilds</span></h5>
-          </div>
-
-      </div>
       
       
-      <div class="container guilds">
+      <div class="container guilds" style="margin-top: 30px;">
         {% for guild in guilds %}
             <div class="row" style="height: 96px;">
                 <div class="col-sm-1">

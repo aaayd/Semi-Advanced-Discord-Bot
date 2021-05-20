@@ -45,10 +45,7 @@ async def dashboard():
 	if not await discord.authorized:
 		return redirect(url_for("login")) 
 
-	guild_count = int(len(await ipc_client.request("get_all_guilds")))
-	user_guilds = await discord.fetch_guilds()
-	
-	guilds = [guild for guild in user_guilds if guild.permissions.administrator]
+	guilds = [guild for guild in await discord.fetch_guilds() if guild.permissions.administrator]
 
 	for guild in guilds:
 		guild_temp = await ipc_client.request("get_guild", guild_id = guild.id)
@@ -60,7 +57,7 @@ async def dashboard():
 
 	member = await discord.fetch_user()
 	return await render_template(
-		"dashboard.html", guild_count = guild_count, guilds = guilds, member=member, join_url = f'https://discord.com/api/oauth2/authorize?client_id=813239350702637058&permissions=8&scope=bot'
+		"dashboard.html", guilds = guilds, member=member, join_url = f'https://discord.com/api/oauth2/authorize?client_id=813239350702637058&permissions=8&scope=bot'
 		)
 
 @app.route("/dashboard/<int:guild_id>")
