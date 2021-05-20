@@ -99,22 +99,18 @@ async def restart(ctx):
 
 
 @client.ipc.route()
-async def get_guild_count(data):
-	return len(client.guilds) # returns the len of the guilds to the client
-
-@client.ipc.route()
-async def get_guild_ids(data):
-	final = []
-	for guild in client.guilds:
-		final.append(guild.id)
-	return final # returns the guild ids to the client
+async def get_all_guilds(data):
+	return client.guilds
 
 @client.ipc.route()
 async def get_guild(data):
-	guild = client.get_guild(data.guild_id)
-	if guild is None: return None
-
-	guild_data = {
+    guild = client.get_guild(data.guild_id)
+    
+    if guild is None: 
+        
+        return None
+    
+    guild_data = {
 		"name": guild.name,
 		"id": guild.id,
         "icon_url": str(guild.icon_url),
@@ -127,8 +123,11 @@ async def get_guild(data):
 
 
 	}
-
-	return guild_data
+    try:
+        return guild_data
+    
+    except:
+        return None
 
 for key, cogs in client.COGS.items():
     for cog in cogs:

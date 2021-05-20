@@ -45,7 +45,7 @@ async def dashboard():
 	if not await discord.authorized:
 		return redirect(url_for("login")) 
 
-	guild_count = await ipc_client.request("get_guild_count")
+	guild_count = int(len(await ipc_client.request("get_all_guilds")))
 	user_guilds = await discord.fetch_guilds()
 	
 	guilds = [guild for guild in user_guilds if guild.permissions.administrator]
