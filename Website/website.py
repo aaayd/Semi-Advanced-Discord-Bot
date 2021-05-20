@@ -90,14 +90,15 @@ async def dashboard_server(guild_id):
 		return redirect(url_for("login")) 
 
 	guild = await ipc_client.request("get_guild", guild_id = guild_id)
-
+	commands  = await ipc_client.request("get_all_commands")
 	_db_important_channels = get_cluster(guild_id, "CLUSTER_CHANNELS").find_one({"id" : "type_important_channels"})["dict"]
+
 
 	if guild is None:
 		return redirect(f'https://discord.com/oauth2/authorize?&client_id={app.config["DISCORD_CLIENT_ID"]}&scope=bot&permissions=8&guild_id={guild_id}&response_type=code&redirect_uri={app.config["DISCORD_REDIRECT_URI"]}')
 		
 	return await render_template(
-		"guild_id.html", guild=guild, _db_important_channels=_db_important_channels
+		"guild_id.html", guild=guild, _db_important_channels=_db_important_channels, commands=commands
 	)
 
 

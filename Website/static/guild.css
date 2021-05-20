@@ -3,10 +3,11 @@ body {
 }
 
 .container .row .card-title {
-    border-radius: 10px;
     font-weight: bold;
     color: white;
 }
+
+
 .container .row .container-card-large {
   border-radius: 10px;
   background: #1A1A1A;

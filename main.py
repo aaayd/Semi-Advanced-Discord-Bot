@@ -101,6 +101,15 @@ async def restart(ctx):
 @client.ipc.route()
 async def get_all_guilds(data):
 	return client.guilds
+@client.ipc.route()
+
+async def get_all_commands(data):
+
+    cmds = {}
+    for command in client.commands:
+        cmds[command.name] = command.help
+        
+    return cmds
 
 @client.ipc.route()
 async def get_guild(data):

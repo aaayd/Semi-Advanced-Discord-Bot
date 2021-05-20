@@ -117,23 +117,23 @@
                 <div class="container" style="min-width: 100%; display: flex; float: left">
                     <div class="row">
                         <div class="col">
-                            <div class="container container-card-small">
-                                <div class="row">
-                                    <a class="card-title">IMPORTANT CHANNELS</a>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-4 card-text col-xl-12">
-                                        <a>General Channel ID:</a> <span>{{_db_important_channels["channel_general"]}}</span>
+                            <div class="row" style="margin-right: 40px;">
+                                {% for key, val in commands.items() %}
+                                <div class="card rounded"  style="margin-top: 40px; margin-right: 40px;">
+                                    <div class="card-body" style="background-color: #1A1A1A;border-radius : 10px; border-color:white; min-width: 450px;">
+                                        <label class="toggle-control" style="float: right">
+                                            <input type="checkbox" checked="checked">
+                                            <span class="control"></span>
+                                        </label>
+    
+                                        <h5 class="card-title">{{key}} </h5>
+                                        <p class="card-text">{{val}}</p>
+                                        
                                     </div>
+                                    
                                 </div>
-                                <div class="row">
-                                    <div class="col-4 card-text col-xl-12">
-                                        <a>Logs Channel ID:</a> <span>{{_db_important_channels["channel_logs"]}}</span>
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>
