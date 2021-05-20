@@ -2,6 +2,33 @@ body {
     background: #141617
 }
 
+.container {
+  border-radius: 10px;
+  background: #1A1A1A;
+  padding: 20px;
+  width: 200px;
+  height: 150px;
+
+}
+.text-title-card {
+    color: white;
+    font-weight: bold;
+}
+
+.container .row .card-text a{
+    color: #808080;
+}
+
+.container .row .card-text span{
+    color: white;
+}
+
+.container .row {
+    margin: 0px 15px 15px 15px
+}
+.info-card {
+    width: 1200px;
+}
 
 a {
     -webkit-transition: .3s all ease;
@@ -68,11 +95,6 @@ a:focus {
     display: none;
 }
 
-#sidebar h1 {
-    margin-bottom: 20px;
-    font-weight: 700;
-    font-size: 20px;
-}
 
 #sidebar h1 .logo {
     color: #fff;
@@ -129,29 +151,8 @@ a:focus {
 }
 
 
-@media (max-width: 991.98px) {
-    #sidebar {
-        margin-left: -300px;
-    }
-    #sidebar.active {
-        margin-left: 0;
-    }
-    #sidebar .custom-menu {
-        margin-right: -60px !important;
-        top: 10px !important;
-    }
-}
 
-#sidebar .custom-menu {
-    display: inline-block;
-    position: absolute;
-    top: 20px;
-    right: 0;
-    margin-right: -35px;
-    -webkit-transition: 0.3s;
-    -o-transition: 0.3s;
-    transition: 0.3s;
-}
+
 
 @media (prefers-reduced-motion: reduce) {
     #sidebar .custom-menu {
@@ -194,44 +195,11 @@ a:focus {
     font-size: 18px;
 }
 
-a[data-toggle="collapse"] {
-    position: relative;
-}
-
-.dropdown-toggle::after {
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: 0;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-}
-
-@media (max-width: 991.98px) {
-    #sidebarCollapse span {
-        display: none;
-    }
-}
-
 #content {
-    width: 100%;
-    padding: 0;
     min-height: 100vh;
     -webkit-transition: all 0.3s;
     -o-transition: all 0.3s;
     transition: all 0.3s;
-}
-
-.btn.btn-primary {
-    background:#ffc600;
-    border-color:#ffc600;
-}
-
-.btn.btn-primary:hover,
-.btn.btn-primary:focus {
-    background: #ffc600 !important;
-    border-color:#ffc600 !important;
 }
 
 .footer p {

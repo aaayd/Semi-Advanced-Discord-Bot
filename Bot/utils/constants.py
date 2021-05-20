@@ -16,7 +16,6 @@ UNI_SANS_40 = ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-
 UNI_SANS_55 = ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 55)
 UNI_SANS_70 = ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 70)
 
-
 CLUSTERS = {
     "CLUSTER_EXPERIENCE" : "leveling",
     "CLUSTER_RATELIMIT" : "xp_rate_limit",
@@ -279,6 +278,9 @@ PUSSY_RESPONSE_DICT = {
 }
 
 # Functions
+
+def get_guild(id):
+    return client.get_guild(id)
 
 def get_cluster(guild, cluster, clusters = CLUSTERS):
     val = clusters.get(cluster)

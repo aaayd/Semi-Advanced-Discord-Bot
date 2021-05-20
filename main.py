@@ -117,7 +117,15 @@ async def get_guild(data):
 	guild_data = {
 		"name": guild.name,
 		"id": guild.id,
-		"prefix" : "?"
+        "icon_url": str(guild.icon_url),
+        "member_count": int(guild.member_count),
+        "role_count": int(len(guild.roles)), 
+        "region": str(guild.region), 
+        "owner": str(guild.owner),
+        "channel_count": int(len(guild.channels)),
+        "category_count": int(len(guild.categories))
+
+
 	}
 
 	return guild_data

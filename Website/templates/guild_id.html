@@ -51,8 +51,36 @@
                 </ul>
             </nav>
             <!-- Page Content  -->
-            <div id="content" class="p-4 p-md-5 pt-5">
+            <div id="content" class="p-4 p-md-5 pt-5 float-right">
+                <div class="container">
+                    <div class="row">
+                       <div class="col">
+                          <span class="text-title-card">SERVER INFORMATION</span>
+                       </div>
+                    </div>
+                    <div class="row" style="width: 1000px;">
+                       <div class="col-4 card-text">
+                          <a>Members: </a> <span>{{guild.member_count}}</span></div><div class="col-4 card-text">
+                          <a>Categories:</a> <span>{{guild.category_count}}</span></div><div class="col-4 card-text">
+                          <a>Channels:</a> <span>{{guild.channel_count}}</span></div><div class="col-4 card-text">
+                       </div>
+                     </div>
+                    <div class="row">
+                       <div class="col-4 card-text">
+                          <a>Roles:</a> <span>{{guild.role_count}}</span>
+                       </div>
+                       <div class="col-4 card-text">
+                          <a>Region:</a> <span>{{guild.region}}</span>
+                       </div>
+                       <div class="col-4 card-text">
+                          <a>Server ID:</a> <span>{{guild.id}}</span>
+                       </div>
+                     </div>
+                 </div>            
+                 </div>         
             </div>
+
+ 
         </div>
     </body>
 </html>

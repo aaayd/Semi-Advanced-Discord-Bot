@@ -1,6 +1,8 @@
 from quart import Quart, render_template, request, session, redirect, url_for
 from quart_discord import DiscordOAuth2Session
 from discord.ext import ipc
+from discord.ext import commands
+import discord
 
 app = Quart(__name__)
 ipc_client = ipc.Client(secret_key = "Swas")
@@ -67,17 +69,15 @@ async def dashboard_server(guild_id):
 		return redirect(url_for("login")) 
 
 	guild = await ipc_client.request("get_guild", guild_id = guild_id)
-
 	
 	if guild is None:
 		return redirect(f'https://discord.com/oauth2/authorize?&client_id={app.config["DISCORD_CLIENT_ID"]}&scope=bot&permissions=8&guild_id={guild_id}&response_type=code&redirect_uri={app.config["DISCORD_REDIRECT_URI"]}')
-	
-	guilds = await discord.fetch_guilds()
-	guild = [guild for guild in guilds if int(guild.id) == int(guild_id)][0]
-	print(guild)
+		
 	return await render_template(
-		"guild_id.html", guild=guild
+		"guild_id.html", guild=guild, 
 	)
+
+
 
 
 if __name__ == "__main__":
