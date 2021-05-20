@@ -1,20 +1,17 @@
 <!doctype html>
-<html lang="en"><head>
+<html lang="en">
+    <head>
         <title>Sidebar 09</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
         <meta http-equiv="Pragma" content="no-cache"/>
         <meta http-equiv="Expires" content="0"/>
-        
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
         <link rel="stylesheet" type="text/css" href="/static/guild.css" />
         <link rel="stylesheet" type="text/css" href="/static/index.css" />
         <link rel="stylesheet" type="text/css" href="/static/bootstrap-4.4.1.css" />
         <script type="text/javascript" src="/static/js.js"></script>
-
-  
     </head>
     <body style="background-color: #141617;">
         <nav class="navbar navbar-expand-lg nav">
@@ -43,11 +40,10 @@
                 <div class="img bg-wrap text-center py-4" style="background-image: url();">
                     <div class="user-logo">
                         {% if guild.icon_url|length > 15 %}
-                            <div class="img" style="background-image: url({{guild.icon_url}}?size=128);"></div>
+                        <div class="img" style="background-image: url({{guild.icon_url}}?size=128);"></div>
                         {% else %}    
-                            <div class="img" style="background-image: url(https://cdn.discordapp.com/attachments/833503537479942155/844650622342922310/Zeny_Bot_Gray.png?size=128);"></div>
+                        <div class="img" style="background-image: url(https://cdn.discordapp.com/attachments/833503537479942155/844650622342922310/Zeny_Bot_Gray.png?size=128);"></div>
                         {% endif %}
-
                         <h3>{{guild.name}}</h3>
                     </div>
                 </div>
@@ -55,72 +51,93 @@
                     <li class="tablinks" onclick="openTab(event, 'ServerInformation')">
                         <a href="javascript:void(0)" id="defaultTab"><span class="fa fa-home mr-3"></span> Server Information</a>
                     </li>
-                    <li class="tablinks" onclick="openTab(event, 'LOL')">
-                        <a href="javascript:void(0)"><span class="fa fa-gift mr-3"></span> Unfinished</a>
+                    <li class="tablinks" onclick="openTab(event, 'Commands');populateDropdown()">
+                        <a href="javascript:void(0)"><span class="fa fa-gift mr-3"></span> Commands</a>
                     </li>
                 </ul>
             </nav>
             <!-- Page Content  -->
-            <div id="content" class="p-4 p-md-5 pt-5 float-right">
-                <div class="container tabcontent" id="ServerInformation">
-                    <div class="row">
-                       <div class="col">
-                          <span class="text-title-card">SERVER INFORMATION</span>
-                       </div>
-                    </div>
-                    <div class="row" style="width: 1000px;">
-                       <div class="col-4 card-text">
-                          <a>Members: </a> <span>{{guild.member_count}}</span></div><div class="col-4 card-text">
-                          <a>Categories:</a> <span>{{guild.category_count}}</span></div><div class="col-4 card-text">
-                          <a>Channels:</a> <span>{{guild.channel_count}}</span></div><div class="col-4 card-text">
-                       </div>
-                     </div>
-                    <div class="row">
-                       <div class="col-4 card-text">
-                          <a>Roles:</a> <span>{{guild.role_count}}</span>
-                       </div>
-                       <div class="col-4 card-text">
-                          <a>Region:</a> <span>{{guild.region}}</span>
-                       </div>
-                       <div class="col-4 card-text">
-                          <a>Server ID:</a> <span>{{guild.id}}</span>
-                       </div>
-                     </div>
-                 </div>   
+            <div id="content" style="display: flex;" class="p-4 p-md-5 pt-5 ">
 
-                 <div class="container tabcontent" id="LOL">
-                    <div class="row">
-                       <div class="col">
-                          <span class="text-title-card">AWDAWDAWDAWDWAD</span>
-                       </div>
+                <div class="container">
+                   <div class="row">
+                      <div class="col">
+                         <span class="text-title-card">SERVER INFORMATION</span>
+                      </div>
+                   </div>
+                   <div class="row" style="width: 1000px;">
+                      <div class="col-4 card-text">
+                        <a>Members: </a> <span>{{guild.member_count}}</span></div><div class="col-4 card-text">
+                        <a>Categories:</a> <span>{{guild.category_count}}</span></div><div class="col-4 card-text">
+                        <a>Channels:</a> <span>{{guild.channel_count}}</span></div><div class="col-4 card-text">
+                        </div>
                     </div>
-                    <div class="row" style="width: 1000px;">
-                       <div class="col-4 card-text">
-                          <a>Members: </a> <span>{{guild.member_count}}</span></div><div class="col-4 card-text">
-                          <a>Categories:</a> <span>{{guild.category_count}}</span></div><div class="col-4 card-text">
-                          <a>Channels:</a> <span>{{guild.channel_count}}</span></div><div class="col-4 card-text">
-                       </div>
-                     </div>
-                    <div class="row">
-                       <div class="col-4 card-text">
-                          <a>Roles:</a> <span>{{guild.role_count}}</span>
-                       </div>
-                       <div class="col-4 card-text">
-                          <a>Region:</a> <span>{{guild.region}}</span>
-                       </div>
-                       <div class="col-4 card-text">
-                          <a>Server ID:</a> <span>{{guild.id}}</span>
-                       </div>
-                     </div>
-                 </div>            
-                 </div>         
+                   <div class="row">
+                      <div class="col-4 card-text">
+                        <a>Roles:</a> <span>{{guild.role_count}}</span>
+                    </div>
+                      <div class="col-4 card-text">
+                        <a>Region:</a> <span>{{guild.region}}</span>
+                    </div>
+                      <div class="col-4 card-text">
+                        <a>Server ID:</a> <span>{{guild.id}}</span>
+                    </div>
+                    </div>
+                </div>            
+                    
+                <div class="container small-ct" style="max-width: 400px; margin-left: 40px;">
+                   <div class="row">
+                      <div class="col">
+                         <span class="text-title-card">IMPORTANT CHANNELS</span>
+                      </div>
+                   </div>
+                   <div class="row">
+                      <div class="col-4 card-text col-xl-12">
+                         <a>General Channel ID:</a> <span>{{_db_important_channels["channel_general"]}}</span>
+                      </div>
+                    </div>
+                   <div class="row">
+                      <div class="col-4 card-text col-xl-12">
+                         <a>Logs Channel ID:</a> <span>{{_db_important_channels["channel_logs"]}}</span>
+                      </div>
+                    </div>
+                </div>            
             </div>
-
-            <script>
-                document.getElementById("defaultTab").click();
-
-            </script>
- 
+                <div class="container tabcontent" id="Commands">
+                    <div class="row">
+                        <div class="col">
+                            <span class="text-title-card">AWDAWDAWDAWDWAD</span>
+                        </div>
+                    </div>
+                    <div class="row" style="width: 1000px;">
+                        <div class="col-4 card-text">
+                            <select class="select form-select-lg mb-3" aria-label="form-select-lg example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                              </select>
+                                                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 card-text">
+                            <a>Roles:</a> <span>{{guild.role_count}}</span>
+                        </div>
+                        <div class="col-4 card-text">
+                            <a>Region:</a> <span>{{guild.region}}</span>
+                        </div>
+                        <div class="col-4 card-text">
+                            <a>Server ID:</a> <span>{{guild.id}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>         
+        </div>
+        <script>
+            document.getElementById("defaultTab").click();
+        </script>
         </div>
     </body>
 </html>
