@@ -51,7 +51,7 @@
                     <li class="tablinks" onclick="openTab(event, 'ServerInformation')">
                         <a href="javascript:void(0)" id="defaultTab" ><span class="fa fa-home mr-3"></span> Server Information</a>
                     </li>
-                    <li class="tablinks" onclick="openTab(event, 'Commands');populateDropdown()">
+                    <li class="tablinks" onclick="openTab(event, 'Commands')">
                         <a href="javascript:void(0)"><span class="fa fa-wrench mr-3"></span> Commands</a>
                     </li>
                 </ul>
@@ -115,6 +115,14 @@
 
             <div id="Commands" class="tabcontent p-4 pt-5 " style="min-width: 85%; min-height: 100vh;-webkit-transition: all 0.3s;-o-transition: all 0.3s;transition: all 0.3s;">
                 <div class="container" style="min-width: 100%; display: flex; float: left">
+                    <div class='container'>
+                        <h3>Test</h3>
+                            <form>
+                                <a href=# id=updateChanges><button  class='btn btn-default'>Test</button></a>
+                            </form>
+                    
+                    </div>
+                
                     <div class="row">
                         <div class="col">
                             <div class="row" style="margin-right: 40px;">
@@ -142,6 +150,66 @@
                 </div>
             </div>
         </div>
+        
+        
+        
+        <a class="hidden_detector" style="display: none;">hidden_activity_state_detection</a>
+        <a class="guild_id" id="{{guild.id}}" style="display: none;"></a>
+        <!-- This is incredibly terrible; however I don't know flask enough to do this appropriately -->
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type=text/javascript>
+        $(function() {
+            var allChanges = document.getElementsByTagName("changed_bool");
+       
+
+            $('a#updateChanges').on('click', function(e) {
+                var changeStr = ""
+                for (var i = 0; i < allChanges.length; i++) {
+                    var temp;
+                    console.log(allChanges[i].id, allChanges[i].text)
+                    changeStr += `${allChanges[i].id} : ${allChanges[i].text};`
+                }
+                guild_id = document.getElementsByClassName("guild_id")[0].id
+                
+                e.preventDefault()
+                $.getJSON('/update_command_state', {string: changeStr, guild_id: guild_id},
+                function(data) {
+                    //do nothing
+                });
+                return false;
+            });
+         });
+        </script>
+
+        <script>
+            function updateCommandActivityState(id) {
+                var checkBox = document.getElementById(id);
+
+                var elementExists = document.getElementsByTagName("changed_bool");
+                for (var i = 0; i < elementExists.length; i++) {
+                    if (elementExists[i].id == id)
+                        elementExists[i].remove()
+                    
+                }
+                
+                newDoc = document.createElement("changed_bool")
+                newDoc.id = id
+                newDoc.className = "hidden_detector"
+
+
+                if (checkBox.checked == true)
+                    newDoc.text = 1
+                    
+                else 
+                    newDoc.text = 0
+                
+                document.body.appendChild(newDoc);
+
+            }
+
+
+        </script>
         <script>
             document.getElementById("defaultTab").click();
         </script>

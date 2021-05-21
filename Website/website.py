@@ -84,6 +84,31 @@ async def dashboard():
 		"dashboard.html", guilds = guilds, member=member, join_url = f'https://discord.com/api/oauth2/authorize?client_id=813239350702637058&permissions=8&scope=bot'
 		)
 
+@app.route('/update_command_state')
+def update_command_state():
+	data = request.args.get('string').split(";")[:-1]
+	guild_id = request.args.get('guild_id')
+	data_dict = {}
+	
+	CLUSTER_UTIL = CLUSTER[guild_id]["utils"]
+
+
+	for elem in data:
+		elem = elem.split(" : ")
+		data_dict[elem[0][8:]] = int(elem[1])
+
+	for key, value in data_dict.items():
+		CLUSTER_UTIL.update({
+			"id" : "type_command_activity"
+				},{"$set" : {
+					f"dict.{key}" : value
+				}
+			})
+	return ("nothing")
+	
+	
+
+
 @app.route("/dashboard/<int:guild_id>")
 async def dashboard_server(guild_id):
 	if not await discord.authorized:
@@ -99,7 +124,10 @@ async def dashboard_server(guild_id):
 		return redirect(f'https://discord.com/oauth2/authorize?&client_id={app.config["DISCORD_CLIENT_ID"]}&scope=bot&permissions=8&guild_id={guild_id}&response_type=code&redirect_uri={app.config["DISCORD_REDIRECT_URI"]}')
 		
 	return await render_template(
-		"guild_id.html", guild=guild, _db_important_channels=_db_important_channels, commands=commands, _db_commands=_db_commands
+		"guild_id.html", guild=guild, 
+		_db_important_channels=_db_important_channels, 
+		commands=commands, _db_commands=_db_commands
+		
 	)
 
 
