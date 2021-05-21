@@ -133,7 +133,7 @@
                                             {% if _db_commands[key] == 1 %}
                                                 <input id="command_{{key}}" onclick="updateCommandActivityState('command_{{key}}')"type="checkbox" checked="checked">
                                             {% else %}
-                                                <input type="checkbox">
+                                                    <input id="command_{{key}}" onclick="updateCommandActivityState('command_{{key}}')"type="checkbox">
                                             {% endif %}
                                             <span class="control"></span>
                                         </label>
@@ -155,8 +155,7 @@
         
         <a class="hidden_detector" style="display: none;">hidden_activity_state_detection</a>
         <a class="guild_id" id="{{guild.id}}" style="display: none;"></a>
-        <!-- This is incredibly terrible; however I don't know flask enough to do this appropriately -->
-
+        <!-- This is incredibly terrible; however I don't know flask enough to do this appropriately --> 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script type=text/javascript>
         $(function() {
@@ -168,7 +167,7 @@
                 for (var i = 0; i < allChanges.length; i++) {
                     var temp;
                     console.log(allChanges[i].id, allChanges[i].text)
-                    changeStr += `${allChanges[i].id} : ${allChanges[i].text};`
+                    changeStr += `${allChanges[i].id} : ${allChanges[i].innerHTML};`
                 }
                 guild_id = document.getElementsByClassName("guild_id")[0].id
                 
@@ -199,10 +198,10 @@
 
 
                 if (checkBox.checked == true)
-                    newDoc.text = 1
+                    newDoc.innerHTML  = 1
                     
                 else 
-                    newDoc.text = 0
+                    newDoc.innerHTML  = 0
                 
                 document.body.appendChild(newDoc);
 
