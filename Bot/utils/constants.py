@@ -15,7 +15,7 @@ COMMAND_IS_VALID_REGEX = "[a-zA-Z_]+"
 UNI_SANS_40 = ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 40)
 UNI_SANS_55 = ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 55)
 UNI_SANS_70 = ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 70)
-
+COMMANDS = [command for command in client.commands]
 CLUSTERS = {
     "CLUSTER_EXPERIENCE" : "leveling",
     "CLUSTER_RATELIMIT" : "xp_rate_limit",

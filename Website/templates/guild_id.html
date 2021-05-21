@@ -122,7 +122,11 @@
                                 <div class="card rounded"  style="margin-top: 40px; margin-right: 40px;">
                                     <div class="card-body" style="background-color: #1A1A1A;border-radius : 10px; border-color:white; min-width: 450px;">
                                         <label class="toggle-control" style="float: right">
-                                            <input type="checkbox" checked="checked">
+                                            {% if _db_commands[key] == 1 %}
+                                                <input id="command_{{key}}" onclick="updateCommandActivityState('command_{{key}}')"type="checkbox" checked="checked">
+                                            {% else %}
+                                                <input type="checkbox">
+                                            {% endif %}
                                             <span class="control"></span>
                                         </label>
     

@@ -120,7 +120,7 @@ async def get_all_commands(data):
         
     return cmds
 
-@client.ipc.route()
+@client.ipc.route() 
 async def get_guild(data):
     guild = client.get_guild(data.guild_id)
     

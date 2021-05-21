@@ -1,5 +1,5 @@
 from main import CLUSTER
-from Bot.utils.constants     import COMMAND_IS_VALID_REGEX, _init_mongo_arr, _init_mongo_bool, _init_mongo_dict
+from Bot.utils.constants import COMMAND_IS_VALID_REGEX, _init_mongo_arr, _init_mongo_bool, _init_mongo_dict
 from Bot.utils.constants import  COLOUR_ROLES_DICT, DEF_SNIPE_GIFS
 from discord import Embed, utils
 from discord.ext import commands
@@ -68,6 +68,12 @@ class CommandErrorHandler(commands.Cog):
  
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
+        commands = [command for command in self.client.commands]
+        command_bool_dict = {}
+        for command in commands:
+            print(command)
+            command_bool_dict[command.name] = True
+        print(command_bool_dict)
 
         try:
             used_channel_dict = {
@@ -84,6 +90,7 @@ class CommandErrorHandler(commands.Cog):
             }
 
         CLUSTER_UTIL = CLUSTER[str(guild.id)]["utils"]
+        _init_mongo_dict(CLUSTER_UTIL, "type_command_activity", command_bool_dict)       
         _init_mongo_dict(CLUSTER_UTIL, "type_important_channels", used_channel_dict)        
         _init_mongo_arr(CLUSTER_UTIL, "type_blacklist", ["nigger"])
         _init_mongo_arr(CLUSTER_UTIL, "type_on_join_roles")
