@@ -19,7 +19,7 @@ class Bot(commands.Bot):
             "cogs" : [
                 "afk","audio","experience_system",
                 "fun","image_manipulation","image","misc", 
-                "logger", "moderation", "sticky_roles"
+                "logger", "moderation"
             ],
             
             "utils" : [

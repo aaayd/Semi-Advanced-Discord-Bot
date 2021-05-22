@@ -1,5 +1,5 @@
-from Bot.utils.constants import get_command_description
-from Bot.utils.error_handler import MissingArgument, embed_success
+from Bot.utils.constants import get_command_description, get_cluster
+from Bot.utils.error_handler import MissingArgument, embed_success, ExpectedLiteralInt
 from bot import CLUSTER
 import discord
 from discord.ext import commands
@@ -11,6 +11,38 @@ class UtilityCommands(commands.Cog, name = "Utility Commands"):
     
     def __init__(self, client):
         self.client = client
+
+
+    @commands.command()
+    @commands.has_permissions(administrator=True)
+    async def add_default_roles(self, ctx, *, roles):
+        """
+        Add default role for member joining
+        ?add_default_roles [roles]
+        """
+        
+        try:
+            [int(role) for role in roles.split()]
+        except ValueError:
+            raise ExpectedLiteralInt
+
+        _db = get_cluster(ctx.message.guild.id, "CLUSTER_SERVER_ROLES")
+        for role in roles.split():
+            _db.update({
+                "id" : "type_on_join_roles"}, 
+                    {"$push" : {
+                        "array" : int(role)
+                    }
+                })
+
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+        _db = get_cluster(member.guild.id, "CLUSTER_SERVER_ROLES")
+        for role_id in _db.find_one({"id": "type_on_join_roles"})["array"]:
+            _ = discord.utils.get(member.guild.roles, id = role_id)
+            
+            await member.add_roles(_)
+
 
     @commands.command()
     @commands.has_permissions(administrator=True)
