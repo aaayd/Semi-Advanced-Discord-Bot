@@ -119,11 +119,19 @@ async def get_all_commands(data):
 
 @client.ipc.route()
 async def get_all_cogs(data):
-    cogs = {}
+
+    cogs = {"Games" : []}
     for cog in client.cogs:
-        cogs[cog] = []
+        cog_name = str(cog)
+
+        if "game" in str(cog).lower():
+            cog_name = "Games"
+        else:
+            cogs[cog_name] = []
+            
         for command in client.get_cog(cog).get_commands():
-            cogs[cog].append([command.name, command.help.split(".")[0]])
+            cogs[cog_name].append([command.name, command.help.split(".")[0]])
+
     return dict(sorted(cogs.items(), key=lambda x: x[0].lower()))
 
 @client.ipc.route() 
