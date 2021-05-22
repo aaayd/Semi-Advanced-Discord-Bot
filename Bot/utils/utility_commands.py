@@ -17,7 +17,7 @@ class UtilityCommands(commands.Cog, name = "Utility Commands"):
     @commands.has_permissions(administrator=True)
     async def add_default_roles(self, ctx, *, roles):
         """
-        Add default role for member joining
+        Add default role for member joining.
         ?add_default_roles [roles]
         """
         
