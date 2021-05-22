@@ -5,7 +5,7 @@ from datetime import datetime
 from bot import CLUSTER
 from Bot.utils.constants import get_cluster, get_time_elapsed
 
-class AFKSystem(commands.Cog):
+class AFKSystem(commands.Cog, name="AFK Commands"):
     """
     AFK Related Commands
     """

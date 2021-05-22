@@ -124,7 +124,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
         return cls(discord.FFmpegPCMAudio(data['url'], **ffmpegopts), data=data, requester=requester)
 
 
-class MusicPlayer(commands.Cog):
+class MusicPlayer(commands.Cog, name="Music Commands"):
     """A class which is assigned to each guild using the bot for Music.
     This class implements a queue and loop, which allows for different guilds to listen to different playlists
     simultaneously.
@@ -252,6 +252,10 @@ class Music(commands.Cog):
 
     @commands.command(name='connect', aliases=['join'])
     async def connect_(self, ctx, *, channel: discord.VoiceChannel=None):
+        """
+        Connect the bot to a voice channel.
+        ?connect
+        """
         if not channel:
             try:
                 channel = ctx.author.voice.channel

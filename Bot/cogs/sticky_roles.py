@@ -8,7 +8,7 @@ from bot import CLUSTER
 
 sticks = CLUSTER["discord"]["sticky_roles"]
 
-class StickyRole(commands.Cog):
+class StickyRole(commands.Cog, name="Persistant Role Commands"):
     """
     Sticky Role related commands.
     """
@@ -16,6 +16,11 @@ class StickyRole(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def add_default_roles(self, ctx, *, roles):
+        """
+        Add default role for member joining
+        ?add_default_roles [roles]
+        """
+        
         try:
             [int(role) for role in roles.split()]
         except ValueError:

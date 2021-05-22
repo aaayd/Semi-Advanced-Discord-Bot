@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from Bot.utils.constants import ALL_GUILD_DATABASES, converter, get_channel_id, get_cluster, get_command_description
 
 
-class Moderation(commands.Cog):
+class Moderation(commands.Cog, name = "Moderation Commands"):
     """
     Moderation related commands.
     """

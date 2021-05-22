@@ -6,7 +6,7 @@ from discord import Embed
 from animals import Animals
 from datetime import datetime
 
-class Image(commands.Cog):
+class Image(commands.Cog, name="Image Commands"):
     """
     Image commands to send pictures of animals.
     """

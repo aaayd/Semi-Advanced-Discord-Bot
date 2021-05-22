@@ -253,7 +253,7 @@ class AI:
         return coords
 
 
-class ConnectFour(commands.Cog):
+class ConnectFour(commands.Cog, name="Connect 4 Game"):
     """Connect Four. The Classic Vertical Four-in-a-row Game!"""
 
     def __init__(self, bot: commands.Bot) -> None:

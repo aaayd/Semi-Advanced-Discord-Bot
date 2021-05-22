@@ -9,7 +9,7 @@ from Bot.utils.constants import  COLOUR_ROLES_DICT, get_channel_id, get_command_
 r = praw.Reddit(client_id="7oE7yB5GJJua2Q", client_secret="ooidPB-ETJxbRflpja6a65KX03g", user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36', username="PhantomVipermon", check_for_async=False)
 last_check = datetime.utcnow
 
-class Misc(commands.Cog):
+class Misc(commands.Cog, name="Miscellaneous Commands"):
     """
     Miscellaneous related commands.
     """

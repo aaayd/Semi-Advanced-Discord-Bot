@@ -4,7 +4,7 @@ from bot import CLUSTER
 import discord
 from discord.ext import commands
 
-class UtilityCommands(commands.Cog):
+class UtilityCommands(commands.Cog, name = "Utility Commands"):
     """
     Utility commands to keep the bot functional.
     """

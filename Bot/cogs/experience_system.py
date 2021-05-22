@@ -4,7 +4,7 @@ from Bot.cogs.image_manipulation import create_rank_card
 import discord, os
 from discord.ext import commands
 
-class ExperienceSystem(commands.Cog):
+class ExperienceSystem(commands.Cog, name = "XP Commands"):
     """
     Rank and Leveling related commands.
     """

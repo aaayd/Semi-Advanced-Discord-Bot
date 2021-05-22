@@ -98,8 +98,8 @@ async def restart(ctx):
 @client.ipc.route()
 async def get_all_guilds(data):
 	return client.guilds
-@client.ipc.route()
 
+@client.ipc.route()
 async def get_all_commands(data):
 
     cmds = {}
@@ -116,6 +116,15 @@ async def get_all_commands(data):
         
         
     return cmds
+
+@client.ipc.route()
+async def get_all_cogs(data):
+    cogs = {}
+    for cog in client.cogs:
+        cogs[cog] = []
+        for command in client.get_cog(cog).get_commands():
+            cogs[cog].append([command.name, command.help.split(".")[0]])
+    return dict(sorted(cogs.items(), key=lambda x: x[0].lower()))
 
 @client.ipc.route() 
 async def get_guild(data):

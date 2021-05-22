@@ -316,7 +316,7 @@ class Game:
             self.turn, self.next = self.next, self.turn
 
 
-class Battleship(commands.Cog):
+class Battleship(commands.Cog, name="Battle Ship Game"):
     """Play the classic game Battleship!"""
 
     def __init__(self, bot: commands.Bot) -> None:

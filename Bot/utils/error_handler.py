@@ -58,7 +58,7 @@ class MissingPermissionOnMember(commands.CommandError):
     def __str__(self):
         return f"I have no permissions to use {self.command} on {self.member}"
 
-class CommandErrorHandler(commands.Cog):
+class CommandErrorHandler(commands.Cog, name="Error Handler"):
     """
     Error handler for the bot - nothing interesting here.
     """

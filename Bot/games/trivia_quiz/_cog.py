@@ -23,7 +23,7 @@ except:
 
 
 
-class TriviaQuiz(commands.Cog):
+class TriviaQuiz(commands.Cog, name="Trivia Quiz Game"):
     """A cog for all quiz commands."""
 
     def __init__(self, bot: client) -> None:

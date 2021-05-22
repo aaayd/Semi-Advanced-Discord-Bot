@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from discord.ext import commands
 
 deleted_messages = []
-class Logger(commands.Cog):
+class Logger(commands.Cog, name="Log Commands"):
     """
     Commands related to logging.
     """
