@@ -5,7 +5,7 @@ import discord
 from discord.ext.commands import Context
 from fuzzywuzzy import fuzz
 
-from main import client
+from bot import client
 from Bot.games.trivia_quiz import _constants
 from Bot.games.trivia_quiz import _helpers
 

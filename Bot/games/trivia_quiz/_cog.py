@@ -6,7 +6,7 @@ import typing as t
 from discord.ext import commands, tasks
 from aiohttp import ClientSession
 
-from main import ROOT, client
+from bot import ROOT, client
 from Bot.games.trivia_quiz import _constants
 from Bot.games.trivia_quiz import _helpers
 from Bot.games.trivia_quiz._game import Game

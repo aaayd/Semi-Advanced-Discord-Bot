@@ -1,50 +1,19 @@
-from quart import Quart, render_template, request, session, redirect, url_for
+from quart import Quart, render_template, request, redirect, url_for
 from quart_discord import DiscordOAuth2Session
 from discord.ext import ipc
-from pymongo import MongoClient
-import discord
+from bot import result, CLUSTER
+from Bot.utils.constants import CLUSTERS, get_cluster
+import discord, os
 
-app = Quart(__name__)
-ipc_client = ipc.Client(secret_key = "Swas")
+template_folder_path = os.path.abspath('Website/src')
+static_folder_path = os.path.abspath('Website/static')
 
-from re import compile
-with open('Website\protected_website_vars.env') as ins:
-    result = {}
-    for line in ins:
-        match = compile(r'''^([^\s=]+)=(?:[\s"']*)(.+?)(?:[\s"']*)$''').match(line)
-        if match is not None:
-            result[match.group(1)] = match.group(2)
-
-
+app = Quart(__name__, template_folder = template_folder_path, static_folder = static_folder_path)
+ipc_client = ipc.Client(secret_key = result["IPC_SECRET"])
 app.config["SECRET_KEY"] = str(result["SECRET_KEY"])
 app.config["DISCORD_CLIENT_ID"] = int(result["DISCORD_CLIENT_ID"])   # Discord client ID.
 app.config["DISCORD_CLIENT_SECRET"] = str(result["DISCORD_CLIENT_SECRET"])   # Discord client secret.
 app.config["DISCORD_REDIRECT_URI"] = str(result["DISCORD_REDIRECT_URI"])
-
-CLUSTER = MongoClient(result["SRV_URL"])
-CLUSTERS = {
-    "CLUSTER_EXPERIENCE" : "leveling",
-    "CLUSTER_RATELIMIT" : "xp_rate_limit",
-    "CLUSTER_AFK" : "afk",
-    "CLUSTER_GAY" : "gay",
-    "CLUSTER_DICK" : "dick",
-    "CLUSTER_PUSSY" : "pussy",
-    "CLUSTER_SHIP" : "ship",
-    "CLUSTER_MUTE" : "mute",
-    "CLUSTER_SERVER_ROLES" : "utils",
-    "CLUSTER_BLACKLIST_WORDS" : "utils",
-    "CLUSTER_GIFS" : "utils",
-    "CLUSTER_CONFESSION" : "utils",
-    "CLUSTER_CHANNELS" : "utils",
-}
-
-
-def get_cluster(guild, cluster, clusters = CLUSTERS):
-    val = clusters.get(cluster)
-    return CLUSTER[str(guild)][val]
-
-def get_channel_id(guild_id, channel_name):
-    return get_cluster(guild_id, "CLUSTER_CHANNELS").find_one({"id" : "type_important_channels"})["dict"][channel_name]
 discord = DiscordOAuth2Session(app)
 
 @app.route("/")
@@ -98,12 +67,13 @@ def update_command_state():
 		data_dict[elem[0][8:]] = int(elem[1])
 
 	for key, value in data_dict.items():
-		CLUSTER_UTIL.update({
+		CLUSTER_UTIL.update_one({
 			"id" : "type_command_activity"
 				},{"$set" : {
 					f"dict.{key}" : value
 				}
 			})
+			
 	return ("nothing")
 	
 	

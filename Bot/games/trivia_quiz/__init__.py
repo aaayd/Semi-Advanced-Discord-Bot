@@ -1,4 +1,4 @@
-from main import client
+from bot import client
 
 
 def setup(client: client) -> None:

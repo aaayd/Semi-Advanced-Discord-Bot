@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os, os.path, sys, subprocess
+from re import compile
 from discord.ext import commands, ipc
 from discord import Intents, Game
 from colorama import Fore, Style
@@ -12,7 +13,7 @@ class Bot(commands.Bot):
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
 
-        self.ipc = ipc.Server(self,secret_key = "Swas")
+        self.ipc = ipc.Server(self,secret_key = result["IPC_SECRET"])
 
         self.COGS = {
             "cogs" : [
@@ -36,16 +37,12 @@ class Bot(commands.Bot):
         await client.change_presence(activity=Game(name=f"?help"))
         
     async def on_ipc_ready(self):
+        process = subprocess.Popen('python website.py')
         print(f"{Fore.GREEN}[!]{Style.RESET_ALL} IPC Server is ready!")
-        subprocess.Popen('python Website/website.py')
-
         
     async def on_ipc_error(self, endpoint, error):
         print(endpoint, "raised", error)
 
-
-
-from re import compile
 with open('protected_vars.env') as ins:
     result = {}
     for line in ins:
@@ -53,7 +50,7 @@ with open('protected_vars.env') as ins:
         if match is not None:
             result[match.group(1)] = match.group(2)
 
-ROOT = str(__file__)[:-len("main.py")]
+ROOT = str(__file__)[:-len("bot.py")]
 CLUSTER = MongoClient(result["SRV_URL"])
 
 client = Bot(command_prefix = ['?', '!'], intents = Intents.all(), case_insensitive=True)
@@ -138,9 +135,8 @@ async def get_guild(data):
         "owner": str(guild.owner),
         "channel_count": int(len(guild.channels)),
         "category_count": int(len(guild.categories))
-
-
 	}
+
     try:
         return guild_data
     
@@ -151,5 +147,6 @@ for key, cogs in client.COGS.items():
     for cog in cogs:
         client.load_extension(f'Bot.{key}.{cog}')
 
-client.ipc.start()
-client.run(result["TOKEN"])
+if __name__ == "__main__":
+    client.ipc.start()
+    client.run(result["TOKEN"])

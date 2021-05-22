@@ -1,4 +1,4 @@
-from main import CLUSTER
+from bot import CLUSTER
 from Bot.utils.constants import COMMAND_IS_VALID_REGEX, _init_mongo_arr, _init_mongo_bool, _init_mongo_dict
 from Bot.utils.constants import  COLOUR_ROLES_DICT, DEF_SNIPE_GIFS
 from discord import Embed, utils

@@ -1,10 +1,10 @@
 from Bot.utils.constants import get_cluster
 from Bot.utils.error_handler import ExpectedLiteralInt
-from main import CLUSTER
+from bot import CLUSTER
 import discord
 from discord.ext import commands
 from discord.utils import get
-from main import CLUSTER
+from bot import CLUSTER
 
 sticks = CLUSTER["discord"]["sticky_roles"]
 

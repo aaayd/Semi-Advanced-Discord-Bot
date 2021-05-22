@@ -1,6 +1,6 @@
 
 from datetime import datetime
-from main import ROOT, CLUSTER, client
+from bot import ROOT, CLUSTER, client
 import os, re, requests
 from PIL import ImageFont
 

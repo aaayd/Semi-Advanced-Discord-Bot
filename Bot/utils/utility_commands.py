@@ -1,6 +1,6 @@
 from Bot.utils.constants import get_command_description
 from Bot.utils.error_handler import MissingArgument, embed_success
-from main import CLUSTER
+from bot import CLUSTER
 import discord
 from discord.ext import commands
 

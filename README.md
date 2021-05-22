@@ -55,7 +55,7 @@ Alternatively, install the libraries manually:
 2. Set `SRV_URL` to your `MongoDB` Connection URL 
 3. Set `TOKEN` to your bot token 
 4. Save `protected_vars.env`
-5. Run `main.py`
+5. Run `bot.py`
 6. Change your default `general` and `logs` channel 
 
 - Change Default Channels Example: <br>
