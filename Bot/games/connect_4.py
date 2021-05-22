@@ -363,7 +363,8 @@ class ConnectFour(commands.Cog, name="Connect 4 Game"):
     @guild_only()
     @commands.group(
         invoke_without_command=True,
-        aliases=["4inarow", "connect4", "connectfour", "c4"],
+        name="connect4",
+        aliases=["4inarow", "connectfour", "c4"],
         case_insensitive=True
     )
     async def connect_four(
@@ -371,7 +372,7 @@ class ConnectFour(commands.Cog, name="Connect 4 Game"):
             ctx: commands.Context,
             board_size: int = 7,
             emoji1: EMOJI_CHECK = "\U0001f535",
-            emoji2: EMOJI_CHECK = "\U0001f534"
+            emoji2: EMOJI_CHECK = "\U0001f534",
     ) -> None:
         """
         Play Connect 4.
