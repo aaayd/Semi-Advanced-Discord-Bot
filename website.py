@@ -94,27 +94,29 @@ class Website(commands.Cog, name = "Website COG"):
 
 	@app.route('/update_command_state')
 	def update_command_state():
-		data = request.args.get('string').split(";")[:-1]
-
-		if data == []:
-			return "ERROR", 404
-
+		data = request.args.get('change_dict')[1:-1].replace('"', "").split(",")
 		guild_id = request.args.get('guild_id')
-		data_dict = {}
-		print(data_dict)
 		CLUSTER_UTIL = CLUSTER[guild_id]["utils"]
 
+		data_dict = {}
+		for var in data:
+			val = 0
 
-		for elem in data:
-			elem = elem.split(" : ")
-			data_dict[elem[0][8:]] = int(elem[1])
-		for key, value in data_dict.items():
-			CLUSTER_UTIL.update_one({
-				"id" : "type_command_activity"
-					},{"$set" : {
-						f"dict.{key}" : value
-					}
-				})
+			if var.split(":")[1] == "true":
+				val = 1
+
+			key = var.split(":")[0][8:]
+			data_dict[f"dict.{key}"] = val
+
+		if not data_dict:
+			return "ERROR", 404
+
+		CLUSTER_UTIL.update_one({
+			"id" : "type_command_activity"
+				},{
+					"$set" : data_dict
+				}
+			)
 
 		return "OK", 200
 

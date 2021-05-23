@@ -170,28 +170,16 @@
             </div>
         </div>
         
-        
-        
-        <a class="hidden_detector" style="display: none;">hidden_activity_state_detection</a>
-        <!-- This is incredibly terrible; however I don't know flask enough to do this appropriately --> 
-
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
         <script type=text/javascript>
             $(function() {
-                var allChanges = document.getElementsByTagName("changed_bool");
            
-                $('a#updateChanges').on('click', function(f) {
-                    var changeStr = ""
-                    for (var i = 0; i < allChanges.length; i++) {
-                        var temp;
-                        changeStr += `${allChanges[i].id} : ${allChanges[i].innerHTML};`
-                    }
-                    
+                $('a#updateChanges').on('click', function(f) {                    
                     f.preventDefault()
                     $.getJSON('/update_command_state', {
-                        string: changeStr, 
-                        guild_id: "{{guild.id}}"
+                        change_dict: JSON.stringify(allChanges), 
+                        guild_id: "{{guild.id}}",
                     },
                     function(data) {});
                     return false;
@@ -217,38 +205,26 @@
         </script>
 
         <script>
+            var allChanges = {}
+            document.getElementById("defaultTab").click();
+
             function updateCommandActivityState(id) {
                 var checkBox = document.getElementById(id);
 
-                var elementExists = document.getElementsByTagName("changed_bool");
-                for (var i = 0; i < elementExists.length; i++) {
-                    if (elementExists[i].id == id)
-                        elementExists[i].remove()
-                    
-                }
+                if (id in allChanges)
+                    delete allChanges[id]
                 
-                newDoc = document.createElement("changed_bool")
-                newDoc.style.display = "none"
-                newDoc.id = id
-                newDoc.className = "hidden_detector"
-
-
                 if (checkBox.checked == true)
-                    newDoc.innerHTML  = 1
+                    allChanges[id] = true
                     
                 else 
-                    newDoc.innerHTML  = 0
+                    allChanges[id] = false
                 
-                document.body.appendChild(newDoc);
-
             }
 
 
         </script>
-        <script>
-            document.getElementById("defaultTab").click();
-            document.getElementById("updateChanges").click();
-        </script>
+
     </body>
     
-    </html>
+</html>
