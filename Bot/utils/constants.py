@@ -3,6 +3,7 @@ from datetime import datetime
 from bot import ROOT, CLUSTER, client
 import os, re, requests
 from PIL import ImageFont
+from discord.ext import commands
 
 # Variables 
 
@@ -30,6 +31,7 @@ CLUSTERS = {
     "CLUSTER_GIFS" : "utils",
     "CLUSTER_CONFESSION" : "utils",
     "CLUSTER_CHANNELS" : "utils",
+    "CLUSTER_COMMANDS" : "utils",
 }
 
 
@@ -278,6 +280,18 @@ PUSSY_RESPONSE_DICT = {
 }
 
 # Functions
+
+def command_activity_check():
+    def predicate(ctx):
+        _db = get_cluster(ctx.guild.id, "CLUSTER_COMMANDS")
+        command_activity_state =_db.find_one({"id" : "type_command_activity"})["dict"][f"{ctx.command}"]
+        
+        if command_activity_state:
+            return True
+        return False
+        
+    return commands.check(predicate)
+
 
 def get_guild(id):
     return client.get_guild(id)
