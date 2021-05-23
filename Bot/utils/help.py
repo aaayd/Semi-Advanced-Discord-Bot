@@ -1,3 +1,4 @@
+from Bot.utils.constants import command_activity_check
 import discord
 from discord.ext import commands
 from discord.errors import Forbidden
@@ -25,6 +26,7 @@ class Help(commands.Cog, name="Help Commands"):
 
 
     @commands.command()
+    @command_activity_check()
     # @commands.bot_has_permissions(add_reactions=True,embed_links=True)
     async def help(self, ctx, *input):
         """

@@ -1,5 +1,5 @@
 from Bot.utils.error_handler import ExpectedLiteralInt, MissingArgument
-from Bot.utils.constants import get_channel_id, get_cluster, get_command_description
+from Bot.utils.constants import command_activity_check, get_channel_id, get_cluster, get_command_description
 import discord
 from random import choice
 from datetime import datetime, timedelta
@@ -16,6 +16,7 @@ class Logger(commands.Cog, name="Log Commands"):
         self.author_temp = ""
 
     @commands.command()
+    @command_activity_check()
     @commands.has_permissions(manage_messages=True)
     async def purge(self, ctx, amount):
         """
@@ -125,6 +126,7 @@ class Logger(commands.Cog, name="Log Commands"):
         await log_channel.send(embed=embed)
     
     @commands.command()
+    @command_activity_check()
     async def snipe(self, ctx):
         """
         Sends most recent deleted messages by a member.
@@ -170,6 +172,7 @@ class Logger(commands.Cog, name="Log Commands"):
                     await ctx.send("Cannot Snipe message. Perhaps it contains no text?")
 
     @commands.command()
+    @command_activity_check()
     async def esnipe(self, ctx):
         """
         Sends most recent edited messages by a member.

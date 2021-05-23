@@ -1,5 +1,5 @@
 import requests
-from Bot.utils.constants import get_command_description
+from Bot.utils.constants import command_activity_check, get_command_description
 from Bot.utils.error_handler import MissingArgument
 from discord.ext import commands
 from discord import Embed
@@ -15,6 +15,7 @@ class Image(commands.Cog, name="Image Commands"):
         self.bot = bot
 
     @commands.command()
+    @command_activity_check()
     async def meme(self, ctx):
         """
         Sends random meme.
@@ -27,6 +28,7 @@ class Image(commands.Cog, name="Image Commands"):
         await ctx.send(meme)
 
     @commands.command()
+    @command_activity_check()
     async def animal(self, ctx, name = None):
         """
         Sends an image of an animal.

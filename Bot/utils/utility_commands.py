@@ -1,4 +1,4 @@
-from Bot.utils.constants import get_command_description, get_cluster
+from Bot.utils.constants import command_activity_check, get_command_description, get_cluster
 from Bot.utils.error_handler import MissingArgument, embed_success, ExpectedLiteralInt
 from bot import CLUSTER
 import discord
@@ -14,6 +14,7 @@ class UtilityCommands(commands.Cog, name = "Utility Commands"):
 
 
     @commands.command()
+    @command_activity_check()
     @commands.has_permissions(administrator=True)
     async def add_default_roles(self, ctx, *, roles):
         """
@@ -45,6 +46,7 @@ class UtilityCommands(commands.Cog, name = "Utility Commands"):
 
 
     @commands.command()
+    @command_activity_check()
     @commands.has_permissions(administrator=True)
     async def defchannel(self, ctx, channel = None, new_channel : discord.TextChannel = None):
         """

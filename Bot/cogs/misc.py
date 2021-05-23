@@ -4,7 +4,7 @@ import discord, praw
 from discord.ext import commands
 from datetime import datetime
 from bot import CLUSTER
-from Bot.utils.constants import  COLOUR_ROLES_DICT, get_channel_id, get_command_description
+from Bot.utils.constants import  COLOUR_ROLES_DICT, command_activity_check, get_channel_id, get_command_description
 
 r = praw.Reddit(client_id="7oE7yB5GJJua2Q", client_secret="ooidPB-ETJxbRflpja6a65KX03g", user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36', username="PhantomVipermon", check_for_async=False)
 last_check = datetime.utcnow
@@ -17,6 +17,7 @@ class Misc(commands.Cog, name="Miscellaneous Commands"):
         self.client = client
     
     @commands.command(name="showerthought", aliases=["st"])
+    @command_activity_check()
     async def _get_shower_thought(self, ctx):
         """
         Sends random shower thought from r/showerthoughts.
@@ -40,6 +41,7 @@ class Misc(commands.Cog, name="Miscellaneous Commands"):
         await ctx.send(embed=embed)
 
     @commands.command()
+    @command_activity_check()
     async def invites(self, ctx, member : discord.Member = None):
         """
         Sends amount of invites a member has.
@@ -54,6 +56,7 @@ class Misc(commands.Cog, name="Miscellaneous Commands"):
 
 
     @commands.command(aliases=['m'])
+    @command_activity_check()
     async def mirror(self, ctx):        
         """
         Repeats the message sent.
@@ -75,6 +78,7 @@ class Misc(commands.Cog, name="Miscellaneous Commands"):
 
 
     @commands.command()
+    @command_activity_check()
     async def serverinfo(self, ctx):
         """
         Sends information about the server.
@@ -96,6 +100,7 @@ class Misc(commands.Cog, name="Miscellaneous Commands"):
         await ctx.reply(embed=embed)
      
     @commands.command(name="colour", aliases=['color', 'role'])
+    @command_activity_check()
     async def _colour(self, ctx, colour : str = None):
         """
         Change colour role.
@@ -127,6 +132,7 @@ class Misc(commands.Cog, name="Miscellaneous Commands"):
             raise RoleNotFound(colour.upper())
                 
     @commands.command()
+    @command_activity_check()
     async def ping(self, ctx):
         """
         Sends the ping of the bot.
@@ -137,6 +143,7 @@ class Misc(commands.Cog, name="Miscellaneous Commands"):
         await ctx.reply(embed=embed)
         
     @commands.command(aliases=["av"])
+    @command_activity_check()
     async def avatar(self, ctx, member : discord.Member=None):
         """
         Sends an avatar image / gif of a member.
@@ -166,6 +173,7 @@ class Misc(commands.Cog, name="Miscellaneous Commands"):
         await ctx.send(embed=embed)
     
     @commands.command(aliases=["whois"])
+    @command_activity_check()
     async def userinfo(self,ctx, member: discord.Member = None):
         """
         Sends information about a member.

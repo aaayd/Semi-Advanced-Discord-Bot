@@ -3,7 +3,7 @@ import discord, re, asyncio
 from discord.utils import get
 from discord.ext import commands, tasks
 from datetime import datetime, timedelta
-from Bot.utils.constants import ALL_GUILD_DATABASES, converter, get_channel_id, get_cluster, get_command_description
+from Bot.utils.constants import ALL_GUILD_DATABASES, command_activity_check, converter, get_channel_id, get_cluster, get_command_description
 
 
 class Moderation(commands.Cog, name = "Moderation Commands"):
@@ -41,6 +41,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
                         
             
     @commands.command()
+    @command_activity_check()
     @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, member : discord.Member = None, *, reason=None):
         """
@@ -71,6 +72,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
         
 
     @commands.command()
+    @command_activity_check()
     @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, member : discord.Member = None, *, reason=None):
         """
@@ -105,6 +107,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
     
         
     @commands.command()
+    @command_activity_check()
     @commands.has_permissions(manage_messages=True)
     async def clear(self, ctx, member : discord.Member = None, limit: int=None):
         """
@@ -126,6 +129,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
                         pass
 
     @commands.command()
+    @command_activity_check()
     @commands.has_guild_permissions(mute_members=True)
     async def mute(self, ctx, member : discord.Member = None, time="Indefinite", *, reason="None"):
         """
@@ -162,6 +166,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
             _db.delete_many({'id': member.id})
 
     @commands.command()
+    @command_activity_check()
     @commands.has_guild_permissions(mute_members=True)
     async def unmute(self, ctx, member : discord.Member=None):
         """

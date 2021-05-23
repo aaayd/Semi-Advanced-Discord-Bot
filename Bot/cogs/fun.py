@@ -3,7 +3,7 @@ import discord, random, requests
 from discord.ext import commands
 from discord import Embed
 from datetime import datetime
-from Bot.utils.constants import PUNCH_GIF_ARRAY, get_cluster, get_command_description
+from Bot.utils.constants import PUNCH_GIF_ARRAY, command_activity_check, get_cluster, get_command_description
 from Bot.utils.constants import EIGHT_BALL_RESPONSE_DICT, GAY_RESPONSE_DICT, HEART_RESPONSE_LIST, PUSSY_RESPONSE_DICT, SHIP_RESPONSE_DICT, KISS_GIF_ARRAY
 
 class Fun(commands.Cog, name="Fun Commands"):
@@ -14,6 +14,7 @@ class Fun(commands.Cog, name="Fun Commands"):
         self.client = client
 
     @commands.command()
+    @command_activity_check()
     async def kiss(self, ctx, member: discord.Member = None):
         """
         Send a random kiss gif a user.
@@ -31,6 +32,7 @@ class Fun(commands.Cog, name="Fun Commands"):
         await ctx.send(embed=embed)
 
     @commands.command()
+    @command_activity_check()
     async def punch(self, ctx, member: discord.Member = None):
         """
         Send a random punch gif to a user.
@@ -48,6 +50,7 @@ class Fun(commands.Cog, name="Fun Commands"):
         await ctx.send(embed=embed)
 
     @commands.command(aliases=["pat"])
+    @command_activity_check()
     async def headpat(self, ctx, member : discord.Member = None):
         """
         Send a random headpat gif to a user.
@@ -68,6 +71,7 @@ class Fun(commands.Cog, name="Fun Commands"):
         await ctx.send(embed=embed)
 
     @commands.command()
+    @command_activity_check()
     async def hug(self, ctx, member : discord.Member = None):
         """
         Send a random hug gif to a user.
@@ -89,6 +93,7 @@ class Fun(commands.Cog, name="Fun Commands"):
 
 
     @commands.command(aliases=["diceroll"])
+    @command_activity_check()
     async def rolldice(self, ctx):
         """
         Roll a dice.
@@ -104,6 +109,7 @@ class Fun(commands.Cog, name="Fun Commands"):
         await ctx.send(embed=embed)
 
     @commands.command(aliases=["flipcoin", "fiftyfifty", "5050"])
+    @command_activity_check()
     async def coinflip(self, ctx):
         """
         Flip a coin.
@@ -120,6 +126,7 @@ class Fun(commands.Cog, name="Fun Commands"):
         await ctx.send(embed=embed)
 
     @commands.command()
+    @command_activity_check()
     async def gayav(self, ctx, member : discord.Member = None):
         """
         Sends gay-ified avatar.
@@ -141,6 +148,7 @@ class Fun(commands.Cog, name="Fun Commands"):
         ).set_image(url=url))
 
     @commands.command(aliases=["simp"])
+    @command_activity_check()
     async def ship(self, ctx, member : discord.Member = None, member2 : discord.Member = None):
         """
         Rate love between two users.
@@ -221,6 +229,7 @@ class Fun(commands.Cog, name="Fun Commands"):
         await ctx.send(embed=embed)
     
     @commands.command(aliases=['8ball'])
+    @command_activity_check()
     async def eightball(self, ctx, *, _ballInput = None):
         """
         Have 8ball give the answer.
@@ -252,6 +261,7 @@ class Fun(commands.Cog, name="Fun Commands"):
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['gay-scanner', 'gayscanner', 'gay'])
+    @command_activity_check()
     async def gay_scanner(self, ctx, member : discord.Member=None):
         """
         Detect how gay someone is.
@@ -299,6 +309,7 @@ class Fun(commands.Cog, name="Fun Commands"):
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['pussy'])
+    @command_activity_check()
     async def pussy_size(self, ctx, member : discord.Member=None):
         """
         Get size of a user pussy.
@@ -342,6 +353,7 @@ class Fun(commands.Cog, name="Fun Commands"):
         await ctx.send(embed=embed)
 
     @commands.command()
+    @command_activity_check()
     async def dick(self, ctx, member : discord.Member=None):
         """
         Get size of a user dick.

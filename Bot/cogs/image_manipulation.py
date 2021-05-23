@@ -5,7 +5,7 @@ from PIL import ImageColor
 from discord.ext import commands
 from PIL import Image, ImageFont, ImageDraw, ImageChops
 from requests.models import InvalidURL
-from Bot.utils.constants import IMAGE_PATH, UNI_SANS_40, get_channel_id, get_command_description, get_level, get_rank, query_valid_url, get_cluster
+from Bot.utils.constants import IMAGE_PATH, UNI_SANS_40, command_activity_check, get_channel_id, get_command_description, get_level, get_rank, query_valid_url, get_cluster
 from Bot.utils.error_handler import embed_error, MissingArgument
 
 
@@ -157,6 +157,7 @@ class ImageManipulation(commands.Cog, name="Rank Card Commands"):
 
 
     @commands.command(aliases=["bg"])
+    @command_activity_check()
     async def set_background(self, ctx, link="NoLinkSpecified"):
         """
         Change rank card background image.
@@ -208,6 +209,7 @@ class ImageManipulation(commands.Cog, name="Rank Card Commands"):
         await ctx.send(file=discord.File(os.path.join(f"{IMAGE_PATH}//temp//","card_temp.png")))
 
     @commands.command(aliases=["cr"])
+    @command_activity_check()
     async def set_colour(self, ctx, r = None):
         """
         Change colour in rank card.

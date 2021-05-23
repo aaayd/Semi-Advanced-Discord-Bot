@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands
 from datetime import datetime
 from bot import CLUSTER
-from Bot.utils.constants import get_cluster, get_time_elapsed
+from Bot.utils.constants import get_cluster, get_time_elapsed, command_activity_check
 
 class AFKSystem(commands.Cog, name="AFK Commands"):
     """
@@ -11,9 +11,9 @@ class AFKSystem(commands.Cog, name="AFK Commands"):
     """
     def __init__(self, client):
         self.client = client
-    
 
     @commands.command()
+    @command_activity_check()
     async def afk(self, ctx, *, status="No status"):
         """
         Set AFK Status.

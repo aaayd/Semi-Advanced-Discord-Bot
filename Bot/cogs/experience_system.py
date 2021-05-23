@@ -1,5 +1,5 @@
 from Bot.utils.error_handler import ExpectedLiteralInt, MissingArgument, NotInDatabase, embed_error, embed_success
-from Bot.utils.constants import IMAGE_PATH, get_channel_id, get_cluster, get_command_description, get_level, get_rank
+from Bot.utils.constants import IMAGE_PATH, command_activity_check, get_channel_id, get_cluster, get_command_description, get_level, get_rank
 from Bot.cogs.image_manipulation import create_rank_card
 import discord, os
 from discord.ext import commands
@@ -24,6 +24,7 @@ class ExperienceSystem(commands.Cog, name = "XP Commands"):
         
 
     @commands.command(name="rank", aliases=["level"])
+    @command_activity_check()
     async def _rank(self, ctx, member: discord.Member = None):
         """
         Sends an image of [member]'s rank card.
@@ -66,6 +67,7 @@ class ExperienceSystem(commands.Cog, name = "XP Commands"):
         await ctx.send(file=discord.File(os.path.join(f"{IMAGE_PATH}//temp//","card_temp.png")))
 
     @commands.command(name="leaderboard", aliases=["lb"])
+    @command_activity_check()
     async def _leaderboard(self, ctx, placement = None):
         """
         Sends an image of [placement number]'s rank card.
