@@ -95,16 +95,19 @@ class Website(commands.Cog, name = "Website COG"):
 	@app.route('/update_command_state')
 	def update_command_state():
 		data = request.args.get('string').split(";")[:-1]
+
+		if data == []:
+			return "ERROR", 404
+
 		guild_id = request.args.get('guild_id')
 		data_dict = {}
-		
+		print(data_dict)
 		CLUSTER_UTIL = CLUSTER[guild_id]["utils"]
 
 
 		for elem in data:
 			elem = elem.split(" : ")
 			data_dict[elem[0][8:]] = int(elem[1])
-
 		for key, value in data_dict.items():
 			CLUSTER_UTIL.update_one({
 				"id" : "type_command_activity"
@@ -113,16 +116,17 @@ class Website(commands.Cog, name = "Website COG"):
 					}
 				})
 
-		return ("nothing")
+		return "OK", 200
 
 	@app.route('/send_message')
 	async def send_message():
+		print("Lol")
 		data = request.args.get('message')
 
 		channel = await app.discord_client.get_channel(821202396797468714)
 
 		await channel.send(data)
-		return ("nothing")
+		return "OK", 200
 		
 	@app.route("/dashboard/<int:guild_id>")
 	async def dashboard_server(guild_id):

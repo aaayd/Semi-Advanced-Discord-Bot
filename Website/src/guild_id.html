@@ -115,21 +115,20 @@
 
             <div id="Commands" class="tabcontent p-4 pt-5 " style="min-width: 85%; min-height: 100vh;-webkit-transition: all 0.3s;-o-transition: all 0.3s;transition: all 0.3s;">
                 <div class="container" style="min-width: 100%; display: flex; float: left">
-                    <div class='container'>
-                        <h3>Test</h3>
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col">
                             <form>
-                                <a href=# id=updateChanges><button  class='btn btn-default'>Test</button></a>
+                                <a href=# id=updateChanges><button  class='btn btn-warning'>Update Database</button></a>
                             </form>
-                    
-                    </div>
+                        </div>
 
-                    <div class='container'>
-                        <h3>Send_Message_Test</h3>
+                    <div class="row" style="min-width: 300px;">
+                        <div class="col">
                             <form>
-                                <a href=# id=sendMessage><button  class='btn btn-default'>Send_Message_Test</button></a>
+                                <a href=# id=sendMessage><button  class='btn btn-warning'>Send Message</button></a>
                             </form>
-                    
-                    </div>
+                        </div>
+                    </div>                    
                     
 
 
@@ -174,45 +173,47 @@
         
         
         <a class="hidden_detector" style="display: none;">hidden_activity_state_detection</a>
-        <a class="guild_id" id="{{guild.id}}" style="display: none;"></a>
         <!-- This is incredibly terrible; however I don't know flask enough to do this appropriately --> 
+
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
         <script type=text/javascript>
             $(function() {
                 var allChanges = document.getElementsByTagName("changed_bool");
            
-    
-                $('a#updateChanges').on('click', function(e) {
+                $('a#updateChanges').on('click', function(f) {
                     var changeStr = ""
                     for (var i = 0; i < allChanges.length; i++) {
                         var temp;
-                        console.log(allChanges[i].id, allChanges[i].text)
                         changeStr += `${allChanges[i].id} : ${allChanges[i].innerHTML};`
                     }
-                    guild_id = document.getElementsByClassName("guild_id")[0].id
                     
-                    e.preventDefault()
-                    $.getJSON('/update_command_state', {string: changeStr, guild_id: guild_id},
-                    function(data) {
-                        //do nothing
-                    });
+                    f.preventDefault()
+                    $.getJSON('/update_command_state', {
+                        string: changeStr, 
+                        guild_id: "{{guild.id}}"
+                    },
+                    function(data) {});
                     return false;
                 });
-             });
+            });
+
+            $(function() {
+                $('a#sendMessage').on('click', function(f) {
+                    f.preventDefault()
+                    $.getJSON('/send_message', {
+                        message : "Hi",
+                        guild_id: "{{guild.id}}"
+                    },
+                    
+                    function(data) {});
+                    return false;
+                });
+            });
+
             </script>
     
         <script type=text/javascript>
-        $(function() {
-            $('a#sendMessage').on('click', function(e) {
-                e.preventDefault()
-                $.getJSON('/send_message', {message : "Hi", guild_id: guild_id},
-                function(data) {
-                    //do nothing
-                });
-                return false;
-            });
-         });
         </script>
 
         <script>
@@ -246,6 +247,7 @@
         </script>
         <script>
             document.getElementById("defaultTab").click();
+            document.getElementById("updateChanges").click();
         </script>
     </body>
     
