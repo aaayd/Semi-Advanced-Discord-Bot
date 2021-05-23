@@ -50,6 +50,9 @@ with open('protected_vars.env') as ins:
         if match is not None:
             result[match.group(1)] = match.group(2)
 
+bot_var_arr = [result["SRV_URL"], result["TOKEN"]]
+website_var_arr = [result["SECRET_KEY"], result["IPC_SECRET"], result["DISCORD_CLIENT_ID"], result["DISCORD_CLIENT_SECRET"], result["DISCORD_REDIRECT_URI"]]
+
 ROOT = str(__file__)[:-len("bot.py")]
 CLUSTER = MongoClient(result["SRV_URL"])
 
@@ -165,5 +168,12 @@ for key, cogs in client.COGS.items():
         client.load_extension(f'Bot.{key}.{cog}')
 
 if __name__ == "__main__":
-    client.ipc.start()
-    client.run(result["TOKEN"])
+    if any("INSERT" in word for word in website_var_arr):
+        print(f"{Fore.RED}[x]{Style.RESET_ALL} Website vars have not been set-up. Skipping...")
+    else:
+        client.ipc.start()
+        
+    if any("INSERT" in word for word in bot_var_arr):
+        print(f"{Fore.RED}[x]{Style.RESET_ALL} Bot vars have not been set-up. Skipping...")
+    else:
+        client.run(result["TOKEN"])
