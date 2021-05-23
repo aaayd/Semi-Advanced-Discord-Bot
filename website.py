@@ -3,7 +3,7 @@ from quart_discord import DiscordOAuth2Session
 from discord.ext import ipc, commands
 from bot import result, CLUSTER
 from Bot.utils.constants import get_cluster
-import os
+import discord, os, asyncio
 from logging.config import dictConfig
 
 dictConfig({
@@ -28,10 +28,32 @@ app.config["DISCORD_CLIENT_SECRET"] = str(result["DISCORD_CLIENT_SECRET"])   # D
 app.config["DISCORD_REDIRECT_URI"] = str(result["DISCORD_REDIRECT_URI"])
 discord_auth = DiscordOAuth2Session(app)
 
+class DiscordClient:
+	def __init__(self):
+		self.client = discord.Client(intents=discord.Intents.all())
+		
+	async def get_guild(self, id):
+		await self.client.wait_until_ready()
+		
+		return self.client.get_guild(id)
+
+	async def get_channel(self, id):
+		await self.client.wait_until_ready()
+
+		return self.client.get_channel(id)
+
 class Website(commands.Cog, name = "Website COG"):
 	def __init__(self, client):
 		self.client = client
 	
+	@app.before_serving
+	async def before_serving():
+		loop = asyncio.get_event_loop()
+		app.discord_client = DiscordClient()
+
+		await app.discord_client.client.login(result["TOKEN"])
+		loop.create_task(app.discord_client.client.connect())
+
 	@app.route("/")
 	async def home():
 		return await render_template("index.html", authorized = await discord_auth.authorized)
@@ -92,6 +114,15 @@ class Website(commands.Cog, name = "Website COG"):
 				})
 
 		return ("nothing")
+
+	@app.route('/send_message')
+	async def send_message():
+		data = request.args.get('message')
+
+		channel = await app.discord_client.get_channel(821202396797468714)
+
+		await channel.send(data)
+		return ("nothing")
 		
 	@app.route("/dashboard/<int:guild_id>")
 	async def dashboard_server(guild_id):
@@ -119,5 +150,8 @@ class Website(commands.Cog, name = "Website COG"):
 	if __name__ == "__main__":
 		app.run(debug=True)
 
+        
 def setup(client):
 	client.add_cog(Website(client))
+
+
