@@ -28,7 +28,7 @@
                         <a class="nav-link" href="#">Commands</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Leaderboard</a>
+                        <a class="nav-link" href="../dashboard">Dashboard</a>
                     </li>
                 </ul>
             </div>
@@ -146,23 +146,25 @@
                                         {% for command in commands %}
                                         
                                         <div class="card rounded"  style="margin-top: 20px; margin-right: 20px;">
-                                            <div class="card-body" style="background-color: #1A1A1A;border-radius : 10px; border-color:white; min-width: 450px;">
-                                                <label class="toggle-control" style="float: right">
-                                                    {% if _db_commands[command[0]] == 1 %}
+                                            {% if _db_commands[command[0]] == 1 %}
+                                                <div id="card_command_{{command[0]}}" class="card-body" style="background-color: #1A1A1A;border-radius : 10px; border-color:white; min-width: 450px;">
+                                                    <label class="toggle-control" style="float: right">
                                                         <input id="command_{{command[0]}}" onclick="updateCommandActivityState('command_{{command[0]}}')"type="checkbox" checked="checked">
-                                                    {% else %}
-                                                            <input id="command_{{command[0]}}" onclick="updateCommandActivityState('command_{{command[0]}}')"type="checkbox">
-                                                    {% endif %}
-                                                    <span class="control"></span>
-                                                </label>
+                                            {% else %}
+                                                <div id="card_command_{{command[0]}}" class="card-body" style="background-color: #121212;border-radius : 10px; border-color:white; min-width: 450px;">
+                                                    <label class="toggle-control" style="float: right">
+                                                        <input id="command_{{command[0]}}" onclick="updateCommandActivityState('command_{{command[0]}}')"type="checkbox">
+                                            {% endif %}
+                                            <span class="control"></span>
+                                        </label>
             
-                                                <h5 class="card-title">{{command[0]}} </h5>
-                                                <p class="card-text">{{command[1]}}</p>
-                                            </div>
-                                        </div>
-                                    {% endfor %}
+                                        <h5 class="card-title">{{command[0]}} </h5>
+                                        <p class="card-text">{{command[1]}}</p>
                                     </div>
-                                {% endif %}
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
                             {% endfor %}
                         </div>
                     </div>
@@ -210,15 +212,19 @@
 
             function updateCommandActivityState(id) {
                 var checkBox = document.getElementById(id);
-
+                var cardBox = document.getElementById(`card_${id}`);
                 if (id in allChanges)
                     delete allChanges[id]
                 
-                if (checkBox.checked == true)
+                if (checkBox.checked == true){
                     allChanges[id] = 1
+                    cardBox.style.backgroundColor="#1A1A1A"
+                }
                     
-                else 
+                else {
                     allChanges[id] = 0
+                    cardBox.style.backgroundColor="#121212"
+                }
                 
             }
 
