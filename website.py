@@ -100,12 +100,9 @@ class Website(commands.Cog, name = "Website COG"):
 
 		data_dict = {}
 		for var in data:
-			val = 0
-
-			if var.split(":")[1] == "true":
-				val = 1
-
 			key = var.split(":")[0][8:]
+			val = int(var.split(":")[1])
+
 			data_dict[f"dict.{key}"] = val
 
 		if not data_dict:
