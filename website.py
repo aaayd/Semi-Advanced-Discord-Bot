@@ -4,6 +4,19 @@ from discord.ext import ipc
 from bot import result, CLUSTER
 from Bot.utils.constants import CLUSTERS, get_cluster
 import discord, os
+from logging.config import dictConfig
+
+dictConfig({
+    'version': 1,
+    'loggers': {
+        'quart.app': {
+            'level': 'ERROR',
+        },
+        'quart.serving': {
+            'level': 'ERROR',
+        },
+    },
+})
 
 template_folder_path = os.path.abspath('Website/src')
 static_folder_path = os.path.abspath('Website/static')
