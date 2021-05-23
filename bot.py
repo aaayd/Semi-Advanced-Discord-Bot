@@ -8,7 +8,6 @@ from discord.flags import Intents
 from colorama import Fore, Style
 from pymongo import MongoClient
 
-#TODO  - Load cog
 class Bot(commands.Bot):
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
@@ -16,6 +15,10 @@ class Bot(commands.Bot):
         self.ipc = ipc.Server(self,secret_key = result["IPC_SECRET"])
 
         self.COGS = {
+            "root" : [
+                "website"
+            ],
+
             "cogs" : [
                 "afk","audio","experience_system",
                 "fun","image_manipulation","image","misc", 
@@ -165,7 +168,14 @@ async def get_guild(data):
 
 for key, cogs in client.COGS.items():
     for cog in cogs:
-        client.load_extension(f'Bot.{key}.{cog}')
+
+        string = f'Bot.{key}.{cog}'
+
+        if key == "root":
+            string = f'{cog}'
+
+        client.load_extension(string)
+
 
 if __name__ == "__main__":
     if any("INSERT" in word for word in website_var_arr):
