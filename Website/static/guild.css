@@ -297,3 +297,8 @@ a:focus {
 .subscribe-form .form-control {
     background: #ffc600;
 }
+
+.active {
+    background: white;
+    color: #ffc600
+}

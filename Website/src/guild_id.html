@@ -48,10 +48,10 @@
                     </div>
                 </div>
                 <ul class="list-unstyled components mb-5">
-                    <li class="tablinks" onclick="openTab(event, 'ServerInformation')">
+                    <li class=" active tablinks" onclick="openTab(event, 'ServerInformation')">
                         <a href="javascript:void(0)" id="defaultTab" ><span class="fa fa-home mr-3"></span> Server Information</a>
                     </li>
-                    <li class="tablinks" onclick="openTab(event, 'Commands')">
+                    <li class=" tablinks " onclick="openTab(event, 'Commands')">
                         <a href="javascript:void(0)"><span class="fa fa-wrench mr-3"></span> Commands</a>
                     </li>
                 </ul>
@@ -148,11 +148,10 @@
                                         <div class="card rounded"  style="margin-top: 20px; margin-right: 20px;">
                                             {% if _db_commands[command[0]] == 1 %}
                                                 <div id="card_command_{{command[0]}}" class="card-body" style="background-color: #1A1A1A;border-radius : 10px; border-color:white; min-width: 450px;">
-                                                        <input id="command_{{command[0]}}" onclick="updateCommandActivityState('command_{{command[0]}}')"type="checkbox" checked="checked"><label for="command_{{command[0]}}"></label>
+                                                    <input id="command_{{command[0]}}" onclick="updateCommandActivityState('command_{{command[0]}}')"type="checkbox" checked="checked"><label for="command_{{command[0]}}"></label>
                                             {% else %}
                                                 <div id="card_command_{{command[0]}}" class="card-body" style="background-color: #121212;border-radius : 10px; border-color:white; min-width: 450px;">
-                                                    <label class="toggle-control" style="float: right">
-                                                        <input id="command_{{command[0]}}" onclick="updateCommandActivityState('command_{{command[0]}}')"type="checkbox">
+                                                    <input id="command_{{command[0]}}" onclick="updateCommandActivityState('command_{{command[0]}}')"type="checkbox"><label for="command_{{command[0]}}"></label>
                                             {% endif %}
                                             <span class="control"></span>
                                         </label>
