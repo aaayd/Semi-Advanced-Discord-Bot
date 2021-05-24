@@ -43,10 +43,11 @@ Welcome Card Example
 Alternatively, install the libraries manually:
 ```py
 # pip install discordpy 
+# pip install discord-ext-ipc 
 # pip install Pillow
 # pip install pymongo
 # pip install fuzzywuzzy 
-# pip install emoji
+# pip install emojis
 ```
 
 
