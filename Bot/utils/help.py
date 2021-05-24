@@ -53,7 +53,10 @@ class Help(commands.Cog, name="Help Commands"):
 
             cogs_desc = ''
             for cog in self.bot.cogs:
-                cogs_desc += f'`{cog}` {self.bot.cogs[cog].__doc__}\n'
+                cogname = cog.replace(" ", "_")
+                cogname = cogname.replace("_Commands", "")
+
+                cogs_desc += f'`{cogname}` {self.bot.cogs[cog].__doc__}\n'
 
             emb.add_field(name='Modules', value=cogs_desc, inline=False)
 
@@ -72,7 +75,9 @@ class Help(commands.Cog, name="Help Commands"):
         elif len(input) == 1:
 
             for cog in self.bot.cogs:
-                if cog.lower() == input[0].lower():
+                cogname = cog.replace(" ", "_").lower()
+                cogname = cogname.replace("_commands", "")
+                if cogname == input[0].lower():
                     emb = discord.Embed(
                         title=f'{cog} - Commands', 
                         description=self.bot.cogs[cog].__doc__,
