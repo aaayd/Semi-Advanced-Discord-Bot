@@ -145,16 +145,15 @@
                                     <div class="row" style="margin-right: 40px;">
                                         {% for command in commands %}
                                         
-                                        <div class="card rounded"  style="margin-top: 20px; margin-right: 20px;">
+                                        <div class="card"  style="margin-top: 20px; margin-right: 20px;">
                                             {% if _db_commands[command[0]] == 1 %}
-                                                <div id="card_command_{{command[0]}}" class="card-body" style="background-color: #1A1A1A;border-radius : 10px; border-color:white; min-width: 450px;">
+                                                <div id="card_command_{{command[0]}}" class="card-body" style="background-color: #1A1A1A;min-width: 450px;">
                                                     <input id="command_{{command[0]}}" onclick="updateCommandActivityState('command_{{command[0]}}')"type="checkbox" checked="checked"><label for="command_{{command[0]}}"></label>
                                             {% else %}
-                                                <div id="card_command_{{command[0]}}" class="card-body" style="background-color: #121212;border-radius : 10px; border-color:white; min-width: 450px;">
+                                                <div id="card_command_{{command[0]}}" class="card-body" style="background-color: #121212;border-radius : 10px; min-width: 450px;">
                                                     <input id="command_{{command[0]}}" onclick="updateCommandActivityState('command_{{command[0]}}')"type="checkbox"><label for="command_{{command[0]}}"></label>
                                             {% endif %}
                                             <span class="control"></span>
-                                        </label>
             
                                         <h5 class="card-title">{{command[0].replace("_", " ")}} </h5>
                                         <p class="card-text">{{command[1]}}</p>

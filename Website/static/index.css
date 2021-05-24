@@ -49,6 +49,7 @@ label {
 	float: right;
 	cursor: pointer;
 	text-indent: -9999px;
+	margin-top: 15px;
 	width: 100px;
 	height: 50px;
 	background: grey;
