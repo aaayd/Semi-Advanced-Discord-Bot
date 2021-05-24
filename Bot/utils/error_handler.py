@@ -1,5 +1,5 @@
 from bot import CLUSTER
-from Bot.utils.constants import COMMAND_IS_VALID_REGEX, _init_mongo_arr, _init_mongo_bool, _init_mongo_dict
+from Bot.utils.constants import COMMAND_IS_VALID_REGEX, represents_int, _init_mongo_arr, _init_mongo_bool, _init_mongo_dict, get_cluster
 from Bot.utils.constants import  COLOUR_ROLES_DICT, DEF_SNIPE_GIFS
 from discord import Embed, utils
 from discord.ext import commands
@@ -41,6 +41,13 @@ class RoleNotFound(commands.CommandError):
     def __str__(self):
         return f"Role `{self.role}` not found"
 
+class CommandDisabled(commands.CommandError):
+    def __init__(self, command : str):
+        self.command = command
+
+    def __str__(self):
+        return f"Command `{self.command}` is disabled"
+
 
 class MissingArgument(commands.CommandError):
     def __init__(self, missing_argument, command_description):
@@ -62,10 +69,44 @@ class CommandErrorHandler(commands.Cog, name="Error Handler"):
     """
     Error handler for the bot - nothing interesting here.
     """
-    
     def __init__(self, client):
         self.client = client
- 
+
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        await self.client.wait_until_ready()
+        
+        collections = [collection for collection in CLUSTER.database_names() if represents_int(collection)]
+        
+        for collection in collections:
+            _db = get_cluster(int(collection), "CLUSTER_COMMANDS")
+            db = _db.find_one({"id" : "type_command_activity"})
+            update = {}
+            if db is None:
+                db = _db.insert_one({
+                    "id" : "type_command_activity",
+                    "dict" : {}
+                })
+                db = _db.find_one({"id" : "type_command_activity"})
+
+            command_db = db["dict"]
+            
+            for command in self.client.commands:
+                try:
+                    cmd = command_db[command.name]
+                except KeyError:
+                    update[f"dict.{command.name}"] = 1
+
+            if update:
+                _db.update_one({
+                "id" : "type_command_activity"
+                    },{
+                        "$set" : update
+                    }
+                )
+
+
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
         commands = [command for command in self.client.commands]
