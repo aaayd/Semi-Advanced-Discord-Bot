@@ -15,6 +15,26 @@ class UtilityCommands(commands.Cog, name = "Utility Commands"):
 
     @commands.command()
     @command_activity_check()
+    async def disable(self, ctx, *, commands):
+        print(commands)
+        new_activity_state = {}
+        _db = get_cluster(ctx.guild.id, "CLUSTER_COMMANDS")
+
+        for command in commands:
+            new_activity_state[command] = 0
+         
+        _db.update_one({
+			"id" : "type_command_activity"
+				},{
+					"$set" : new_activity_state
+				}
+		)
+
+        string = [f"`{command}`, " for command in commands]
+        embed_success(f"Disabled commands {string}")
+
+    @commands.command()
+    @command_activity_check()
     @commands.has_permissions(administrator=True)
     async def add_default_roles(self, ctx, *, roles):
         """
@@ -35,15 +55,6 @@ class UtilityCommands(commands.Cog, name = "Utility Commands"):
                         "array" : int(role)
                     }
                 })
-
-    @commands.Cog.listener()
-    async def on_member_join(self, member):
-        _db = get_cluster(member.guild.id, "CLUSTER_SERVER_ROLES")
-        for role_id in _db.find_one({"id": "type_on_join_roles"})["array"]:
-            _ = discord.utils.get(member.guild.roles, id = role_id)
-            
-            await member.add_roles(_)
-
 
     @commands.command()
     @command_activity_check()
@@ -68,6 +79,14 @@ class UtilityCommands(commands.Cog, name = "Utility Commands"):
         embed = embed_success(f"Changed `{channel}` channel to {new_channel.mention}")
         await ctx.send(embed=embed)
 
-        
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+        _db = get_cluster(member.guild.id, "CLUSTER_SERVER_ROLES")
+        for role_id in _db.find_one({"id": "type_on_join_roles"})["array"]:
+            _ = discord.utils.get(member.guild.roles, id = role_id)
+            
+            await member.add_roles(_)
+
+
 def setup(client):
     client.add_cog(UtilityCommands(client))
