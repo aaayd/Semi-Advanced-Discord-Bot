@@ -27,8 +27,10 @@ Welcome Card Example
 
 # Libraries 
 - discordpy 
+- discord-ext-ipc 
 - Pillow 
 - pymongo
+- dnspython
 - aiodns
 - fuzzywuzzy
 - quart
