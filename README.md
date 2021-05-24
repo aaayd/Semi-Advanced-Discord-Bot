@@ -31,6 +31,8 @@ Welcome Card Example
 - pymongo
 - aiodns
 - fuzzywuzzy
+- quart
+- quart_discord
 
 # Installation 
 1. Open CMD in the same location as the bot root folder
@@ -48,6 +50,8 @@ Alternatively, install the libraries manually:
 # pip install pymongo
 # pip install fuzzywuzzy 
 # pip install emojis
+# pip install quart
+# pip install quart_discord
 ```
 
 
