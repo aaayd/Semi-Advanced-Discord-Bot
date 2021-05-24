@@ -13,10 +13,13 @@ class UtilityCommands(commands.Cog, name = "Utility Commands"):
         self.client = client
 
 
-    @commands.command()
+    @commands.command(name="disable", description="Disable bot commands")
     @command_activity_check()
-    async def disable(self, ctx):
-        
+    async def _disable(self, ctx):
+        f"""
+        {self.client.command_prefix}{ctx.command.name}
+        """
+
         new_activity_state = {}
         _db = get_cluster(ctx.guild.id, "CLUSTER_COMMANDS")
 
@@ -45,10 +48,13 @@ class UtilityCommands(commands.Cog, name = "Utility Commands"):
         if string != "":
             await ctx.channel.send(embed=embed_success(f"Disabled commands {string[:-2]}"))
 
-    @commands.command()
+    @commands.command(name="enable", description="Enable bot commands")
     @command_activity_check()
-    async def enable(self, ctx):
-        
+    async def _enable(self, ctx):
+        f"""
+        {self.client.command_prefix}{ctx.command.name}
+        """
+
         new_activity_state = {}
         _db = get_cluster(ctx.guild.id, "CLUSTER_COMMANDS")
 
@@ -78,13 +84,12 @@ class UtilityCommands(commands.Cog, name = "Utility Commands"):
             await ctx.channel.send(embed=embed_success(f"Enabled commands {string[:-2]}"))
         
 
-    @commands.command()
+    @commands.command(name="add_default_roles", description="Add default role for member joining")
     @command_activity_check()
     @commands.has_permissions(administrator=True)
-    async def add_default_roles(self, ctx, *, roles):
-        """
-        Add default role for member joining.
-        ?add_default_roles [roles]
+    async def _add_default_roles(self, ctx, *, roles):
+        f"""
+        {self.client.command_prefix} <roles>
         """
         
         try:
@@ -101,17 +106,16 @@ class UtilityCommands(commands.Cog, name = "Utility Commands"):
                     }
                 })
 
-    @commands.command()
+    @commands.command(name="defchannel", description="Changes default channel for selected channels")
     @command_activity_check()
     @commands.has_permissions(administrator=True)
-    async def defchannel(self, ctx, channel = None, new_channel : discord.TextChannel = None):
+    async def _defchannel(self, ctx, channel = None, new_channel : discord.TextChannel = None):
         """
-        Changes default channel for selected channels.
         ?defchannel [old-channel] #[new-channel]
         """
         
         if channel is None:
-            raise MissingArgument("Channel ID", get_command_description("change_channel"))
+            raise MissingArgument("Channel ID", get_command_description(ctx.command.name))
         
         CLUSTER_UTIL = CLUSTER[str(ctx.message.guild.id)]["utils"]
         CLUSTER_UTIL.update({

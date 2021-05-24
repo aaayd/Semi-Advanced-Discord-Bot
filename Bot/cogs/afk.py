@@ -12,12 +12,11 @@ class AFKSystem(commands.Cog, name="AFK Commands"):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
+    @commands.command(name="afk", description="Set AFK Status")
     @command_activity_check()
-    async def afk(self, ctx, *, status="No status"):
-        """
-        Set AFK Status.
-        ?afk [afk message]
+    async def _afk(self, ctx, *, status="No status"):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} [afk message]
         """
         
         await ctx.channel.trigger_typing()

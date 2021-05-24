@@ -14,12 +14,11 @@ class Image(commands.Cog, name="Image Commands"):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(name="meme", description="Sends random meme")
     @command_activity_check()
-    async def meme(self, ctx):
-        """
-        Sends random meme.
-        ?meme
+    async def _meme(self, ctx):
+        f"""
+        {self.client.command_prefix}{ctx.command.name}
         """
 
         meme = requests.get("https://some-random-api.ml/meme").json()
@@ -27,12 +26,11 @@ class Image(commands.Cog, name="Image Commands"):
 
         await ctx.send(meme)
 
-    @commands.command()
+    @commands.command(name="animal", description="Sends an image of an animal")
     @command_activity_check()
-    async def animal(self, ctx, name = None):
-        """
-        Sends an image of an animal.
-        ?animal [animal_name]
+    async def _animal(self, ctx, name = None):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <animal_name>
         """
 
         if name is None:

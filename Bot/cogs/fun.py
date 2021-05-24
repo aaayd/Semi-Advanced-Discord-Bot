@@ -13,12 +13,11 @@ class Fun(commands.Cog, name="Fun Commands"):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
+    @commands.command(name="kiss", description="Send a random kiss gif a user")
     @command_activity_check()
-    async def kiss(self, ctx, member: discord.Member = None):
-        """
-        Send a random kiss gif a user.
-        ?kiss [user]
+    async def _kiss(self, ctx, member: discord.Member = None):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <user>
         """
 
         if member is None:
@@ -31,12 +30,11 @@ class Fun(commands.Cog, name="Fun Commands"):
         )
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(name="punch", description="Send a random punch gif a user")
     @command_activity_check()
-    async def punch(self, ctx, member: discord.Member = None):
-        """
-        Send a random punch gif to a user.
-        ?punch [user]
+    async def _punch(self, ctx, member: discord.Member = None):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <user]>
         """
 
         if member is None:
@@ -49,12 +47,11 @@ class Fun(commands.Cog, name="Fun Commands"):
         )
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=["pat"])
+    @commands.command(name="headpat", description="Send a random headpat gif a user")
     @command_activity_check()
-    async def headpat(self, ctx, member : discord.Member = None):
-        """
-        Send a random headpat gif to a user.
-        ?headpat [user]
+    async def _headpat(self, ctx, member : discord.Member = None):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <user]>
         """
         
         if member is None:
@@ -70,12 +67,12 @@ class Fun(commands.Cog, name="Fun Commands"):
         )
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(name="hug", description="Send a random hug gif a user")
     @command_activity_check()
-    async def hug(self, ctx, member : discord.Member = None):
-        """
-        Send a random hug gif to a user.
-        ?hug [user]
+    async def _hug(self, ctx, member : discord.Member = None):
+        f"""
+        {self.client.command_prefix}{ctx.command.name}
+        ?hug <user]>
         """
         
         if member is None:
@@ -92,12 +89,11 @@ class Fun(commands.Cog, name="Fun Commands"):
         await ctx.send(embed=embed)
 
 
-    @commands.command(aliases=["diceroll"])
+    @commands.command(name="dice", aliases=["diceroll, rolldice"], description="Roll a dice")
     @command_activity_check()
-    async def rolldice(self, ctx):
-        """
-        Roll a dice.
-        ?rolldice
+    async def _rolldice(self, ctx):
+        f"""
+        {self.client.command_prefix}{ctx.command.name}
         """
 
         embed= discord.Embed(
@@ -108,12 +104,11 @@ class Fun(commands.Cog, name="Fun Commands"):
         )
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=["flipcoin", "fiftyfifty", "5050"])
+    @commands.command(name="coinflip", aliases=["flipcoin", "fiftyfifty", "5050"], description="Flip a coin")
     @command_activity_check()
-    async def coinflip(self, ctx):
-        """
-        Flip a coin.
-        ?coinflip
+    async def _coinflip(self, ctx):
+        f"""
+        {self.client.command_prefix}{ctx.command.name}
         """
         choices = ["heads", "tails"]
 
@@ -125,12 +120,11 @@ class Fun(commands.Cog, name="Fun Commands"):
         )
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(name="gayav", description="Sends gay-ified avatar")
     @command_activity_check()
-    async def gayav(self, ctx, member : discord.Member = None):
-        """
-        Sends gay-ified avatar.
-        ?gayav [@user]
+    async def _gayav(self, ctx, member : discord.Member = None):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <@user>
         """
         if member is None:
             member = ctx.author
@@ -147,12 +141,11 @@ class Fun(commands.Cog, name="Fun Commands"):
             timestamp=datetime.now(), url=url
         ).set_image(url=url))
 
-    @commands.command(aliases=["simp"])
+    @commands.command(name="ship", aliases=["simp"], description="Rate love between two users")
     @command_activity_check()
-    async def ship(self, ctx, member : discord.Member = None, member2 : discord.Member = None):
-        """
-        Rate love between two users.
-        ?ship [user_1] [user_2]
+    async def _ship(self, ctx, member : discord.Member = None, member2 : discord.Member = None):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <user_1> <user_2>
         """
 
         if member is None or member2 is None:
@@ -228,12 +221,11 @@ class Fun(commands.Cog, name="Fun Commands"):
 
         await ctx.send(embed=embed)
     
-    @commands.command(aliases=['8ball'])
+    @commands.command(name="8ball", aliases=['eightball'], description="Have 8ball give the answer")
     @command_activity_check()
-    async def eightball(self, ctx, *, _ballInput = None):
-        """
-        Have 8ball give the answer.
-        ?8ball [question]
+    async def _eightball(self, ctx, *, _ballInput = None):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <question>
         """
 
         if _ballInput is None:
@@ -260,12 +252,11 @@ class Fun(commands.Cog, name="Fun Commands"):
         )
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=['gay-scanner', 'gayscanner', 'gay'])
+    @commands.command(name="gay", aliases=['gay-scanner', 'gayscanner'], description="Detect how gay someone is")
     @command_activity_check()
-    async def gay_scanner(self, ctx, member : discord.Member=None):
-        """
-        Detect how gay someone is.
-        ?gay [@user]
+    async def _gay(self, ctx, member : discord.Member=None):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <@user>
         """
 
         if member == None:
@@ -308,12 +299,11 @@ class Fun(commands.Cog, name="Fun Commands"):
 
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=['pussy'])
+    @commands.command(name="pussy", aliases=['pussy_size'], description="Get size of a user pussy")
     @command_activity_check()
-    async def pussy_size(self, ctx, member : discord.Member=None):
-        """
-        Get size of a user pussy.
-        ?pussy [user]
+    async def _pussy_size(self, ctx, member : discord.Member=None):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <user>
         """
 
         if member == None:
@@ -352,12 +342,11 @@ class Fun(commands.Cog, name="Fun Commands"):
         )
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(name="dick", aliases=['dick_size'], description="Get size of a user dick")
     @command_activity_check()
-    async def dick(self, ctx, member : discord.Member=None):
-        """
-        Get size of a user dick.
-        ?dick [user]
+    async def _dick_size(self, ctx, member : discord.Member=None):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <user>
         """
 
         if member == None:

@@ -156,12 +156,11 @@ class ImageManipulation(commands.Cog, name="Rank Card Commands"):
         self.client = client
 
 
-    @commands.command(aliases=["bg"])
+    @commands.command(name="bg", aliases=["set_background"], description="Change rank card background image")
     @command_activity_check()
-    async def set_background(self, ctx, link="NoLinkSpecified"):
-        """
-        Change rank card background image.
-        ?set_background [image_link]
+    async def _set_background(self, ctx, link="NoLinkSpecified"):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <image_link>
         """
 
         await ctx.trigger_typing()
@@ -208,12 +207,11 @@ class ImageManipulation(commands.Cog, name="Rank Card Commands"):
         create_rank_card(ctx.message.author, xp, lvl, rank, background, colour, ctx.guild.member_count)
         await ctx.send(file=discord.File(os.path.join(f"{IMAGE_PATH}//temp//","card_temp.png")))
 
-    @commands.command(aliases=["cr"])
+    @commands.command(name="cr", aliases=["set_colour"], description="Change colour in rank card")
     @command_activity_check()
-    async def set_colour(self, ctx, r = None):
-        """
-        Change colour in rank card.
-        ?set_colour [hex] 
+    async def _set_colour(self, ctx, r = None):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <hex>
         """
 
         _db = get_cluster(ctx.message.guild.id, "CLUSTER_EXPERIENCE")
@@ -267,7 +265,7 @@ class ImageManipulation(commands.Cog, name="Rank Card Commands"):
     Begin Custom Error Handling
     '''
     
-    @set_colour.error
+    @_set_colour.error
     async def set_colour_handler(self, ctx, error):
         if "ValueError" in str(error):
             embed = embed_error("Invalid `HEX` value")

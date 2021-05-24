@@ -2,7 +2,7 @@ from quart import Quart, render_template, request, redirect, url_for
 from quart_discord import DiscordOAuth2Session
 from discord.ext import ipc, commands
 from bot import result, CLUSTER
-from Bot.utils.constants import get_cluster
+from Bot.utils.constants import get_cluster, get_channel_id
 import discord, os, asyncio
 from logging.config import dictConfig
 
@@ -92,6 +92,30 @@ class Website(commands.Cog, name = "Website COG"):
 			"dashboard.html", guilds = guilds, member=member, join_url = f'https://discord.com/api/oauth2/authorize?client_id=813239350702637058&permissions=8&scope=bot'
 			)
 
+	@app.route("/dashboard/<int:guild_id>")
+	async def dashboard_server(guild_id):
+		
+		if not await discord_auth.authorized:
+			return redirect(url_for("login")) 
+
+		guild = await ipc_client.request("get_guild", guild_id = guild_id)
+		commands  = await ipc_client.request("get_all_commands")
+		cogs = await ipc_client.request("get_all_cogs")
+
+		_db_important_channels = get_cluster(guild_id, "CLUSTER_CHANNELS").find_one({"id" : "type_important_channels"})["dict"]
+		_db_commands = get_cluster(guild_id, "CLUSTER_CHANNELS").find_one({"id" : "type_command_activity"})["dict"]
+
+		if guild is None:
+			return redirect(f'https://discord.com/oauth2/authorize?&client_id={app.config["DISCORD_CLIENT_ID"]}&scope=bot&permissions=8&guild_id={guild_id}&response_type=code&redirect_uri={app.config["DISCORD_REDIRECT_URI"]}')
+			
+		return await render_template(
+			"guild_id.html", guild=guild, 
+			_db_important_channels=_db_important_channels, 
+			commands=commands, _db_commands=_db_commands,
+			cogs=cogs
+		)
+
+
 	@app.route('/update_command_state')
 	def update_command_state():
 		data = request.args.get('change_dict')[1:-1].replace('"', "").split(",")
@@ -121,34 +145,12 @@ class Website(commands.Cog, name = "Website COG"):
 	async def send_message():
 		print("Lol")
 		data = request.args.get('message')
+		guild_id = request.args.get('guild_id')
 
-		channel = await app.discord_client.get_channel(821202396797468714)
-
+		channel = await app.discord_client.get_channel(get_channel_id(int(guild_id), "channel_general"))
 		await channel.send(data)
 		return "OK", 200
 		
-	@app.route("/dashboard/<int:guild_id>")
-	async def dashboard_server(guild_id):
-		
-		if not await discord_auth.authorized:
-			return redirect(url_for("login")) 
-
-		guild = await ipc_client.request("get_guild", guild_id = guild_id)
-		commands  = await ipc_client.request("get_all_commands")
-		cogs = await ipc_client.request("get_all_cogs")
-
-		_db_important_channels = get_cluster(guild_id, "CLUSTER_CHANNELS").find_one({"id" : "type_important_channels"})["dict"]
-		_db_commands = get_cluster(guild_id, "CLUSTER_CHANNELS").find_one({"id" : "type_command_activity"})["dict"]
-
-		if guild is None:
-			return redirect(f'https://discord.com/oauth2/authorize?&client_id={app.config["DISCORD_CLIENT_ID"]}&scope=bot&permissions=8&guild_id={guild_id}&response_type=code&redirect_uri={app.config["DISCORD_REDIRECT_URI"]}')
-			
-		return await render_template(
-			"guild_id.html", guild=guild, 
-			_db_important_channels=_db_important_channels, 
-			commands=commands, _db_commands=_db_commands,
-			cogs=cogs
-		)
 
 	if __name__ == "__main__":
 		app.run(debug=True)

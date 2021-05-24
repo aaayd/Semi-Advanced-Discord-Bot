@@ -69,10 +69,9 @@ class TriviaQuiz(commands.Cog, name="Trivia Quiz Game"):
                 start_id += 1
                 self.wiki_questions.append(formatted_data)
 
-    @commands.group(name="quiz", aliases=["trivia"], invoke_without_command=True)
+    @commands.group(name="quiz", aliases=["trivia"], invoke_without_command=True, description="Start a quiz")
     async def quiz_game(self, ctx: commands.Context, category: str = None) -> None:
         """
-        Start a quiz.
         ?quiz [genre]
         """
         # If a game is already running in the channel

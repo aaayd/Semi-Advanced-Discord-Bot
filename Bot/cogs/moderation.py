@@ -40,13 +40,12 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
                             pass
                         
             
-    @commands.command()
+    @commands.command(name="kick", description="Kick a member")
     @command_activity_check()
     @commands.has_permissions(kick_members=True)
-    async def kick(self, ctx, member : discord.Member = None, *, reason=None):
-        """
-        Kick a member.
-        ?kick [member] [reason]
+    async def _kick(self, ctx, member : discord.Member = None, *, reason=None):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <member> <reason>
         """
         
         if member is None:
@@ -71,13 +70,12 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
         await member.send(embed=embed)
         
 
-    @commands.command()
+    @commands.command(name="ban", description="Ban a member")
     @command_activity_check()
     @commands.has_permissions(ban_members=True)
-    async def ban(self, ctx, member : discord.Member = None, *, reason=None):
-        """
-        Ban a member.
-        ?ban [member] [reason]
+    async def _ban(self, ctx, member : discord.Member = None, *, reason=None):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <member> <reason>
         """
 
         if member is None:
@@ -106,13 +104,12 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
         await member.send("https://cdn.discordapp.com/attachments/811885989005492276/812847731461849108/y2mate.com_-_ARSENAL_FAN_TV_ITS_TIME_TO_GO_MEME_360p_1.mp4")
     
         
-    @commands.command()
+    @commands.command(name="clear", description="Clear messages by a user")
     @command_activity_check()
     @commands.has_permissions(manage_messages=True)
-    async def clear(self, ctx, member : discord.Member = None, limit: int=None):
-        """
-        Purge messages by a user.
-        ?clear [member] [amount to delete]
+    async def _clear(self, ctx, member : discord.Member = None, limit: int=None):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <member> <amount to delete>
         """
 
         if member is None:
@@ -128,13 +125,12 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
                     except:
                         pass
 
-    @commands.command()
+    @commands.command(name="mute", description="Mute a user")
     @command_activity_check()
     @commands.has_guild_permissions(mute_members=True)
-    async def mute(self, ctx, member : discord.Member = None, time="Indefinite", *, reason="None"):
-        """
-        Mute a user.
-        ?mute [member] [time] [reason]
+    async def _mute(self, ctx, member : discord.Member = None, time="Indefinite", *, reason="None"):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <member> <time> <reason>
         """
 
         if member is None:
@@ -165,13 +161,12 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
             await self._unmute_user(member)
             _db.delete_many({'id': member.id})
 
-    @commands.command()
+    @commands.command(name="unmute", description="Unmute a user")
     @command_activity_check()
     @commands.has_guild_permissions(mute_members=True)
-    async def unmute(self, ctx, member : discord.Member=None):
-        """
-        Unmute a user.
-        ?unmute [member]
+    async def _unmute(self, ctx, member : discord.Member=None):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <member>
         """
 
 

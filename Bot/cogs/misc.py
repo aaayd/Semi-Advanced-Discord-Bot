@@ -16,12 +16,11 @@ class Misc(commands.Cog, name="Miscellaneous Commands"):
     def __init__(self, client):
         self.client = client
     
-    @commands.command(name="showerthought", aliases=["st"])
+    @commands.command(name="showerthought", aliases=["st"], description="Sends random shower thought from r/showerthoughts")
     @command_activity_check()
     async def _get_shower_thought(self, ctx):
-        """
-        Sends random shower thought from r/showerthoughts.
-        ?showerthought
+        f"""
+        {self.client.command_prefix}{ctx.command.name}
         """
 
         sub = r.subreddit('showerthoughts')
@@ -40,12 +39,11 @@ class Misc(commands.Cog, name="Miscellaneous Commands"):
 
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(name="invites", description="Sends amount of invites a member has")
     @command_activity_check()
-    async def invites(self, ctx, member : discord.Member = None):
-        """
-        Sends amount of invites a member has.
-        ?invites [user]
+    async def _invites(self, ctx, member : discord.Member = None):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <user>
         """
 
         if member is None:
@@ -55,12 +53,11 @@ class Misc(commands.Cog, name="Miscellaneous Commands"):
         await ctx.send(f"{member} has invited {total_invites} member{'' if total_invites == 1 else 's'} to the server!")
 
 
-    @commands.command(aliases=['m'])
+    @commands.command(name="echo", aliases=['m', "mirror"], description="Repeats the message sent")
     @command_activity_check()
-    async def mirror(self, ctx):        
-        """
-        Repeats the message sent.
-        ?mirror [message]
+    async def _echo(self, ctx):        
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <message>
         """
         message = ctx.message.content
         message = message.partition(' ')[2]
@@ -77,12 +74,11 @@ class Misc(commands.Cog, name="Miscellaneous Commands"):
             
 
 
-    @commands.command()
+    @commands.command(name="serverinfo", description="Sends information about the server")
     @command_activity_check()
-    async def serverinfo(self, ctx):
-        """
-        Sends information about the server.
-        ?serverinfo
+    async def _serverinfo(self, ctx):
+        f"""
+        {self.client.command_prefix}{ctx.command.name}
         """
 
         embed = discord.Embed(
@@ -99,12 +95,11 @@ class Misc(commands.Cog, name="Miscellaneous Commands"):
 
         await ctx.reply(embed=embed)
      
-    @commands.command(name="colour", aliases=['color', 'role'])
+    @commands.command(name="colour", aliases=['color', 'role'], description="Change colour role")
     @command_activity_check()
     async def _colour(self, ctx, colour : str = None):
-        """
-        Change colour role.
-        ?colour <colour>
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <colour>
         """
 
         if colour is None:
@@ -131,23 +126,21 @@ class Misc(commands.Cog, name="Miscellaneous Commands"):
         except AttributeError:
             raise RoleNotFound(colour.upper())
                 
-    @commands.command()
+    @commands.command(name="ping", description="Sends the ping of the bot")
     @command_activity_check()
-    async def ping(self, ctx):
-        """
-        Sends the ping of the bot.
-        ?ping
+    async def _ping(self, ctx):
+        f"""
+        {self.client.command_prefix}{ctx.command.name}
         """
 
         embed=discord.Embed(title=f"", description=f'Pong :ping_pong:    {round(self.client.latency * 1000)}ms!')
         await ctx.reply(embed=embed)
         
-    @commands.command(aliases=["av"])
+    @commands.command(name="avatar", aliases=["av"], description="Sends an avatar image / gif of a member")
     @command_activity_check()
-    async def avatar(self, ctx, member : discord.Member=None):
-        """
-        Sends an avatar image / gif of a member.
-        ?avatar [user]
+    async def _avatar(self, ctx, member : discord.Member=None):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <user>
         """
 
         if member == None:
@@ -172,12 +165,11 @@ class Misc(commands.Cog, name="Miscellaneous Commands"):
         
         await ctx.send(embed=embed)
     
-    @commands.command(aliases=["whois"])
+    @commands.command(name="whois", aliases=["userinfo"], description="Sends information about a member")
     @command_activity_check()
-    async def userinfo(self,ctx, member: discord.Member = None):
-        """
-        Sends information about a member.
-        ?userinfo [user]
+    async def _whois(self,ctx, member: discord.Member = None):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <user>
         """
 
         if not member:

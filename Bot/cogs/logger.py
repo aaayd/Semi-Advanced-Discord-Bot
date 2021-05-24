@@ -15,13 +15,12 @@ class Logger(commands.Cog, name="Log Commands"):
         self.client = client
         self.author_temp = ""
 
-    @commands.command()
+    @commands.command(name="purge", description="Purge messages in a channel")
     @command_activity_check()
     @commands.has_permissions(manage_messages=True)
-    async def purge(self, ctx, amount):
-        """
-        Purge messages in a channel.
-        ?purge [amount]
+    async def _purge(self, ctx, amount):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <amount>
         """
      
         await ctx.channel.trigger_typing()
@@ -125,12 +124,11 @@ class Logger(commands.Cog, name="Log Commands"):
         
         await log_channel.send(embed=embed)
     
-    @commands.command()
+    @commands.command(name="snipe", description="Sends most recent deleted messages by a member")
     @command_activity_check()
-    async def snipe(self, ctx):
-        """
-        Sends most recent deleted messages by a member.
-        ?snipe
+    async def _snipe(self, ctx):
+        f"""
+        {self.client.command_prefix}{ctx.command.name}
         """
 
         if not deleted_messages:
@@ -171,12 +169,11 @@ class Logger(commands.Cog, name="Log Commands"):
                 except:
                     await ctx.send("Cannot Snipe message. Perhaps it contains no text?")
 
-    @commands.command()
+    @commands.command(name="esnipe", description="Sends most recent edited messages by a member")
     @command_activity_check()
-    async def esnipe(self, ctx):
-        """
-        Sends most recent edited messages by a member.
-        ?esnipe
+    async def _esnipe(self, ctx):
+        f"""
+        {self.client.command_prefix}{ctx.command.name}
         """
 
         try:

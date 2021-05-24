@@ -365,11 +365,9 @@ class Battleship(commands.Cog, name="Battle Ship Game"):
         """Check if someone is already in a game."""
         return any(player in (game.p1.user, game.p2.user) for game in self.games)
 
-    @commands.group(invoke_without_command=True)
-    @commands.guild_only()
+    @commands.group(invoke_without_command=True, name="battleships", description="Play a game of battleships")
     async def battleship(self, ctx: commands.Context) -> None:
         """
-        Play a game of Battleship with someone else!
         ?battleship
         """
         if self.already_playing(ctx.author):

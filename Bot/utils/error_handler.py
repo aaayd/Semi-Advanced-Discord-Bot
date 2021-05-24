@@ -96,6 +96,7 @@ class CommandErrorHandler(commands.Cog, name="Error Handler"):
                 try:
                     cmd = command_db[command.name]
                 except KeyError:
+                    print(command.name)
                     update[f"dict.{command.name}"] = 1
 
             if update:

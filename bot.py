@@ -59,7 +59,7 @@ website_var_arr = [result["SECRET_KEY"], result["IPC_SECRET"], result["DISCORD_C
 ROOT = str(__file__)[:-len("bot.py")]
 CLUSTER = MongoClient(result["SRV_URL"])
 
-client = Bot(command_prefix = ['?', '!'], intents = Intents.all(), case_insensitive=True)
+client = Bot(command_prefix = '?', intents = Intents.all(), case_insensitive=True)
 client.remove_command('help')
 
 
@@ -136,7 +136,7 @@ async def get_all_cogs(data):
             cogs[cog_name] = []
             
         for command in client.get_cog(cog).get_commands():
-            cogs[cog_name].append([command.name, command.help.split(".")[0]])
+            cogs[cog_name].append([command.name, command.description])
 
     return dict(sorted(cogs.items(), key=lambda x: x[0].lower()))
 

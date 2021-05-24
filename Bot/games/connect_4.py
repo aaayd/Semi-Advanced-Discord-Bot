@@ -365,17 +365,12 @@ class ConnectFour(commands.Cog, name="Connect 4 Game"):
         invoke_without_command=True,
         name="connect4",
         aliases=["4inarow", "connectfour", "c4"],
-        case_insensitive=True
+        case_insensitive=True,
+        description="Play Connect 4"
     )
-    async def connect_four(
-            self,
-            ctx: commands.Context,
-            board_size: int = 7,
-            emoji1: EMOJI_CHECK = "\U0001f535",
-            emoji2: EMOJI_CHECK = "\U0001f534",
+    async def connect_four(self,ctx: commands.Context,board_size: int = 7,emoji1: EMOJI_CHECK = "\U0001f535",emoji2: EMOJI_CHECK = "\U0001f534", 
     ) -> None:
         """
-        Play Connect 4.
         ?connect4 [ai]
         """
         check, emoji = self.check_emojis(emoji1, emoji2)

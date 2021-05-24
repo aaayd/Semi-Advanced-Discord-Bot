@@ -250,11 +250,10 @@ class Music(commands.Cog):
 
         return player
 
-    @commands.command(name='connect', aliases=['join'])
+    @commands.command(name='connect', aliases=['join'], description="Connect the bot to a voice channel")
     @command_activity_check()
-    async def connect_(self, ctx, *, channel: discord.VoiceChannel=None):
+    async def _connect(self, ctx, *, channel: discord.VoiceChannel=None):
         """
-        Connect the bot to a voice channel.
         ?connect
         """
         if not channel:
@@ -280,12 +279,11 @@ class Music(commands.Cog):
 
         await ctx.send(f'Connected to: **{channel}**', delete_after=20)
 
-    @commands.command(name='playlist', aliases=['sing'])
+    @commands.command(name='playlist', aliases=['sing'], description="Adds playlist to song queue")
     @command_activity_check()
-    async def list_(self, ctx, *, search: str):
+    async def _list(self, ctx, *, search: str):
         """
-        Adds playlist to song queue.
-        ?list [url]
+        ?list <url>
         """
         await ctx.trigger_typing()
 
@@ -309,11 +307,10 @@ class Music(commands.Cog):
             print(song)
             await player.queue.put(source[song])
 
-    @commands.command(name='play', aliases=['single'])
+    @commands.command(name='play', aliases=['single'], description="Plays requested song")
     @command_activity_check()
-    async def play_(self, ctx, *, search: str = None):
+    async def _play(self, ctx, *, search: str = None):
         """
-        Plays requested song.
         ?play [link / query]
         """
 
@@ -338,11 +335,10 @@ class Music(commands.Cog):
 
 
 
-    @commands.command(name='pause')
+    @commands.command(name='pause', description="Pause the currently playing song")
     @command_activity_check()
-    async def pause_(self, ctx):
+    async def _pause(self, ctx):
         """
-        Pause the currently playing song.
         ?pause
         """
         vc = ctx.voice_client
@@ -355,11 +351,10 @@ class Music(commands.Cog):
         vc.pause()
         await ctx.send(f'**`{ctx.author}`**: Paused the song!')
 
-    @commands.command(name='resume')
+    @commands.command(name='resume', description="Resume the currently paused song")
     @command_activity_check()
-    async def resume_(self, ctx):
+    async def _resume(self, ctx):
         """
-        Resume the currently paused song.
         ?resume
         """
         vc = ctx.voice_client
@@ -372,13 +367,11 @@ class Music(commands.Cog):
         vc.resume()
         await ctx.send(f'**`{ctx.author}`**: Resumed the song!')
 
-    @commands.command(name='skip')
+    @commands.command(name='skip', description="Skip the song")
     @command_activity_check()
-    async def skip_(self, ctx):
+    async def _skip(self, ctx):
         """
-        Skip the song.
         ?skip
-        
         """
         vc = ctx.voice_client
 
@@ -393,11 +386,10 @@ class Music(commands.Cog):
         vc.stop()
         await ctx.send(f'**`{ctx.author}`**: Skipped the song!')
 
-    @commands.command(name='queue', aliases=['q'])
+    @commands.command(name='queue', aliases=['q'], description="Retrieve a basic queue of upcoming songs")
     @command_activity_check()
-    async def queue_info(self, ctx):
+    async def _queue_info(self, ctx):
         """
-        Retrieve a basic queue of upcoming songs.
         ?queue
         """
         vc = ctx.voice_client
@@ -417,11 +409,10 @@ class Music(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(name='now_playing', aliases=['np', 'current', 'currentsong', 'playing'])
+    @commands.command(name='now_playing', aliases=['np', 'current', 'currentsong', 'playing'], description="Display current song")
     @command_activity_check()
-    async def now_playing_(self, ctx):
+    async def _now_playing(self, ctx):
         """
-        Display current song.
         ?current
         """
         vc = ctx.voice_client
@@ -442,12 +433,11 @@ class Music(commands.Cog):
         player.np = await ctx.send(f'**Now Playing:** `{vc.source.title}` '
                                    f'requested by `{vc.source.requester}`')
 
-    @commands.command(name='volume', aliases=['vol'])
+    @commands.command(name='volume', aliases=['vol'], description="Set audio volume")
     @command_activity_check()
     async def change_volume(self, ctx, *, vol: float = None):
         """
-        Set audio volume.
-        ?volume [1-100]
+        ?volume <1-100>
         """
 
         if vol is None:
@@ -469,11 +459,10 @@ class Music(commands.Cog):
         player.volume = vol / 100
         await ctx.send(f'**`{ctx.author}`**: Set the volume to **{vol}%**')
 
-    @commands.command(name='stop')
+    @commands.command(name='stop', description="Stop the currently playing song")
     @command_activity_check()
-    async def stop_(self, ctx):
+    async def _stop(self, ctx):
         """
-        Stop the currently playing song.
         ?stop
         """
         vc = ctx.voice_client
