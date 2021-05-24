@@ -143,7 +143,6 @@ class Website(commands.Cog, name = "Website COG"):
 
 	@app.route('/send_message')
 	async def send_message():
-		print("Lol")
 		data = request.args.get('message')
 		guild_id = request.args.get('guild_id')
 

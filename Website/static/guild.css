@@ -2,9 +2,29 @@ body {
     background: #141617
 }
 
+.tabcontent {
+    background-color:#111213;
+    min-width: 85%; 
+    min-height: 100vh;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.container-main {
+    min-width: 100%;
+    display: flex; 
+    float: left; 
+    background-color: #141617;
+
+    
+}
 .container .row .card-title {
-    font-weight: bold;
-    color: white;
+    color: #b2aea9;
+}
+
+.container .row .card-text {
+    color: #b2aea9;
 }
 
 
@@ -31,14 +51,14 @@ body {
 }
 
 .container .row .container-card-small {
-  border-radius: 10px;
-  background: #1A1A1A;
-  padding: 20px;
-  width: 400px;
-  height: 150px;
-
+    border-radius: 10px;
+    background: #1A1A1A;
+    padding: 20px;
+    width: 400px;
+    height: 150px;
+  
 }
-
+  
 .container .row .container-space {
     margin-left: 40px;
 }
@@ -47,6 +67,15 @@ body {
     font-weight: bold;
 }
 
+.row .card {
+    background-color: #202121;
+    margin-top: 20px; 
+    margin-right: 20px;
+}
+.container .row .card .card-body{
+    background-color: #111213;
+    border: 0cm;
+}
 .container .row .card-text a{
     color: #808080;
 }
@@ -299,6 +328,6 @@ a:focus {
 }
 
 .active {
-    background: white;
+    background: #808080;
     color: #ffc600
 }

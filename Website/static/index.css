@@ -24,6 +24,10 @@ nav {
     
 }
 
+.important {
+	color: #b2aea9;
+}
+
 .av_image {
     width: 128px;
     height: 128px;
@@ -56,6 +60,10 @@ label {
 	display: block;
 	border-radius: 50px;
 	position: relative;
+	-webkit-transition: .3s;
+    -o-transition: .3s;
+    transition: .3s;
+
 }
 
 label:after {
@@ -65,13 +73,18 @@ label:after {
 	left: 2px;
 	width: 45px;
 	height: 45px;
-	background: #fff;
+	background: #141617;
 	border-radius: 45px;
 	transition: 0.3s;
 }
 
 input:checked + label {
+	-webkit-transition: .3s;
+    -o-transition: .3s;
+    transition: .3s;
+
 	background: #ffc600;
+
 }
 
 input:checked + label:after {

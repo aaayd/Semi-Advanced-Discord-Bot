@@ -56,8 +56,9 @@
                     </li>
                 </ul>
             </nav>
+
             <!-- Page Content  -->
-            <div id="ServerInformation" class="tabcontent p-4 pt-5 " style="min-width: 85%; min-height: 100vh;-webkit-transition: all 0.3s;-o-transition: all 0.3s;transition: all 0.3s;">
+            <div id="ServerInformation" class="tabcontent p-4 pt-5">
                 <div class="container" style="min-width: 100%;display: flex; float: left; background-color: #121212;">
                     <div class="row" style="margin-top: 20px;">
                         <div class="col col-xl-8">
@@ -113,49 +114,71 @@
                 </div>
             </div>
 
-            <div id="Commands" class="tabcontent p-4 pt-5 " style="min-width: 85%; min-height: 100vh;-webkit-transition: all 0.3s;-o-transition: all 0.3s;transition: all 0.3s;">
-                <div class="container" style="min-width: 100%;display: flex; float: left; background-color: #121212;">
-                    <div class="row" style="margin-top: 20px;">
-                        <div class="col">
-                            <form>
-                                <a href=# id=updateChanges><button  class='btn btn-warning'>Update Database</button></a>
-                            </form>
-                        </div>
+            <div id="Commands" class="tabcontent p-4 pt-5">
+                <!--
+                <div class="container container-main">
+                        <div class="row" style="margin-top: 20px;">
+                            <div class="col">
+                                <form>
+                                    <a href=# id=updateChanges><button  class='btn btn-warning'>Update Database</button></a>
+                                </form>
+                            </div>
 
-                    <div class="row" style="min-width: 300px;">
-                        <div class="col">
-                            <form>
-                                <a href=# id=sendMessage><button  class='btn btn-warning'>Send Message</button></a>
-                            </form>
+                        <div class="row" style="min-width: 300px;">
+                            <div class="col">
+                                <form>
+                                    <a href=# id=sendMessage><button  class='btn btn-warning'>Send Message</button></a>
+                                </form>
+                            </div>
                         </div>
-                    </div>                    
                     
+                    </div>
+                </div>
+                -->
+                
+                <div class="container container-main">
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="row" style="display: flex;">
+                        {% for cog, commands in cogs.items() %}
+                            {% if commands|length != 0 %}
+                                
+                                    <div class="col">
+                                        <form>
+                                            <a href=# id=sendMessage><button style="height: 60px; width: 110px; margin-top: 20px; float: left;" class='btn btn-dark'>{{cog.upper().replace("COMMANDS", " ")}}</button></a>
+                                        </form>
+                                    </div>
+                                
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    </div>
+                </div>
+                
 
-
-
-
+                <div class="container container-main" style="margin-top: 20px">
+                    
                     <div class="row">
                         <div class="col">
                             {% for cog, commands in cogs.items() %}
                                 {% if commands|length != 0 %}
                                     <div class="row" style="width: 100%; margin-top: 40px; margin-right: 40px;">
-                                        <h2>{{cog}}</h2>
+                                        <h2 class="important">{{cog}}</h2>
                                     </div>
                                     
                                     <div class="row" style="margin-right: 40px;">
                                         {% for command in commands %}
                                         
-                                        <div class="card"  style="margin-top: 20px; margin-right: 20px;">
+                                        <div class="card">
                                             {% if _db_commands[command[0]] == 1 %}
-                                                <div id="card_command_{{command[0]}}" class="card-body" style="background-color: #1A1A1A;min-width: 450px;">
+                                                <div id="card_command_{{command[0]}}" class="card-body" style="min-width: 450px;">
                                                     <input id="command_{{command[0]}}" onclick="updateCommandActivityState('command_{{command[0]}}')"type="checkbox" checked="checked"><label for="command_{{command[0]}}"></label>
                                             {% else %}
-                                                <div id="card_command_{{command[0]}}" class="card-body" style="background-color: #121212;border-radius : 10px; min-width: 450px;">
+                                                <div id="card_command_{{command[0]}}" class="card-body" style="background-color: #202121;border-radius : 0  px; min-width: 450px;">
                                                     <input id="command_{{command[0]}}" onclick="updateCommandActivityState('command_{{command[0]}}')"type="checkbox"><label for="command_{{command[0]}}"></label>
                                             {% endif %}
                                             <span class="control"></span>
             
-                                        <h5 class="card-title">{{command[0].replace("_", " ")}} </h5>
+                                        <h5 class="card-title important">{{command[0].replace("_", " ")}} </h5>
                                         <p class="card-text">{{command[1]}}</p>
                                     </div>
                                 </div>
@@ -215,12 +238,14 @@
                 
                 if (checkBox.checked == true){
                     allChanges[id] = 1
-                    cardBox.style.backgroundColor="#1A1A1A"
+
+                    
+                    cardBox.style.backgroundColor="#111213"
                 }
                     
                 else {
                     allChanges[id] = 0
-                    cardBox.style.backgroundColor="#121212"
+                    cardBox.style.backgroundColor="#202121"
                 }
                 
             }
