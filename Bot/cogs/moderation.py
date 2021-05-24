@@ -50,7 +50,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
         """
         
         if member is None:
-            raise MissingArgument("Discord User", get_command_description("kick"))
+            raise MissingArgument("Discord User", get_command_description(ctx.command.name))
 
         try:
             await member.kick(reason=reason)
@@ -81,7 +81,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
         """
 
         if member is None:
-            raise MissingArgument("Discord User", get_command_description("ban"))
+            raise MissingArgument("Discord User", get_command_description(ctx.command.name))
 
         try:
             await member.ban(reason=reason)
@@ -116,7 +116,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
         """
 
         if member is None:
-            raise MissingArgument("Discord User", get_command_description("clear"))
+            raise MissingArgument("Discord User", get_command_description(ctx.command.name))
 
         await ctx.channel.trigger_typing()
         channel_arr = [channel for channel in ctx.guild.text_channels]
@@ -138,7 +138,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
         """
 
         if member is None:
-            raise MissingArgument("Discord User", get_command_description("mute"))
+            raise MissingArgument("Discord User", get_command_description(ctx.command.name))
 
 
         await ctx.message.delete() 

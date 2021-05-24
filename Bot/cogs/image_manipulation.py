@@ -170,7 +170,7 @@ class ImageManipulation(commands.Cog, name="Rank Card Commands"):
    
         if link == "NoLinkSpecified":
             if (len(ctx.message.attachments)) == 0:
-                raise MissingArgument("Background Image Link", get_command_description("set_background"))
+                raise MissingArgument("Background Image Link", get_command_description(ctx.command.name))
 
             link = ctx.message.attachments[0].url
 
@@ -221,7 +221,7 @@ class ImageManipulation(commands.Cog, name="Rank Card Commands"):
         await ctx.message.delete()
 
         if r is None:
-            raise MissingArgument("HEX", get_command_description("set_colour"))
+            raise MissingArgument("HEX", get_command_description(ctx.command.name))
 
         r = r.lstrip('#')
         colour = ImageColor.getcolor(f"#{str(r).lower()}", "RGB")

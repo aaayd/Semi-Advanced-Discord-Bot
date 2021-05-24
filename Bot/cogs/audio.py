@@ -318,7 +318,7 @@ class Music(commands.Cog):
         """
 
         if search is None:
-            raise MissingArgument("Search query", get_command_description("play_"))
+            raise MissingArgument("Search query", get_command_description(ctx.command.name))
 
         await ctx.trigger_typing()
 
@@ -451,7 +451,7 @@ class Music(commands.Cog):
         """
 
         if vol is None:
-            raise MissingArgument("Volume Number", get_command_description("change_volume"))
+            raise MissingArgument("Volume Number", get_command_description(ctx.command.name))
 
         vc = ctx.voice_client
 

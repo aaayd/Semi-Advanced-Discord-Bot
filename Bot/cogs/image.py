@@ -36,7 +36,7 @@ class Image(commands.Cog, name="Image Commands"):
         """
 
         if name is None:
-            raise MissingArgument("Animal Name", get_command_description("animal"))
+            raise MissingArgument("Animal Name", get_command_description(ctx.command.name))
 
         if name == "monkey":            
             await ctx.send(embed=Embed(

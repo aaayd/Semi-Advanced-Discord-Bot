@@ -77,7 +77,7 @@ class ExperienceSystem(commands.Cog, name = "XP Commands"):
         await ctx.message.delete()
           
         if placement is None:
-            raise MissingArgument("Placement number", get_command_description("_leaderboard"))
+            raise MissingArgument("Placement number", get_command_description(ctx.command.name))
 
         try:
             placement = int(placement)

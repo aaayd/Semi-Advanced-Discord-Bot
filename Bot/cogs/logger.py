@@ -26,7 +26,7 @@ class Logger(commands.Cog, name="Log Commands"):
      
         await ctx.channel.trigger_typing()
         if amount is None:
-            raise MissingArgument("Amount of messages", get_command_description("purge"))
+            raise MissingArgument("Amount of messages", get_command_description(ctx.command.name))
 
         try:
             amount = int(amount)

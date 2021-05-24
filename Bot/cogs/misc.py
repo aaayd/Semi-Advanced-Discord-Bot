@@ -66,7 +66,7 @@ class Misc(commands.Cog, name="Miscellaneous Commands"):
         message = message.partition(' ')[2]
         
         if message == "":
-            raise MissingArgument("Message", get_command_description("mirror"))    
+            raise MissingArgument("Message", get_command_description(ctx.command.name))    
 
         await ctx.message.delete()
         if message[0] == str(self.client.command_prefix):
@@ -108,7 +108,7 @@ class Misc(commands.Cog, name="Miscellaneous Commands"):
         """
 
         if colour is None:
-            raise MissingArgument("Colour", get_command_description("_colour"))
+            raise MissingArgument("Colour", get_command_description(ctx.command.name))
         
        
         await ctx.message.delete()                 

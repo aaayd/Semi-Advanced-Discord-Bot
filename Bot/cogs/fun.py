@@ -22,7 +22,7 @@ class Fun(commands.Cog, name="Fun Commands"):
         """
 
         if member is None:
-            raise MissingArgument("Discord Member", get_command_description("kiss"))
+            raise MissingArgument("Discord Member", get_command_description(ctx.command.name))
 
         embed = discord.Embed(
             description=f"{ctx.message.author.mention} Kissed {member.mention}, How Sweet {random.choice(HEART_RESPONSE_LIST)}", 
@@ -40,7 +40,7 @@ class Fun(commands.Cog, name="Fun Commands"):
         """
 
         if member is None:
-            raise MissingArgument("Discord Member", get_command_description("kiss"))
+            raise MissingArgument("Discord Member", get_command_description(ctx.command.name))
 
         embed = discord.Embed(
             description=f"{ctx.message.author.mention} Punched {member.mention}", 
@@ -58,7 +58,7 @@ class Fun(commands.Cog, name="Fun Commands"):
         """
         
         if member is None:
-            raise MissingArgument("Discord Member", get_command_description("headpat"))
+            raise MissingArgument("Discord Member", get_command_description(ctx.command.name))
 
         pat_json = requests.get("https://some-random-api.ml/animu/pat").json()
         pat_gif = pat_json["link"]
@@ -79,7 +79,7 @@ class Fun(commands.Cog, name="Fun Commands"):
         """
         
         if member is None:
-            raise MissingArgument("Discord Member", get_command_description("hug"))
+            raise MissingArgument("Discord Member", get_command_description(ctx.command.name))
 
         pat_json = requests.get("https://some-random-api.ml/animu/hug").json()
         pat_gif = pat_json["link"]
@@ -156,7 +156,7 @@ class Fun(commands.Cog, name="Fun Commands"):
         """
 
         if member is None or member2 is None:
-            raise MissingArgument("@user", get_command_description("ship"))
+            raise MissingArgument("@user", get_command_description(ctx.command.name))
 
         members = [member.id, member2.id]
         members.sort()
@@ -237,7 +237,7 @@ class Fun(commands.Cog, name="Fun Commands"):
         """
 
         if _ballInput is None:
-            raise MissingArgument("Question", get_command_description("eightball"))
+            raise MissingArgument("Question", get_command_description(ctx.command.name))
         
         choice = random.randint(1,3)
         if choice == 1:
