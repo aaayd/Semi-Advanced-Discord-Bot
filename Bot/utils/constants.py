@@ -281,6 +281,13 @@ PUSSY_RESPONSE_DICT = {
 
 # Functions
 
+def represents_int(x):
+    try: 
+        int(x)
+        return True
+    except ValueError:
+        return False
+
 def command_activity_check():
     def predicate(ctx):
         _db = get_cluster(ctx.guild.id, "CLUSTER_COMMANDS")
@@ -288,7 +295,8 @@ def command_activity_check():
         
         if command_activity_state:
             return True
-        return False
+        
+        raise CommandDisabled(ctx.command)
         
     return commands.check(predicate)
 
@@ -476,3 +484,10 @@ class Emojis:
     reddit_upvote = "<:reddit_upvote:755845219890757644>"
     reddit_comments = "<:reddit_comments:755845255001014384>"
     reddit_users = "<:reddit_users:755845303822974997>"
+    
+class CommandDisabled(commands.CommandError):
+    def __init__(self, command : str):
+        self.command = command
+
+    def __str__(self):
+        return f"Command `{self.command}` is disabled"
