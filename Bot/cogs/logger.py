@@ -18,7 +18,7 @@ class Logger(commands.Cog, name="Log Commands"):
     @commands.command(name="purge", description="Purge messages in a channel")
     @command_activity_check()
     @commands.has_permissions(manage_messages=True)
-    async def _purge(self, ctx, amount):
+    async def _purge(self, ctx, amount = None):
         f"""
         {self.client.command_prefix}{ctx.command.name} <amount>
         """
