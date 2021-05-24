@@ -1,6 +1,7 @@
 from Bot.utils.error_handler import MissingArgument, MissingPermissionOnMember
 import discord, re, asyncio
 from discord.utils import get
+from datetime import datetime
 from discord.ext import commands, tasks
 from datetime import datetime, timedelta
 from Bot.utils.constants import ALL_GUILD_DATABASES, command_activity_check, converter, get_channel_id, get_cluster, get_command_description
@@ -160,6 +161,56 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
         if time !='Indefinite':
             await self._unmute_user(member)
             _db.delete_many({'id': member.id})
+
+    @commands.command(name="warn", description="Warn a user")
+    @command_activity_check()
+    @commands.has_guild_permissions(mute_members=True)
+    async def _warn(self, ctx, member : discord.Member, reason = None):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <member> <reason>
+        """
+        
+        _db = get_cluster(ctx.guild.id, "CLUSTER_WARN")
+        
+        new_warn = ({
+                    "warned_user_name" : str(member), 
+                    "warned_user_id": member.id,
+                    "warn_reason" : reason,
+                    "moderator_name" : str(ctx.author),
+                    "moderator_id" : ctx.author.id,
+                    "time" : datetime.utcnow()
+                })
+
+        _db.insert(new_warn)
+        
+        embed=discord.Embed(title="", description=f" ", timestamp=datetime.utcnow(), color=0xff0000
+            ).set_author(name=f"{ctx.author} warned a user", icon_url=f"{ctx.author.avatar_url}"
+            ).add_field(name="Warned User", value=f"{member.mention}"
+            ).add_field(name="Reason", value=f"{reason}"
+        )
+        
+        log_channel = self.client.get_channel(get_channel_id(member.guild.id, "channel_logs"))
+        await log_channel.send(embed=embed)
+        await ctx.channel.send(embed=embed)
+        
+    @commands.command(name="modlogs", aliases=["warns", "modlog"], description="View a user's warns")
+    @command_activity_check()
+    @commands.has_guild_permissions(mute_members=True)
+    async def _modlogs(self, ctx, member : discord.Member):
+        f"""
+        {self.client.command_prefix}{ctx.command.name} <member>
+        """
+        _db = get_cluster(ctx.guild.id, "CLUSTER_WARN").find({"warned_user_id" : member.id})
+
+        embed=discord.Embed(title="", description=f" ", timestamp=datetime.utcnow(), color=0xff0000
+            ).set_author(name=f"{member}'s' warns", icon_url=f"{member.avatar_url}"
+        )
+
+        for i, warn in enumerate(_db):
+            embed.add_field(name=f"Warn {i+1}: {warn['moderator_name']}", value=warn["warn_reason"], inline=False)
+        
+        await ctx.channel.send(embed=embed)
+
 
     @commands.command(name="unmute", description="Unmute a user")
     @command_activity_check()

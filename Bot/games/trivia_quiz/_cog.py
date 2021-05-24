@@ -10,16 +10,15 @@ from bot import ROOT, client
 from Bot.games.trivia_quiz import _constants
 from Bot.games.trivia_quiz import _helpers
 from Bot.games.trivia_quiz._game import Game
+import os
 
 logger = logging.getLogger(__name__)
 
-try:
-    with open("Bot\\games\\trivia_quiz\\utils\\trivia_quiz.json", encoding="utf8") as json_data:
-        QUESTIONS = json.load(json_data)
-except:
-    with open("Bot\\games/trivia_quiz/utils/trivia_quiz.json", encoding="utf8") as json_data:
-        QUESTIONS = json.load(json_data)
+GAME_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'trivia_quiz')
+GAME_PATH = os.path.join(GAME_PATH, "utils")
 
+with open(os.path.join(f"{GAME_PATH}","trivia_quiz.json"), encoding="utf8") as json_data:
+    QUESTIONS = json.load(json_data)
 
 
 

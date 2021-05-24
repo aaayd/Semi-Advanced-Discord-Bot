@@ -26,6 +26,7 @@ CLUSTERS = {
     "CLUSTER_PUSSY" : "pussy",
     "CLUSTER_SHIP" : "ship",
     "CLUSTER_MUTE" : "mute",
+    "CLUSTER_WARN" : "warn",
     "CLUSTER_SERVER_ROLES" : "utils",
     "CLUSTER_BLACKLIST_WORDS" : "utils",
     "CLUSTER_GIFS" : "utils",
