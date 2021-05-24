@@ -1,5 +1,5 @@
 from Bot.utils.constants import command_activity_check, get_command_description, get_cluster
-from Bot.utils.error_handler import MissingArgument, embed_success, ExpectedLiteralInt
+from Bot.utils.error_handler import MissingArgument, embed_error, embed_success, ExpectedLiteralInt
 from bot import CLUSTER
 import discord
 from discord.ext import commands
@@ -15,23 +15,68 @@ class UtilityCommands(commands.Cog, name = "Utility Commands"):
 
     @commands.command()
     @command_activity_check()
-    async def disable(self, ctx, *, commands):
-        print(commands)
+    async def disable(self, ctx):
+        
         new_activity_state = {}
         _db = get_cluster(ctx.guild.id, "CLUSTER_COMMANDS")
 
+        commands = ctx.message.content.partition(' ')[2].split(" ")
+        string = ""
+        err_string = ""
         for command in commands:
-            new_activity_state[command] = 0
-         
-        _db.update_one({
-			"id" : "type_command_activity"
-				},{
-					"$set" : new_activity_state
-				}
-		)
+            command = command.lower()
+            if self.client.get_command(command) is not None and "disable" not in command and "enable" not in command:
+                new_activity_state[f"dict.{command}"] = 0
+                
+                string += f"`{command}`, "
+            else:
+                err_string += f"`{command}`, "
 
-        string = [f"`{command}`, " for command in commands]
-        embed_success(f"Disabled commands {string}")
+        if  new_activity_state:
+            _db.update_one({
+                "id" : "type_command_activity"
+                    },{
+                        "$set" : new_activity_state
+                    }
+            )
+
+        if err_string != "":
+            await ctx.channel.send(embed=embed_error(f"Could not disable commands: {err_string[:-2]}"))
+        if string != "":
+            await ctx.channel.send(embed=embed_success(f"Disabled commands {string[:-2]}"))
+
+    @commands.command()
+    @command_activity_check()
+    async def enable(self, ctx):
+        
+        new_activity_state = {}
+        _db = get_cluster(ctx.guild.id, "CLUSTER_COMMANDS")
+
+        commands = ctx.message.content.partition(' ')[2].split(" ")
+        string = ""
+        err_string = ""
+        for command in commands:
+            command = command.lower()
+            if self.client.get_command(command) is not None and "disable" not in command and "enable" not in command:
+                new_activity_state[f"dict.{command}"] = 1
+                
+                string += f"`{command}`, "
+            else:
+                err_string += f"`{command}`, "
+
+        if  new_activity_state:
+            _db.update_one({
+                "id" : "type_command_activity"
+                    },{
+                        "$set" : new_activity_state
+                    }
+            )
+
+        if err_string != "":
+            await ctx.channel.send(embed=embed_error(f"Could not enable commands: {err_string[:-2]}"))
+        if string != "":
+            await ctx.channel.send(embed=embed_success(f"Enabled commands {string[:-2]}"))
+        
 
     @commands.command()
     @command_activity_check()
