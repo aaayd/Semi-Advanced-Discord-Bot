@@ -165,7 +165,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
     @commands.command(name="warn", description="Warn a user")
     @command_activity_check()
     @commands.has_guild_permissions(mute_members=True)
-    async def _warn(self, ctx, member : discord.Member, reason = None):
+    async def _warn(self, ctx, member : discord.Member, * ,reason = "None"):
         f"""
         {self.client.command_prefix}{ctx.command.name} <member> <reason>
         """
