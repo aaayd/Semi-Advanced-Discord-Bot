@@ -220,7 +220,7 @@
                           <td class="important">{{warn["warn_reason"]}}</td>
                           <td class="important">{{warn["moderator_name"]}}</td>
                           <td class="important">{{warn["moderator_id"]}}</td>
-                          <td class="important">{{warn["time"]}}</td>
+                          <td class="important">{{warn["time"].strftime("%x %X")}}</td>
                         </tr>
                         {% endfor %}
                       </table>
