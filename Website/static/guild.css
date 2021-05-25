@@ -353,3 +353,18 @@ table tr th {
 table tr td {
     color: #ffc600;
 }
+
+#warn-table-filter {
+    /* background-image: url('/css/searchicon.png'); */
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    color: #ffc600;
+    height: 50px;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    background: #1b1d1f;
+    border: 1px solid #1b1d1f;
+    margin-bottom: 12px;
+  }
+  
