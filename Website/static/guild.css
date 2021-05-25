@@ -331,3 +331,25 @@ a:focus {
     background: #808080;
     color: #ffc600
 }
+
+.container table {
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #202121;
+}
+  
+th, td {
+    text-align: left;
+    padding: 16px;
+}
+  
+tr:nth-child(even) {
+    background-color: #1b1d1f
+}
+  
+table tr th {
+    color: #ffc600;
+}
+table tr td {
+    color: #ffc600;
+}
