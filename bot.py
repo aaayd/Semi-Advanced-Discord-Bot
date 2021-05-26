@@ -40,9 +40,12 @@ class Bot(commands.Bot):
         await client.change_presence(activity=Game(name=f"?help"))
         
     async def on_ipc_ready(self):
-        process = subprocess.Popen('python website.py')
+        try:
+            process = subprocess.Popen(f'python website.py')
+        except:
+            process = subprocess.Popen(["python3","website.py"])
+
         print(f"{Fore.GREEN}[!]{Style.RESET_ALL} IPC Server is ready!")
-        
     async def on_ipc_error(self, endpoint, error):
         print(endpoint, "raised", error)
 
