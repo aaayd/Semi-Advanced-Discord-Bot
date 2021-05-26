@@ -56,7 +56,8 @@ class Website(commands.Cog, name = "Website COG"):
 
 	@app.route("/")
 	async def home():
-		return await render_template("index.html", authorized = await discord_auth.authorized)
+		client_id = app.config["DISCORD_CLIENT_ID"]
+		return await render_template("index.html", authorized = await discord_auth.authorized, client_id=client_id)
 
 	@app.route("/login")
 	async def login():
@@ -89,7 +90,7 @@ class Website(commands.Cog, name = "Website COG"):
 
 		member = await discord_auth.fetch_user()
 		return await render_template(
-			"dashboard.html", guilds = guilds, member=member, join_url = f'https://discord.com/api/oauth2/authorize?client_id=813239350702637058&permissions=8&scope=bot'
+			"dashboard.html", guilds = guilds, member=member, join_url = f'https://discord.com/api/oauth2/authorize?client_id={app.config["DISCORD_CLIENT_ID"]}&permissions=8&scope=bot'
 			)
 
 	@app.route("/dashboard/<int:guild_id>")
