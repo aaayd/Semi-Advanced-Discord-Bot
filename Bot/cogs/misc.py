@@ -3,7 +3,8 @@ from Bot.utils.error_handler import MissingArgument, MissingPermissionOnMember, 
 import discord, praw
 from discord.ext import commands
 from datetime import datetime
-from bot import CLUSTER
+from discord_buttons.client import DiscordButton
+from discord_buttons.button import Button, ButtonStyle
 from Bot.utils.constants import  COLOUR_ROLES_DICT, command_activity_check, get_channel_id, get_command_description
 
 r = praw.Reddit(client_id="7oE7yB5GJJua2Q", client_secret="ooidPB-ETJxbRflpja6a65KX03g", user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36', username="PhantomVipermon", check_for_async=False)
@@ -15,6 +16,8 @@ class Misc(commands.Cog, name="Misc Commands"):
     """
     def __init__(self, client):
         self.client = client
+        self.dbutton = DiscordButton(client)
+
     
     @commands.command(name="showerthought", aliases=["st"], description="Sends random shower thought from r/showerthoughts")
     @command_activity_check()
@@ -151,7 +154,7 @@ class Misc(commands.Cog, name="Misc Commands"):
         url_webp = str(member.avatar_url)[:-14] + "webp?size=1024"
 
         embed=discord.Embed(
-            description=f"[PNG]({url_png}) | [JPEG]({url_jpg}) | [WEBP]({url_webp})",
+            description=f" ",
             inline=False, 
             color=0x912aad
             ).set_author(name=f"Avatar for: {member}", icon_url=f"{member.avatar_url}"
@@ -163,7 +166,16 @@ class Misc(commands.Cog, name="Misc Commands"):
         else:
             embed.set_image(url=f"{url_png}")
         
-        await ctx.send(embed=embed)
+        await ctx.send(
+            embed=embed,
+            buttons=[
+                #Button(style=ButtonStyle.blue, label="Blue"),
+                #Button(style=ButtonStyle.red, label="Red"),
+                Button(style=ButtonStyle.URL, label="PNG", url=f"{url_png}"),
+                Button(style=ButtonStyle.URL, label="JPG", url=f"{url_jpg}"),
+                Button(style=ButtonStyle.URL, label="WEBP", url=f"{url_webp}"),
+            ],
+        )
     
     @commands.command(name="whois", aliases=["userinfo"], description="Sends information about a member")
     @command_activity_check()

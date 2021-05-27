@@ -27,7 +27,8 @@ Welcome Card Example
 
 # Libraries 
 - discordpy 
-- discord-ext-ipc 
+- discord-ext-ipc
+- discord_button 
 - Pillow 
 - pymongo
 - dnspython
@@ -48,6 +49,7 @@ Alternatively, install the libraries manually:
 ```py
 # pip install discordpy 
 # pip install discord-ext-ipc 
+# pip install discord_button 
 # pip install Pillow
 # pip install pymongo
 # pip install fuzzywuzzy 
