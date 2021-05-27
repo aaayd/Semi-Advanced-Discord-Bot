@@ -30,29 +30,29 @@ discord_auth = DiscordOAuth2Session(app)
 
 class DiscordClient:
 	def __init__(self):
-		self.client = discord.Client(intents=discord.Intents.all())
+		self.bot = discord.Client(intents=discord.Intents.all())
 		
 	async def get_guild(self, id):
-		await self.client.wait_until_ready()
+		await self.bot.wait_until_ready()
 		
-		return self.client.get_guild(id)
+		return self.bot.get_guild(id)
 
 	async def get_channel(self, id):
-		await self.client.wait_until_ready()
+		await self.bot.wait_until_ready()
 
-		return self.client.get_channel(id)
+		return self.bot.get_channel(id)
 
 class Website(commands.Cog, name = "Website COG"):
-	def __init__(self, client):
-		self.client = client
+	def __init__(self, bot):
+		self.bot = bot
 	
 	@app.before_serving
 	async def before_serving():
 		loop = asyncio.get_event_loop()
 		app.discord_client = DiscordClient()
 
-		await app.discord_client.client.login(result["TOKEN"])
-		loop.create_task(app.discord_client.client.connect())
+		await app.discord_client.bot.login(result["TOKEN"])
+		loop.create_task(app.discord_client.bot.connect())
 
 	@app.route("/")
 	async def home():
@@ -157,7 +157,7 @@ class Website(commands.Cog, name = "Website COG"):
 		app.run(debug=True)
 
         
-def setup(client):
-	client.add_cog(Website(client))
+def setup(bot):
+	bot.add_cog(Website(bot))
 
 

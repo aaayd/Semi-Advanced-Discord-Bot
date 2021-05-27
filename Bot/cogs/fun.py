@@ -10,14 +10,14 @@ class Fun(commands.Cog, name="Fun Commands"):
     """
     Fun commands
     """
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     @commands.command(name="kiss", description="Send a random kiss gif a user")
     @command_activity_check()
     async def _kiss(self, ctx, member: discord.Member = None):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <user>
+        {self.bot.command_prefix}{ctx.command.name} <user>
         """
 
         if member is None:
@@ -34,7 +34,7 @@ class Fun(commands.Cog, name="Fun Commands"):
     @command_activity_check()
     async def _punch(self, ctx, member: discord.Member = None):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <user]>
+        {self.bot.command_prefix}{ctx.command.name} <user]>
         """
 
         if member is None:
@@ -51,7 +51,7 @@ class Fun(commands.Cog, name="Fun Commands"):
     @command_activity_check()
     async def _headpat(self, ctx, member : discord.Member = None):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <user]>
+        {self.bot.command_prefix}{ctx.command.name} <user]>
         """
         
         if member is None:
@@ -71,7 +71,7 @@ class Fun(commands.Cog, name="Fun Commands"):
     @command_activity_check()
     async def _hug(self, ctx, member : discord.Member = None):
         f"""
-        {self.client.command_prefix}{ctx.command.name}
+        {self.bot.command_prefix}{ctx.command.name}
         ?hug <user]>
         """
         
@@ -93,7 +93,7 @@ class Fun(commands.Cog, name="Fun Commands"):
     @command_activity_check()
     async def _rolldice(self, ctx):
         f"""
-        {self.client.command_prefix}{ctx.command.name}
+        {self.bot.command_prefix}{ctx.command.name}
         """
 
         embed= discord.Embed(
@@ -108,7 +108,7 @@ class Fun(commands.Cog, name="Fun Commands"):
     @command_activity_check()
     async def _coinflip(self, ctx):
         f"""
-        {self.client.command_prefix}{ctx.command.name}
+        {self.bot.command_prefix}{ctx.command.name}
         """
         choices = ["heads", "tails"]
 
@@ -124,7 +124,7 @@ class Fun(commands.Cog, name="Fun Commands"):
     @command_activity_check()
     async def _gayav(self, ctx, member : discord.Member = None):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <@user>
+        {self.bot.command_prefix}{ctx.command.name} <@user>
         """
         if member is None:
             member = ctx.author
@@ -145,7 +145,7 @@ class Fun(commands.Cog, name="Fun Commands"):
     @command_activity_check()
     async def _ship(self, ctx, member : discord.Member = None, member2 : discord.Member = None):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <user_1> <user_2>
+        {self.bot.command_prefix}{ctx.command.name} <user_1> <user_2>
         """
 
         if member is None or member2 is None:
@@ -225,7 +225,7 @@ class Fun(commands.Cog, name="Fun Commands"):
     @command_activity_check()
     async def _eightball(self, ctx, *, _ballInput = None):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <question>
+        {self.bot.command_prefix}{ctx.command.name} <question>
         """
 
         if _ballInput is None:
@@ -256,7 +256,7 @@ class Fun(commands.Cog, name="Fun Commands"):
     @command_activity_check()
     async def _gay(self, ctx, member : discord.Member=None):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <@user>
+        {self.bot.command_prefix}{ctx.command.name} <@user>
         """
 
         if member == None:
@@ -303,7 +303,7 @@ class Fun(commands.Cog, name="Fun Commands"):
     @command_activity_check()
     async def _pussy_size(self, ctx, member : discord.Member=None):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <user>
+        {self.bot.command_prefix}{ctx.command.name} <user>
         """
 
         if member == None:
@@ -346,7 +346,7 @@ class Fun(commands.Cog, name="Fun Commands"):
     @command_activity_check()
     async def _dick_size(self, ctx, member : discord.Member=None):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <user>
+        {self.bot.command_prefix}{ctx.command.name} <user>
         """
 
         if member == None:
@@ -369,5 +369,5 @@ class Fun(commands.Cog, name="Fun Commands"):
         emb.set_author(name="Dick-Detector™", icon_url="https://static.thenounproject.com/png/113312-200.png")
         await ctx.send(embed=emb)
 
-def setup(client):
-    client.add_cog(Fun(client))
+def setup(bot):
+    bot.add_cog(Fun(bot))

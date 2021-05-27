@@ -1,8 +1,8 @@
-from bot import client
+from bot import bot
 
 
-def setup(client: client) -> None:
+def setup(bot: bot) -> None:
     """Set up the Trivia Questions Cog."""
     from ._cog import TriviaQuiz
 
-    client.add_cog(TriviaQuiz(client))
+    bot.add_cog(TriviaQuiz(bot))

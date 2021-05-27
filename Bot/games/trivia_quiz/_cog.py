@@ -6,7 +6,7 @@ import typing as t
 from discord.ext import commands, tasks
 from aiohttp import ClientSession
 
-from bot import ROOT, client
+from bot import ROOT, bot
 from Bot.games.trivia_quiz import _constants
 from Bot.games.trivia_quiz import _helpers
 from Bot.games.trivia_quiz._game import Game
@@ -25,7 +25,7 @@ with open(os.path.join(f"{GAME_PATH}","trivia_quiz.json"), encoding="utf8") as j
 class TriviaQuiz(commands.Cog, name="Trivia Quiz Game"):
     """A cog for all quiz commands."""
 
-    def __init__(self, bot: client) -> None:
+    def __init__(self, bot: bot) -> None:
         self.bot = bot
         # Dict to store questions got through wikipedia API
         self.wiki_questions: t.List = []
@@ -137,6 +137,6 @@ class TriviaQuiz(commands.Cog, name="Trivia Quiz Game"):
         await _helpers.send_score(ctx.channel, leaderboard)
 
 
-def setup(bot: client) -> None:
+def setup(bot: bot) -> None:
     """Load the cog."""
     bot.add_cog(TriviaQuiz(bot))

@@ -37,7 +37,7 @@ class Bot(commands.Bot):
 
     async def on_ready(self):
         print(f"{Fore.GREEN}[!]{Style.RESET_ALL} Bot is ready!")
-        await client.change_presence(activity=Game(name=f"?help"))
+        await bot.change_presence(activity=Game(name=f"?help"))
         
     async def on_ipc_ready(self):
         try:
@@ -62,41 +62,41 @@ website_var_arr = [result["SECRET_KEY"], result["IPC_SECRET"], result["DISCORD_C
 ROOT = str(__file__)[:-len("bot.py")]
 CLUSTER = MongoClient(result["SRV_URL"])
 
-client = Bot(command_prefix = '?', intents = Intents.all(), case_insensitive=True)
-client.remove_command('help')
+bot = Bot(command_prefix = '?', intents = Intents.all(), case_insensitive=True)
+bot.remove_command('help')
 
 
-@client.command()
+@bot.command()
 @commands.is_owner()
 async def load(ctx, folder, cog):
-    client.load_extension(f'Bot.{folder}.{cog}')
+    bot.load_extension(f'Bot.{folder}.{cog}')
     await ctx.send(f"Enabled Cog: {cog}")
 
     print(f"{Fore.GREEN}[ENABLED cog]{Style.RESET_ALL}: {cog}.py")
 
-@client.command()
+@bot.command()
 @commands.is_owner()
 async def unload(ctx, folder, cog):
-    client.unload_extension(f'Bot.{folder}.{cog}')
+    bot.unload_extension(f'Bot.{folder}.{cog}')
     await ctx.send(f"Disabled Cog: {cog}")
 
     print(f"{Fore.GREEN}[DISABLED cog]{Style.RESET_ALL}: {cog}.py")
 
-@client.command()
+@bot.command()
 @commands.is_owner()
 async def update(ctx):
     await ctx.message.delete()
 
-    for key, cogs in client.COGS.items():
+    for key, cogs in bot.COGS.items():
         for cog in cogs:
-            client.unload_extension(f'Bot.{key}.{cog}')
+            bot.unload_extension(f'Bot.{key}.{cog}')
             try:
-                client.load_extension(f'Bot.{key}.{cog}')
+                bot.load_extension(f'Bot.{key}.{cog}')
 
             except:
                 print(f"{cog} failed to load" )
 
-@client.command()
+@bot.command()
 @commands.is_owner()
 async def restart(ctx):
     await ctx.message.delete()
@@ -104,15 +104,15 @@ async def restart(ctx):
     os.execv(sys.executable, ['python'] + sys.argv)
 
 
-@client.ipc.route()
+@bot.ipc.route()
 async def get_all_guilds(data):
-	return client.guilds
+	return bot.guilds
 
-@client.ipc.route()
+@bot.ipc.route()
 async def get_all_commands(data):
 
     cmds = {}
-    for command in client.commands:
+    for command in bot.commands:
         try:
             description = str(command.help).split(".")[0]
             
@@ -126,11 +126,11 @@ async def get_all_commands(data):
         
     return cmds
 
-@client.ipc.route()
+@bot.ipc.route()
 async def get_all_cogs(data):
 
     cogs = {"Games" : []}
-    for cog in client.cogs:
+    for cog in bot.cogs:
         cog_name = str(cog)
 
         if "game" in str(cog).lower():
@@ -138,14 +138,14 @@ async def get_all_cogs(data):
         else:
             cogs[cog_name] = []
             
-        for command in client.get_cog(cog).get_commands():
+        for command in bot.get_cog(cog).get_commands():
             cogs[cog_name].append([command.name, command.description])
 
     return dict(sorted(cogs.items(), key=lambda x: x[0].lower()))
 
-@client.ipc.route() 
+@bot.ipc.route() 
 async def get_guild(data):
-    guild = client.get_guild(data.guild_id)
+    guild = bot.get_guild(data.guild_id)
     
     if guild is None: 
         
@@ -169,7 +169,7 @@ async def get_guild(data):
     except:
         return None
 
-for key, cogs in client.COGS.items():
+for key, cogs in bot.COGS.items():
     for cog in cogs:
 
         string = f'Bot.{key}.{cog}'
@@ -177,16 +177,17 @@ for key, cogs in client.COGS.items():
         if key == "root":
             string = f'{cog}'
 
-        client.load_extension(string)
+        bot.load_extension(string)
 
-
+for command in bot.commands:
+    print(command.name)
 if __name__ == "__main__":
     if any("INSERT" in word for word in website_var_arr):
         print(f"{Fore.RED}[x]{Style.RESET_ALL} Website vars have not been set-up. Skipping...")
     else:
-        client.ipc.start()
+        bot.ipc.start()
         
     if any("INSERT" in word for word in bot_var_arr):
         print(f"{Fore.RED}[x]{Style.RESET_ALL} Bot vars have not been set-up. Skipping...")
     else:
-        client.run(result["TOKEN"])
+        bot.run(result["TOKEN"])

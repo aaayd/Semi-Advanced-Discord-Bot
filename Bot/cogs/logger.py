@@ -11,8 +11,8 @@ class Logger(commands.Cog, name="Log Commands"):
     Commands related to logging.
     """
 
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
         self.author_temp = ""
 
     @commands.command(name="purge", description="Purge messages in a channel")
@@ -20,7 +20,7 @@ class Logger(commands.Cog, name="Log Commands"):
     @commands.has_permissions(manage_messages=True)
     async def _purge(self, ctx, amount = None):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <amount>
+        {self.bot.command_prefix}{ctx.command.name} <amount>
         """
      
         await ctx.channel.trigger_typing()
@@ -70,7 +70,7 @@ class Logger(commands.Cog, name="Log Commands"):
             else:
                 self.deletee = message.author
 
-        log_channel = self.client.get_channel(get_channel_id(message.guild.id, "channel_logs"))
+        log_channel = self.bot.get_channel(get_channel_id(message.guild.id, "channel_logs"))
 
         if message.author.bot:
             return
@@ -102,7 +102,7 @@ class Logger(commands.Cog, name="Log Commands"):
 
     @commands.Cog.listener()
     async def on_message_edit(self, before_edit, after_edit):
-        log_channel = self.client.get_channel(get_channel_id(before_edit.guild.id, "channel_logs"))
+        log_channel = self.bot.get_channel(get_channel_id(before_edit.guild.id, "channel_logs"))
         if before_edit.content == after_edit.content:
             return
 
@@ -128,7 +128,7 @@ class Logger(commands.Cog, name="Log Commands"):
     @command_activity_check()
     async def _snipe(self, ctx):
         f"""
-        {self.client.command_prefix}{ctx.command.name}
+        {self.bot.command_prefix}{ctx.command.name}
         """
 
         if not deleted_messages:
@@ -173,7 +173,7 @@ class Logger(commands.Cog, name="Log Commands"):
     @command_activity_check()
     async def _esnipe(self, ctx):
         f"""
-        {self.client.command_prefix}{ctx.command.name}
+        {self.bot.command_prefix}{ctx.command.name}
         """
 
         try:
@@ -211,5 +211,5 @@ class Logger(commands.Cog, name="Log Commands"):
             await ctx.send(embed=embed)
         
         
-def setup(client):
-    client.add_cog(Logger(client))
+def setup(bot):
+    bot.add_cog(Logger(bot))

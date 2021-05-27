@@ -11,14 +11,14 @@ class Image(commands.Cog, name="Image Commands"):
     Image commands to send pictures of animals.
     """
 
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     @commands.command(name="meme", description="Sends random meme")
     @command_activity_check()
     async def _meme(self, ctx):
         f"""
-        {self.client.command_prefix}{ctx.command.name}
+        {self.bot.command_prefix}{ctx.command.name}
         """
 
         meme = requests.get("https://some-random-api.ml/meme").json()
@@ -30,7 +30,7 @@ class Image(commands.Cog, name="Image Commands"):
     @command_activity_check()
     async def _animal(self, ctx, name = None):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <animal_name>
+        {self.bot.command_prefix}{ctx.command.name} <animal_name>
         """
 
         if name is None:
@@ -53,5 +53,5 @@ class Image(commands.Cog, name="Image Commands"):
 
 
 
-def setup(client):
-    client.add_cog(Image(client))
+def setup(bot):
+    bot.add_cog(Image(bot))

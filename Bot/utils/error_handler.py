@@ -69,13 +69,13 @@ class CommandErrorHandler(commands.Cog, name="Error Handler"):
     """
     Error handler for the bot - nothing interesting here.
     """
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
 
     @commands.Cog.listener()
     async def on_ready(self):
-        await self.client.wait_until_ready()
+        await self.bot.wait_until_ready()
         
         collections = [collection for collection in CLUSTER.database_names() if represents_int(collection)]
         
@@ -92,7 +92,7 @@ class CommandErrorHandler(commands.Cog, name="Error Handler"):
 
             command_db = db["dict"]
             
-            for command in self.client.commands:
+            for command in self.bot.commands:
                 try:
                     cmd = command_db[command.name]
                 except KeyError:
@@ -110,7 +110,7 @@ class CommandErrorHandler(commands.Cog, name="Error Handler"):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        commands = [command for command in self.client.commands]
+        commands = [command for command in self.bot.commands]
         command_bool_dict = {}
         for command in commands:
             print(command)
@@ -181,5 +181,5 @@ class CommandErrorHandler(commands.Cog, name="Error Handler"):
         await ctx.send(embed=embed)
 
         
-def setup(client):
-    client.add_cog(CommandErrorHandler(client))
+def setup(bot):
+    bot.add_cog(CommandErrorHandler(bot))

@@ -14,16 +14,16 @@ class Misc(commands.Cog, name="Misc Commands"):
     """
     Miscellaneous related commands.
     """
-    def __init__(self, client):
-        self.client = client
-        self.dbutton = DiscordButton(client)
+    def __init__(self, bot):
+        self.bot = bot
+        self.dbutton = DiscordButton(bot)
 
     
     @commands.command(name="showerthought", aliases=["st"], description="Sends random shower thought from r/showerthoughts")
     @command_activity_check()
     async def _get_shower_thought(self, ctx):
         f"""
-        {self.client.command_prefix}{ctx.command.name}
+        {self.bot.command_prefix}{ctx.command.name}
         """
 
         sub = r.subreddit('showerthoughts')
@@ -46,7 +46,7 @@ class Misc(commands.Cog, name="Misc Commands"):
     @command_activity_check()
     async def _invites(self, ctx, member : discord.Member = None):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <user>
+        {self.bot.command_prefix}{ctx.command.name} <user>
         """
 
         if member is None:
@@ -60,7 +60,7 @@ class Misc(commands.Cog, name="Misc Commands"):
     @command_activity_check()
     async def _echo(self, ctx):        
         f"""
-        {self.client.command_prefix}{ctx.command.name} <message>
+        {self.bot.command_prefix}{ctx.command.name} <message>
         """
         message = ctx.message.content
         message = message.partition(' ')[2]
@@ -69,10 +69,10 @@ class Misc(commands.Cog, name="Misc Commands"):
             raise MissingArgument("Message", get_command_description(ctx.command.name))    
 
         await ctx.message.delete()
-        if message[0] == str(self.client.command_prefix):
+        if message[0] == str(self.bot.command_prefix):
             return
 
-        channel = self.client.get_channel(get_channel_id(ctx.message.guild.id, "channel_general"))
+        channel = self.bot.get_channel(get_channel_id(ctx.message.guild.id, "channel_general"))
         await channel.send(message)
             
 
@@ -81,7 +81,7 @@ class Misc(commands.Cog, name="Misc Commands"):
     @command_activity_check()
     async def _serverinfo(self, ctx):
         f"""
-        {self.client.command_prefix}{ctx.command.name}
+        {self.bot.command_prefix}{ctx.command.name}
         """
 
         embed = discord.Embed(
@@ -102,7 +102,7 @@ class Misc(commands.Cog, name="Misc Commands"):
     @command_activity_check()
     async def _colour(self, ctx, colour : str = None):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <colour>
+        {self.bot.command_prefix}{ctx.command.name} <colour>
         """
 
         if colour is None:
@@ -133,17 +133,17 @@ class Misc(commands.Cog, name="Misc Commands"):
     @command_activity_check()
     async def _ping(self, ctx):
         f"""
-        {self.client.command_prefix}{ctx.command.name}
+        {self.bot.command_prefix}{ctx.command.name}
         """
 
-        embed=discord.Embed(title=f"", description=f'Pong :ping_pong:    {round(self.client.latency * 1000)}ms!')
+        embed=discord.Embed(title=f"", description=f'Pong :ping_pong:    {round(self.bot.latency * 1000)}ms!')
         await ctx.reply(embed=embed)
         
     @commands.command(name="avatar", aliases=["av"], description="Sends an avatar image / gif of a member")
     @command_activity_check()
     async def _avatar(self, ctx, member : discord.Member=None):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <user>
+        {self.bot.command_prefix}{ctx.command.name} <user>
         """
 
         if member == None:
@@ -181,7 +181,7 @@ class Misc(commands.Cog, name="Misc Commands"):
     @command_activity_check()
     async def _whois(self,ctx, member: discord.Member = None):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <user>
+        {self.bot.command_prefix}{ctx.command.name} <user>
         """
 
         if not member:
@@ -201,5 +201,5 @@ class Misc(commands.Cog, name="Misc Commands"):
         )
         await ctx.send(embed=embed)
     
-def setup(client):
-    client.add_cog(Misc(client))
+def setup(bot):
+    bot.add_cog(Misc(bot))

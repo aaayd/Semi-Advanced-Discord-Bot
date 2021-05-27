@@ -152,15 +152,15 @@ class ImageManipulation(commands.Cog, name="Rank Card Commands"):
     """
     Image related commands.
     """
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
 
     @commands.command(name="bg", aliases=["set_background"], description="Change rank card background image")
     @command_activity_check()
     async def _set_background(self, ctx, link="NoLinkSpecified"):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <image_link>
+        {self.bot.command_prefix}{ctx.command.name} <image_link>
         """
 
         await ctx.trigger_typing()
@@ -211,7 +211,7 @@ class ImageManipulation(commands.Cog, name="Rank Card Commands"):
     @command_activity_check()
     async def _set_colour(self, ctx, r = None):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <hex>
+        {self.bot.command_prefix}{ctx.command.name} <hex>
         """
 
         _db = get_cluster(ctx.message.guild.id, "CLUSTER_EXPERIENCE")
@@ -235,7 +235,7 @@ class ImageManipulation(commands.Cog, name="Rank Card Commands"):
     @commands.Cog.listener()
     async def on_member_join(self, member):
         general_channel_id = get_channel_id(member.guild.id, "channel_general")
-        channel = self.client.get_channel(general_channel_id)
+        channel = self.bot.get_channel(general_channel_id)
 
         card = Image.open(os.path.join(f"{IMAGE_PATH}//welcome//backgrounds//", f"background_{random.randint(1,14)}.png"))
         av_outline_circle = Image.open(os.path.join(f"{IMAGE_PATH}//welcome//utils//", f"black_circle.png"))
@@ -270,5 +270,5 @@ class ImageManipulation(commands.Cog, name="Rank Card Commands"):
         if "ValueError" in str(error):
             embed = embed_error("Invalid `HEX` value")
 
-def setup(client):
-    client.add_cog(ImageManipulation(client))
+def setup(bot):
+    bot.add_cog(ImageManipulation(bot))

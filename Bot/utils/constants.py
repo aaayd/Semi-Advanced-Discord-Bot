@@ -1,6 +1,6 @@
 
 from datetime import datetime
-from bot import ROOT, CLUSTER, client
+from bot import ROOT, CLUSTER, bot
 import os, re, requests
 from PIL import ImageFont
 from discord.ext import commands
@@ -16,7 +16,7 @@ COMMAND_IS_VALID_REGEX = "[a-zA-Z_]+"
 UNI_SANS_40 = ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 40)
 UNI_SANS_55 = ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 55)
 UNI_SANS_70 = ImageFont.truetype(os.path.join(f"{IMAGE_PATH}//font//","uni-sans-light.ttf"), 70)
-COMMANDS = [command for command in client.commands]
+COMMANDS = [command for command in bot.commands]
 CLUSTERS = {
     "CLUSTER_EXPERIENCE" : "leveling",
     "CLUSTER_RATELIMIT" : "xp_rate_limit",
@@ -303,7 +303,7 @@ def command_activity_check():
 
 
 def get_guild(id):
-    return client.get_guild(id)
+    return bot.get_guild(id)
 
 def get_cluster(guild, cluster, clusters = CLUSTERS):
     val = clusters.get(cluster)
@@ -353,7 +353,7 @@ def query_valid_url(url):
     return True
 
 def get_command_description(command):
-    return client.get_command(command).help
+    return bot.get_command(command).help
 
 def get_channel_id(guild_id, channel_name):
     return get_cluster(guild_id, "CLUSTER_CHANNELS").find_one({"id" : "type_important_channels"})["dict"][channel_name]

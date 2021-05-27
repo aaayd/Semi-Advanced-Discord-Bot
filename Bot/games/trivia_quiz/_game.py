@@ -5,7 +5,7 @@ import discord
 from discord.ext.commands import Context
 from fuzzywuzzy import fuzz
 
-from bot import client
+from bot import bot
 from Bot.games.trivia_quiz import _constants
 from Bot.games.trivia_quiz import _helpers
 
@@ -13,7 +13,7 @@ from Bot.games.trivia_quiz import _helpers
 class Game:
     """Class that contains information and functions about Tic Tac Toe game."""
 
-    def __init__(self, bot: client, ctx: Context, questions: dict, category: str):
+    def __init__(self, bot: bot, ctx: Context, questions: dict, category: str):
         self.bot = bot
         self.ctx = ctx
         self.questions = questions

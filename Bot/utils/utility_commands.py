@@ -9,15 +9,15 @@ class UtilityCommands(commands.Cog, name = "Utility Commands"):
     Utility commands to keep the bot functional.
     """
     
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
 
     @commands.command(name="disable", description="Disable bot commands")
     @command_activity_check()
     async def _disable(self, ctx):
         f"""
-        {self.client.command_prefix}{ctx.command.name}
+        {self.bot.command_prefix}{ctx.command.name}
         """
 
         new_activity_state = {}
@@ -28,7 +28,7 @@ class UtilityCommands(commands.Cog, name = "Utility Commands"):
         err_string = ""
         for command in commands:
             command = command.lower()
-            if self.client.get_command(command) is not None and "disable" not in command and "enable" not in command:
+            if self.bot.get_command(command) is not None and "disable" not in command and "enable" not in command:
                 new_activity_state[f"dict.{command}"] = 0
                 
                 string += f"`{command}`, "
@@ -52,7 +52,7 @@ class UtilityCommands(commands.Cog, name = "Utility Commands"):
     @command_activity_check()
     async def _enable(self, ctx):
         f"""
-        {self.client.command_prefix}{ctx.command.name}
+        {self.bot.command_prefix}{ctx.command.name}
         """
 
         new_activity_state = {}
@@ -63,7 +63,7 @@ class UtilityCommands(commands.Cog, name = "Utility Commands"):
         err_string = ""
         for command in commands:
             command = command.lower()
-            if self.client.get_command(command) is not None and "disable" not in command and "enable" not in command:
+            if self.bot.get_command(command) is not None and "disable" not in command and "enable" not in command:
                 new_activity_state[f"dict.{command}"] = 1
                 
                 string += f"`{command}`, "
@@ -89,7 +89,7 @@ class UtilityCommands(commands.Cog, name = "Utility Commands"):
     @commands.has_permissions(administrator=True)
     async def _add_default_roles(self, ctx, *, roles):
         f"""
-        {self.client.command_prefix} <roles>
+        {self.bot.command_prefix} <roles>
         """
         
         try:
@@ -137,5 +137,5 @@ class UtilityCommands(commands.Cog, name = "Utility Commands"):
             await member.add_roles(_)
 
 
-def setup(client):
-    client.add_cog(UtilityCommands(client))
+def setup(bot):
+    bot.add_cog(UtilityCommands(bot))

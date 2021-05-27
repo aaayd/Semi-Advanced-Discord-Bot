@@ -9,14 +9,14 @@ class AFKSystem(commands.Cog, name="AFK Commands"):
     """
     AFK Related Commands
     """
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     @commands.command(name="afk", description="Set AFK Status")
     @command_activity_check()
     async def _afk(self, ctx, *, status="No status"):
         f"""
-        {self.client.command_prefix}{ctx.command.name} [afk message]
+        {self.bot.command_prefix}{ctx.command.name} [afk message]
         """
         
         await ctx.channel.trigger_typing()
@@ -52,7 +52,7 @@ class AFKSystem(commands.Cog, name="AFK Commands"):
             afk_date = find_user["date"]
             
             time_afk = get_time_elapsed(afk_date)
-            member_obj = await self.client.fetch_user(int(user_id))  
+            member_obj = await self.bot.fetch_user(int(user_id))  
             if str(user_id) in message.content and message.author.id != user_id:
             
                 embed=discord.Embed(

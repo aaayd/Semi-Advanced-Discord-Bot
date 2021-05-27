@@ -12,14 +12,14 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
     Moderation related commands.
     """
 
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
         self.muted_members_check.start(self)
 
     
     @tasks.loop(seconds=3)
     async def muted_members_check(self, ctx):
-        await self.client.wait_until_ready()
+        await self.bot.wait_until_ready()
 
         time_now = datetime.utcnow()
 
@@ -31,7 +31,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
 
                 for muted_user in _db.find({}):
                     if time_now > muted_user["end_date"]:
-                        member = discord.utils.get(self.client.get_all_members(), id=muted_user["id"])
+                        member = discord.utils.get(self.bot.get_all_members(), id=muted_user["id"])
                         try:
                             await self._unmute_user(member)
                             _db.delete_many({'id': int(member.id)})
@@ -46,7 +46,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
     @commands.has_permissions(kick_members=True)
     async def _kick(self, ctx, member : discord.Member = None, *, reason=None):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <member> <reason>
+        {self.bot.command_prefix}{ctx.command.name} <member> <reason>
         """
         
         if member is None:
@@ -59,7 +59,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
 
         await ctx.message.delete()
         await ctx.channel.trigger_typing()
-        log_channel = self.client.get_channel(get_channel_id(member.guild.id, "channel_logs"))
+        log_channel = self.bot.get_channel(get_channel_id(member.guild.id, "channel_logs"))
                         
         embed=discord.Embed(title="", description=f" ", timestamp=datetime.utcnow(), color=0xff0000
             ).set_author(name=f"{ctx.author} kicked member", icon_url=f"{ctx.author.avatar_url}"
@@ -76,7 +76,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
     @commands.has_permissions(ban_members=True)
     async def _ban(self, ctx, member : discord.Member = None, *, reason=None):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <member> <reason>
+        {self.bot.command_prefix}{ctx.command.name} <member> <reason>
         """
 
         if member is None:
@@ -89,7 +89,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
 
         await ctx.message.delete()
         await ctx.channel.trigger_typing()
-        log_channel = self.client.get_channel(get_channel_id(member.guild.id, "channel_logs"))
+        log_channel = self.bot.get_channel(get_channel_id(member.guild.id, "channel_logs"))
         embed=discord.Embed(
             description=f" ", 
             timestamp=datetime.utcnow(), 
@@ -110,7 +110,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
     @commands.has_permissions(manage_messages=True)
     async def _clear(self, ctx, member : discord.Member = None, limit: int=None):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <member> <amount to delete>
+        {self.bot.command_prefix}{ctx.command.name} <member> <amount to delete>
         """
 
         if member is None:
@@ -131,7 +131,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
     @commands.has_guild_permissions(mute_members=True)
     async def _mute(self, ctx, member : discord.Member = None, time="Indefinite", *, reason="None"):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <member> <time> <reason>
+        {self.bot.command_prefix}{ctx.command.name} <member> <time> <reason>
         """
 
         if member is None:
@@ -167,7 +167,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
     @commands.has_guild_permissions(mute_members=True)
     async def _warn(self, ctx, member : discord.Member, * ,reason = "None"):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <member> <reason>
+        {self.bot.command_prefix}{ctx.command.name} <member> <reason>
         """
         
         _db = get_cluster(ctx.guild.id, "CLUSTER_WARN")
@@ -189,7 +189,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
             ).add_field(name="Reason", value=f"{reason}"
         )
         
-        log_channel = self.client.get_channel(get_channel_id(member.guild.id, "channel_logs"))
+        log_channel = self.bot.get_channel(get_channel_id(member.guild.id, "channel_logs"))
         await log_channel.send(embed=embed)
         await ctx.channel.send(embed=embed)
         
@@ -198,7 +198,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
     @commands.has_guild_permissions(mute_members=True)
     async def _modlogs(self, ctx, member : discord.Member):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <member>
+        {self.bot.command_prefix}{ctx.command.name} <member>
         """
         _db = get_cluster(ctx.guild.id, "CLUSTER_WARN").find({"warned_user_id" : member.id})
 
@@ -217,7 +217,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
     @commands.has_guild_permissions(mute_members=True)
     async def _unmute(self, ctx, member : discord.Member=None):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <member>
+        {self.bot.command_prefix}{ctx.command.name} <member>
         """
 
 
@@ -233,7 +233,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
         _db.delete_many({'id': member.id})
 
     async def _mute_user(self, ctx, member, time="Indefinite", reason="None"):
-        channel = self.client.get_channel(get_channel_id(member.guild.id, "channel_logs"))
+        channel = self.bot.get_channel(get_channel_id(member.guild.id, "channel_logs"))
         
         try:
             muted_role = get(ctx.guild.roles, name="Muted")
@@ -278,7 +278,7 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
                                     
     async def _unmute_user(self, member):
         try:
-            channel1 = self.client.get_channel(get_channel_id(member.guild.id, "channel_logs"))
+            channel1 = self.bot.get_channel(get_channel_id(member.guild.id, "channel_logs"))
         
             
             muted_role = get(member.guild.roles, name="Muted")
@@ -296,5 +296,5 @@ class Moderation(commands.Cog, name = "Moderation Commands"):
 
 
 
-def setup(client):
-    client.add_cog(Moderation(client))
+def setup(bot):
+    bot.add_cog(Moderation(bot))

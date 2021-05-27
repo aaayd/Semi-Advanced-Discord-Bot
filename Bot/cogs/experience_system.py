@@ -8,8 +8,8 @@ class ExperienceSystem(commands.Cog, name = "XP Commands"):
     """
     Rank and Leveling related commands.
     """
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
         #self._rate_limit_check.start(self)
 
     """
@@ -27,7 +27,7 @@ class ExperienceSystem(commands.Cog, name = "XP Commands"):
     @command_activity_check()
     async def _rank(self, ctx, member: discord.Member = None):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <member>
+        {self.bot.command_prefix}{ctx.command.name} <member>
         """
         
         await ctx.message.delete()
@@ -69,7 +69,7 @@ class ExperienceSystem(commands.Cog, name = "XP Commands"):
     @command_activity_check()
     async def _leaderboard(self, ctx, placement = None):
         f"""
-        {self.client.command_prefix}{ctx.command.name} <number>
+        {self.bot.command_prefix}{ctx.command.name} <number>
         """
         
         await ctx.message.delete()
@@ -99,7 +99,7 @@ class ExperienceSystem(commands.Cog, name = "XP Commands"):
             lvl = get_level(xp)
             xp -= ((50*((lvl-1)**2))+(50*(lvl-1)))
             rank = placement
-            member = discord.utils.get(self.client.get_all_members(), id=stats["id"])
+            member = discord.utils.get(self.bot.get_all_members(), id=stats["id"])
         except:
             await ctx.send(embed=embed_error(f"Member in place `{placement}` has no XP"))
             return
@@ -126,7 +126,7 @@ class ExperienceSystem(commands.Cog, name = "XP Commands"):
         if isinstance(message.channel, discord.channel.DMChannel):
             return
         
-        channel = self.client.get_channel(get_channel_id(message.guild.id, "channel_general"))
+        channel = self.bot.get_channel(get_channel_id(message.guild.id, "channel_general"))
 
         if channel != message.channel:
             return
@@ -161,5 +161,5 @@ class ExperienceSystem(commands.Cog, name = "XP Commands"):
 
                     await message.channel.send(embed=embed)
 
-def setup(client):
-    client.add_cog(ExperienceSystem(client))
+def setup(bot):
+    bot.add_cog(ExperienceSystem(bot))
