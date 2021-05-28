@@ -1,4 +1,3 @@
-from bot import CLUSTER
 from Bot.utils.constants import COMMAND_IS_VALID_REGEX, represents_int, _init_mongo_arr, _init_mongo_bool, _init_mongo_dict, get_cluster
 from Bot.utils.constants import  COLOUR_ROLES_DICT, DEF_SNIPE_GIFS
 from discord import Embed, utils
@@ -77,7 +76,7 @@ class CommandErrorHandler(commands.Cog, name="Error Handler"):
     async def on_ready(self):
         await self.bot.wait_until_ready()
         
-        collections = [collection for collection in CLUSTER.database_names() if represents_int(collection)]
+        collections = [collection for collection in self.bot.mongo_client.database_names() if represents_int(collection)]
         
         for collection in collections:
             _db = get_cluster(int(collection), "CLUSTER_COMMANDS")
@@ -128,7 +127,7 @@ class CommandErrorHandler(commands.Cog, name="Error Handler"):
                 "channel_confession" : guild.text_channels[0].id,
             }
 
-        CLUSTER_UTIL = CLUSTER[str(guild.id)]["utils"]
+        CLUSTER_UTIL = self.bot.mongo_client[str(guild.id)]["utils"]
         _init_mongo_dict(CLUSTER_UTIL, "type_command_activity", command_bool_dict)       
         _init_mongo_dict(CLUSTER_UTIL, "type_important_channels", used_channel_dict)        
         _init_mongo_arr(CLUSTER_UTIL, "type_blacklist", ["nigger"])
@@ -150,6 +149,9 @@ class CommandErrorHandler(commands.Cog, name="Error Handler"):
         #print(str(error))
         #print(type(error))
 
+        if "KeyError" in str(error):
+            return
+                    
         if isinstance(type(error), type(RoleNotFound)):
             embed = embed_error(str(error))
 
