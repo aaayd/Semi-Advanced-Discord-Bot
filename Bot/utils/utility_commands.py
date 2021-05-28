@@ -1,6 +1,5 @@
 from Bot.utils.constants import command_activity_check, get_command_description, get_cluster
 from Bot.utils.error_handler import MissingArgument, embed_error, embed_success, ExpectedLiteralInt
-from bot import CLUSTER
 import discord
 from discord.ext import commands
 
@@ -117,7 +116,7 @@ class UtilityCommands(commands.Cog, name = "Utility Commands"):
         if channel is None:
             raise MissingArgument("Channel ID", get_command_description(ctx.command.name))
         
-        CLUSTER_UTIL = CLUSTER[str(ctx.message.guild.id)]["utils"]
+        CLUSTER_UTIL = self.bot.mongo_client[str(ctx.message.guild.id)]["utils"]
         CLUSTER_UTIL.update({
             "id" : "type_important_channels"
             },{"$set" : {

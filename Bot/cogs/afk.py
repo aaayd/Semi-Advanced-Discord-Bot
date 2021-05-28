@@ -2,7 +2,7 @@
 import discord
 from discord.ext import commands
 from datetime import datetime
-from bot import CLUSTER
+
 from Bot.utils.constants import get_cluster, get_time_elapsed, command_activity_check
 
 class AFKSystem(commands.Cog, name="AFK Commands"):

@@ -1,7 +1,7 @@
 from quart import Quart, render_template, request, redirect, url_for
 from quart_discord import DiscordOAuth2Session
 from discord.ext import ipc, commands
-from bot import result, CLUSTER
+from bot import bot
 from Bot.utils.constants import get_cluster, get_channel_id
 import discord, os, asyncio
 from logging.config import dictConfig
@@ -21,11 +21,11 @@ dictConfig({
 template_folder_path = os.path.abspath('Website/src')
 static_folder_path = os.path.abspath('Website/static')
 app = Quart(__name__, template_folder = template_folder_path, static_folder = static_folder_path)
-ipc_client = ipc.Client(secret_key = result["IPC_SECRET"])
-app.config["SECRET_KEY"] = str(result["SECRET_KEY"])
-app.config["DISCORD_CLIENT_ID"] = int(result["DISCORD_CLIENT_ID"])   # Discord client ID.
-app.config["DISCORD_CLIENT_SECRET"] = str(result["DISCORD_CLIENT_SECRET"])   # Discord client secret.
-app.config["DISCORD_REDIRECT_URI"] = str(result["DISCORD_REDIRECT_URI"])
+ipc_client = ipc.Client(secret_key = bot.env_vars["IPC_SECRET"])
+app.config["SECRET_KEY"] = str(bot.env_vars["SECRET_KEY"])
+app.config["DISCORD_CLIENT_ID"] = int(bot.env_vars["DISCORD_CLIENT_ID"])   # Discord client ID.
+app.config["DISCORD_CLIENT_SECRET"] = str(bot.env_vars["DISCORD_CLIENT_SECRET"])   # Discord client secret.
+app.config["DISCORD_REDIRECT_URI"] = str(bot.env_vars["DISCORD_REDIRECT_URI"])
 discord_auth = DiscordOAuth2Session(app)
 
 class DiscordClient:
@@ -51,7 +51,7 @@ class Website(commands.Cog, name = "Website COG"):
 		loop = asyncio.get_event_loop()
 		app.discord_client = DiscordClient()
 
-		await app.discord_client.bot.login(result["TOKEN"])
+		await app.discord_client.bot.login(bot.env_vars["TOKEN"])
 		loop.create_task(app.discord_client.bot.connect())
 
 	@app.route("/")
@@ -122,7 +122,7 @@ class Website(commands.Cog, name = "Website COG"):
 	def update_command_state():
 		data = request.args.get('change_dict')[1:-1].replace('"', "").split(",")
 		guild_id = request.args.get('guild_id')
-		CLUSTER_UTIL = CLUSTER[guild_id]["utils"]
+		CLUSTER_UTIL = bot.mongo_client[guild_id]["utils"]
 
 		data_dict = {}
 		for var in data:

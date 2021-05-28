@@ -12,8 +12,16 @@ class Bot(commands.Bot):
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
 
-        self.ipc = ipc.Server(self,secret_key = result["IPC_SECRET"])
-
+        self.env_vars = {}
+        with open('protected_vars.env') as ins:
+            for line in ins:
+                match = compile(r'''^([^\s=]+)=(?:[\s"']*)(.+?)(?:[\s"']*)$''').match(line)
+                if match is not None:
+                    self.env_vars[match.group(1)] = match.group(2)
+        
+        self.root_path = str(__file__)[:-len("bot.py")]
+        self.mongo_client = MongoClient(self.env_vars["SRV_URL"])
+        self.ipc = ipc.Server(self,secret_key = self.env_vars["IPC_SECRET"])
         self.COGS = {
             "root" : [
                 "website"
@@ -36,6 +44,7 @@ class Bot(commands.Bot):
             ]
         }
 
+
     async def on_ready(self):
         print(f"{Fore.GREEN}[!]{Style.RESET_ALL} Bot is ready!")
         await bot.change_presence(activity=Game(name=f"?help"))
@@ -51,17 +60,6 @@ class Bot(commands.Bot):
     async def on_ipc_error(self, endpoint, error):
         print(endpoint, "raised", error)
 
-
-with open('protected_vars.env') as ins:
-    result = {}
-    for line in ins:
-        match = compile(r'''^([^\s=]+)=(?:[\s"']*)(.+?)(?:[\s"']*)$''').match(line)
-        if match is not None:
-            result[match.group(1)] = match.group(2)
-
-ROOT = str(__file__)[:-len("bot.py")]
-CLUSTER = MongoClient(result["SRV_URL"])
-
 bot = Bot(command_prefix = '?', intents = Intents.all(), case_insensitive=True)
 bot.remove_command('help')
 
@@ -76,12 +74,12 @@ for key, cogs in bot.COGS.items():
         bot.load_extension(string)
 
 if __name__ == "__main__":
-    if any("INSERT" in word for word in [result["SRV_URL"], result["TOKEN"]]):
+    if any("INSERT" in word for word in [bot.env_vars["SRV_URL"], bot.env_vars["TOKEN"]]):
         print(f"{Fore.RED}[x]{Style.RESET_ALL} Website vars have not been set-up. Skipping...")
     else:
         bot.ipc.start()
         
-    if any("INSERT" in word for word in [result["SECRET_KEY"], result["IPC_SECRET"], result["DISCORD_CLIENT_ID"], result["DISCORD_CLIENT_SECRET"], result["DISCORD_REDIRECT_URI"]]):
+    if any("INSERT" in word for word in [bot.env_vars["SECRET_KEY"], bot.env_vars["IPC_SECRET"], bot.env_vars["DISCORD_CLIENT_ID"], bot.env_vars["DISCORD_CLIENT_SECRET"], bot.env_vars["DISCORD_REDIRECT_URI"]]):
         print(f"{Fore.RED}[x]{Style.RESET_ALL} Bot vars have not been set-up. Skipping...")
     else:
-        bot.run(result["TOKEN"])
+        bot.run(bot.env_vars["TOKEN"])

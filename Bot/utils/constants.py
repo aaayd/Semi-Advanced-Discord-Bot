@@ -1,6 +1,6 @@
 
 from datetime import datetime
-from bot import ROOT, CLUSTER, bot
+from bot import bot
 import os, re, requests
 from PIL import ImageFont
 from discord.ext import commands
@@ -8,7 +8,7 @@ from discord.ext import commands
 # Variables 
 
 ALL_GUILD_DATABASES = dict(
-    (db, [collection for collection in CLUSTER[db].collection_names()]) for db in CLUSTER.database_names()
+    (db, [collection for collection in bot.mongo_client[db].collection_names()]) for db in bot.mongo_client.database_names()
 )
 
 IMAGE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'image_processing')
@@ -307,7 +307,7 @@ def get_guild(id):
 
 def get_cluster(guild, cluster, clusters = CLUSTERS):
     val = clusters.get(cluster)
-    return CLUSTER[str(guild)][val]
+    return bot.mongo_client[str(guild)][val]
 
 def update_channel_id(var, _chan_id):
     _old_value = str(var[0]).split('=')[0]
@@ -315,10 +315,10 @@ def update_channel_id(var, _chan_id):
     if str(var[0]) == 123456789 or len(str(var[0])) <= 9:
         var.append(_chan_id)
         var.pop(0) 
-        with open(ROOT +'\protected_vars.env') as file:
+        with open(bot.root_path +'\protected_vars.env') as file:
             new_text = file.read().replace(str(_old_value), str(_chan_id))
             
-        with open(ROOT +'\protected_vars.env', "w") as file:
+        with open(bot.root_path +'\protected_vars.env', "w") as file:
             file.write(new_text)
  
 def get_level(xp):
