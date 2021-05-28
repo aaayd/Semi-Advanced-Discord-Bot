@@ -96,7 +96,6 @@ class CommandErrorHandler(commands.Cog, name="Error Handler"):
                 try:
                     cmd = command_db[command.name]
                 except KeyError:
-                    print(command.name)
                     update[f"dict.{command.name}"] = 1
 
             if update:
@@ -113,9 +112,7 @@ class CommandErrorHandler(commands.Cog, name="Error Handler"):
         commands = [command for command in self.bot.commands]
         command_bool_dict = {}
         for command in commands:
-            print(command)
             command_bool_dict[command.name] = True
-        print(command_bool_dict)
 
         try:
             used_channel_dict = {
