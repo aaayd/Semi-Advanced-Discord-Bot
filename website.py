@@ -42,11 +42,6 @@ class DiscordClient:
 
 		return self.bot.get_channel(id)
 		
-	async def get_channel(self, id):
-		await self.bot.wait_until_ready()
-
-		return self.bot.get_channel(id)
-
 class Website(commands.Cog, name = "Website COG"):
 	def __init__(self, bot):
 		self.bot = bot
