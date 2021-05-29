@@ -28,7 +28,6 @@ Welcome Card Example
 # Libraries 
 - discordpy 
 - discord-ext-ipc
-- discord_button 
 - Pillow 
 - pymongo
 - dnspython
