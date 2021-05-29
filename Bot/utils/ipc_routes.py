@@ -10,6 +10,16 @@ class IpcRoutes(commands.Cog):
         return self.bot.guilds
 
     @ipc.server.route()
+    async def get_all_channels(self, data):
+        guild = self.bot.get_guild(data.guild_id)
+        channels_dict = {}
+        
+        for channel in guild.text_channels:
+            channels_dict[channel.name] = channel.id
+
+        return channels_dict
+
+    @ipc.server.route()
     async def get_all_commands(self, data):
 
         cmds = {}

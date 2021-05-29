@@ -11,6 +11,10 @@
         <link rel="stylesheet" type="text/css" href="/static/guild.css" />
         <link rel="stylesheet" type="text/css" href="/static/index.css" />
         <link rel="stylesheet" type="text/css" href="/static/bootstrap-4.4.1.css" />
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
         <script type="text/javascript" src="/static/js.js"></script>
     </head>
     <body style="background-color: #141617;">
@@ -114,6 +118,37 @@
                             </div>
                         </div>
                     </div>
+                    
+                </div>
+                <div class="container" style="min-width: 100%;display: flex; float: left; background-color: #121212;">
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col col-xl-8">
+                            <div class="container container-card-large float-left">
+                                <div class="row">
+                                    <a class="card-title">MAKE ANNOUNCEMENT</a>
+                                </div>
+                                <div class="row">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                          <button id="channel-dropdown-button" class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Channels</button>
+                                          <div class="dropdown-menu">
+                                            {% for name, id in channels.items() %}
+                                            <a id=channel_id_{{id}} class="dropdown-item" onclick="selectChannel(this.id, this.innerHTML)" href="#"># {{name}}</a>
+                                            {% endfor %}
+                                          </div>
+                                        </div>
+                                        <input id="announcement-input" type="text" placeholder="Insert Message..." class="form-control" aria-label="Text input with dropdown button">
+                                        <form>
+                                            <a href=# id=sendMessage><button class="btn btn-outline-warning" type="button">Send</button></a>
+                                        </form>
+
+                                      </div>
+                                      
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
 
@@ -251,11 +286,11 @@
             });
 
             $(function() {
-                $('a#sendMessage').on('click', function(f) {
+                    $('a#sendMessage').on('click', function(f) {
                     f.preventDefault()
                     $.getJSON('/send_message', {
-                        message : "Hi",
-                        guild_id: "{{guild.id}}"
+                        message : document.getElementById("announcement-input").value,
+                        channel_id : selected_channel_id,
                     },
                     
                     function(data) {});
@@ -269,6 +304,8 @@
         </script>
 
         <script>
+            var selected_channel_id
+
             function filterTable() {
                 var input, filter, table, tr, td, i, txtValue;
                 input = document.getElementById("warn-table-filter");
@@ -286,6 +323,15 @@
                         }
                     }
                 }
+            }
+            
+            function selectChannel(id, name) {
+                dropdown_button = document.getElementById("channel-dropdown-button")
+
+                dropdown_button.textContent = name
+                
+                selected_channel_id = id
+        
             }
 
             function sortTable(n) {

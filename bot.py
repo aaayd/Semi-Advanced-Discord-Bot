@@ -47,7 +47,6 @@ class Bot(commands.Bot):
 
     async def on_ready(self):
         print(f"{Fore.GREEN}[!]{Style.RESET_ALL} Bot is ready!")
-        await bot.change_presence(activity=Game(name=f"?help"))
         
     async def on_ipc_ready(self):
         try:
@@ -60,8 +59,7 @@ class Bot(commands.Bot):
     async def on_ipc_error(self, endpoint, error):
         print(endpoint, "raised", error)
 
-bot = Bot(command_prefix = '?', intents = Intents.all(), case_insensitive=True)
-bot.remove_command('help')
+bot = Bot(command_prefix = '?', intents = Intents.all(), case_insensitive=True, help_command=None, activity=Game(name=f"?help"))
 
 for key, cogs in bot.COGS.items():
     for cog in cogs:

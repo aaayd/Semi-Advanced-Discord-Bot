@@ -41,6 +41,11 @@ class DiscordClient:
 		await self.bot.wait_until_ready()
 
 		return self.bot.get_channel(id)
+		
+	async def get_channel(self, id):
+		await self.bot.wait_until_ready()
+
+		return self.bot.get_channel(id)
 
 class Website(commands.Cog, name = "Website COG"):
 	def __init__(self, bot):
@@ -102,6 +107,7 @@ class Website(commands.Cog, name = "Website COG"):
 		guild = await ipc_client.request("get_guild", guild_id = guild_id)
 		commands  = await ipc_client.request("get_all_commands")
 		cogs = await ipc_client.request("get_all_cogs")
+		channels = await ipc_client.request("get_all_channels", guild_id = guild_id)
 
 		_db_important_channels = get_cluster(guild_id, "CLUSTER_CHANNELS").find_one({"id" : "type_important_channels"})["dict"]
 		_db_commands = get_cluster(guild_id, "CLUSTER_CHANNELS").find_one({"id" : "type_command_activity"})["dict"]
@@ -114,7 +120,7 @@ class Website(commands.Cog, name = "Website COG"):
 			"guild_id.html", guild=guild, 
 			_db_important_channels=_db_important_channels, 
 			commands=commands, _db_commands=_db_commands,
-			cogs=cogs, _db_warns=_db_warns
+			cogs=cogs, _db_warns=_db_warns, channels=channels
 		)
 
 
@@ -145,11 +151,11 @@ class Website(commands.Cog, name = "Website COG"):
 
 	@app.route('/send_message')
 	async def send_message():
-		data = request.args.get('message')
-		guild_id = request.args.get('guild_id')
+		message = request.args.get('message')
+		channel_id = request.args.get('channel_id').replace("channel_id_", "")
+		channel = await app.discord_client.get_channel(int(channel_id))
 
-		channel = await app.discord_client.get_channel(get_channel_id(int(guild_id), "channel_general"))
-		await channel.send(data)
+		await channel.send(message)
 		return "OK", 200
 		
 
