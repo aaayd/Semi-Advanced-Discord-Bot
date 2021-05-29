@@ -2,6 +2,7 @@ from quart import Quart, render_template, request, redirect, url_for
 from quart_discord import DiscordOAuth2Session
 from discord.ext import ipc, commands
 from bot import bot
+from datetime import datetime
 from Bot.utils.constants import get_cluster, get_channel_id
 import discord, os, asyncio
 from logging.config import dictConfig
@@ -150,7 +151,15 @@ class Website(commands.Cog, name = "Website COG"):
 		channel_id = request.args.get('channel_id').replace("channel_id_", "")
 		channel = await app.discord_client.get_channel(int(channel_id))
 
-		await channel.send(message)
+		author = await discord_auth.fetch_user()
+
+		embed = discord.Embed(
+			description=f"{message}", 
+			timestamp=datetime.utcnow(), 
+			color=0xffc600
+			).set_author(name=f"{author.name} made an announcement!", icon_url=f"{author.avatar_url}"
+		)
+		await channel.send(embed=embed)
 		return "OK", 200
 		
 
