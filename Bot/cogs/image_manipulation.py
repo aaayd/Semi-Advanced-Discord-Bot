@@ -26,7 +26,7 @@ def change_white(image, colour):
     return Image.fromarray(data)
 
 
-def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour, member_count, reponse):
+def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour, member_count):
     try:
         card = Image.open(requests.get(background, stream=True).raw).convert("RGBA")
     except:
