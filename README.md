@@ -45,7 +45,7 @@ Welcome Card Example
 1. Open CMD in the same location as the bot root folder
 2. Execute the following in the terminal:
 ```py
-# pip install requirements.txt
+# pip install -r requirements.txt
 ```
 <br>
 
