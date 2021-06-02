@@ -72,7 +72,7 @@ for key, cogs in bot.COGS.items():
         bot.load_extension(string)
 
 if __name__ == "__main__":
-    if any("INSERT" in word for word in [bot.env_vars["SRV_URL"], bot.env_vars["TOKEN"]]):
+    if bot.env_vars["WEBSITE_ENABLED"] == "FALSE" or any("INSERT" in word for word in [bot.env_vars["SRV_URL"], bot.env_vars["TOKEN"]]):
         print(f"{Fore.RED}[x]{Style.RESET_ALL} Website vars have not been set-up. Skipping...")
     else:
         bot.ipc.start()
