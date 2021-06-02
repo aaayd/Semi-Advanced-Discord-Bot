@@ -1,7 +1,8 @@
 from Bot.utils.error_handler import MissingArgument
-import discord, random, requests
+import discord, random
 from discord.ext import commands
 from discord import Embed
+from aiohttp import ClientSession
 from datetime import datetime
 from Bot.utils.constants import PUNCH_GIF_ARRAY, command_activity_check, get_cluster, get_command_description
 from Bot.utils.constants import EIGHT_BALL_RESPONSE_DICT, GAY_RESPONSE_DICT, HEART_RESPONSE_LIST, PUSSY_RESPONSE_DICT, SHIP_RESPONSE_DICT, KISS_GIF_ARRAY
@@ -12,6 +13,7 @@ class Fun(commands.Cog, name="Fun Commands"):
     """
     def __init__(self, bot):
         self.bot = bot
+        self.HTTP_SESSION = ClientSession(trust_env=True)
 
     @commands.command(name="kiss", description="Send a random kiss gif a user")
     @command_activity_check()
@@ -57,15 +59,15 @@ class Fun(commands.Cog, name="Fun Commands"):
         if member is None:
             raise MissingArgument("Discord Member", get_command_description(ctx.command.name))
 
-        pat_json = requests.get("https://some-random-api.ml/animu/pat").json()
-        pat_gif = pat_json["link"]
+        async with self.HTTP_SESSION.get(url="https://some-random-api.ml/animu/pat") as response:
+            pat_json = await response.json()
 
-        embed = discord.Embed(
-            description=f"{ctx.message.author.mention} Patted {member.mention}, How Sweet {random.choice(HEART_RESPONSE_LIST)}", 
-            color=0xc81f9f,
-            ).set_image(url=pat_gif
-        )
-        await ctx.send(embed=embed)
+            embed = discord.Embed(
+                description=f"{ctx.message.author.mention} Patted {member.mention}, How Sweet {random.choice(HEART_RESPONSE_LIST)}", 
+                color=0xc81f9f,
+                ).set_image(url=pat_json["link"]
+            )
+            await ctx.send(embed=embed)
 
     @commands.command(name="hug", description="Send a random hug gif a user")
     @command_activity_check()
@@ -77,16 +79,16 @@ class Fun(commands.Cog, name="Fun Commands"):
         
         if member is None:
             raise MissingArgument("Discord Member", get_command_description(ctx.command.name))
+        
+        async with self.HTTP_SESSION.get(url="https://some-random-api.ml/animu/hug") as response:
+            hug_json = await response.json()
 
-        pat_json = requests.get("https://some-random-api.ml/animu/hug").json()
-        pat_gif = pat_json["link"]
-
-        embed = discord.Embed(
-            description=f"{ctx.message.author.mention} Hugged {member.mention}, How Sweet {random.choice(HEART_RESPONSE_LIST)}", 
-            color=0xc81f9f,
-            ).set_image(url=pat_gif
-        )
-        await ctx.send(embed=embed)
+            embed = discord.Embed(
+                description=f"{ctx.message.author.mention} Hugged {member.mention}, How Sweet {random.choice(HEART_RESPONSE_LIST)}", 
+                color=0xc81f9f,
+                ).set_image(url= hug_json["link"]
+            )
+            await ctx.send(embed=embed)
 
 
     @commands.command(name="dice", aliases=["diceroll, rolldice"], description="Roll a dice")

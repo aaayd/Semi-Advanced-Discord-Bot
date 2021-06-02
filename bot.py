@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import os.path, subprocess
+import subprocess
 from re import compile
 from discord.ext import commands, ipc
 from discord import Intents, Game

@@ -5,7 +5,7 @@ from PIL import ImageColor
 from discord.ext import commands
 from PIL import Image, ImageFont, ImageDraw, ImageChops
 from requests.models import InvalidURL
-from Bot.utils.constants import IMAGE_PATH, UNI_SANS_40, command_activity_check, get_channel_id, get_command_description, get_level, get_rank, query_valid_url, get_cluster
+from Bot.utils.constants import IMAGE_PATH, UNI_SANS_40, command_activity_check, get_channel_id, get_command_description, get_level, get_rank, get_cluster
 from Bot.utils.error_handler import embed_error, MissingArgument
 
 
@@ -26,8 +26,7 @@ def change_white(image, colour):
     return Image.fromarray(data)
 
 
-def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour, member_count):
-    
+def create_rank_card(member : discord.Member, xp, lvl, rank, background, colour, member_count, reponse):
     try:
         card = Image.open(requests.get(background, stream=True).raw).convert("RGBA")
     except:
@@ -171,12 +170,7 @@ class ImageManipulation(commands.Cog, name="Rank Card Commands"):
             if (len(ctx.message.attachments)) == 0:
                 raise MissingArgument("Background Image Link", get_command_description(ctx.command.name))
 
-            link = ctx.message.attachments[0].url
-
-        else:
-            if not query_valid_url(link):
-                raise InvalidURL
-                
+            link = ctx.message.attachments[0].url                
                 
         _db.update_one({
             "id": ctx.author.id}, 

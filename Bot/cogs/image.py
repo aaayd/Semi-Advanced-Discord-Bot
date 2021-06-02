@@ -1,4 +1,4 @@
-import requests
+import aiohttp
 from Bot.utils.constants import command_activity_check, get_command_description
 from Bot.utils.error_handler import MissingArgument
 from discord.ext import commands
@@ -13,6 +13,7 @@ class Image(commands.Cog, name="Image Commands"):
 
     def __init__(self, bot):
         self.bot = bot
+        self.HTTP_SESSION = aiohttp.ClientSession(trust_env=True)
 
     @commands.command(name="meme", description="Sends random meme")
     @command_activity_check()
@@ -21,10 +22,10 @@ class Image(commands.Cog, name="Image Commands"):
         {self.bot.command_prefix}{ctx.command.name}
         """
 
-        meme = requests.get("https://some-random-api.ml/meme").json()
-        meme = meme["image"]
 
-        await ctx.send(meme)
+        async with self.HTTP_SESSION.get(url="https://some-random-api.ml/meme") as response:
+            meme = await response.json()
+            await ctx.send(meme["image"])
 
     @commands.command(name="animal", description="Sends an image of an animal")
     @command_activity_check()
