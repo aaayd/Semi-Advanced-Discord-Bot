@@ -1,7 +1,7 @@
 
 from datetime import datetime
 from bot import bot
-import os, re, requests
+import os, re
 from PIL import ImageFont
 from discord.ext import commands
 
@@ -346,11 +346,6 @@ def converter(time):
     time = re.sub('[^a-zA-Z]+', '', time)
     return time_converter.get(time,"Invalid Timeframe.")
 
-def query_valid_url(url):
-    request = requests.get(url)
-    if request.status_code == 400:
-        return False
-    return True
 
 def get_command_description(command):
     return bot.get_command(command).help

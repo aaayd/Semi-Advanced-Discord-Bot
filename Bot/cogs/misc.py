@@ -27,9 +27,9 @@ class Misc(commands.Cog, name="Misc Commands"):
         sub = sub.random()
         text = sub.selftext
 
-        if text  == "":
+        if not text :
             text = sub.title
-            if text == "":
+            if not text:
                 await ctx.send("Could not find text")
                 return
         
@@ -62,7 +62,7 @@ class Misc(commands.Cog, name="Misc Commands"):
         message = ctx.message.content
         message = message.partition(' ')[2]
         
-        if message == "":
+        if not message:
             raise MissingArgument("Message", get_command_description(ctx.command.name))    
 
         await ctx.message.delete()

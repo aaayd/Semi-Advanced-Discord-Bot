@@ -59,7 +59,7 @@ class Logger(commands.Cog, name="Log Commands"):
 
     @commands.Cog.listener()
     async def on_message_delete(self, message):
-        if message.content == "":
+        if not message.content or message.author.bot:
             return
 
         async for entry in message.guild.audit_logs(action=discord.AuditLogAction.message_delete, limit=1):
@@ -71,9 +71,6 @@ class Logger(commands.Cog, name="Log Commands"):
                 self.deletee = message.author
 
         log_channel = self.bot.get_channel(get_channel_id(message.guild.id, "channel_logs"))
-
-        if message.author.bot:
-            return
             
         if str(self.author_temp) != str(message.author):
             deleted_messages.clear()
