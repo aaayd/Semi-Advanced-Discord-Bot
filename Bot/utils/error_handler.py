@@ -76,10 +76,10 @@ class CommandErrorHandler(commands.Cog, name="Error Handler"):
     async def on_ready(self):
         await self.bot.wait_until_ready()
         
-        collections = [collection for collection in self.bot.mongo_client.database_names() if represents_int(collection)]
         
-        for collection in collections:
-            _db = get_cluster(int(collection), "CLUSTER_COMMANDS")
+        for guild in self.bot.guilds:
+            
+            _db = get_cluster(int(guild.id), "CLUSTER_COMMANDS")
             db = _db.find_one({"id" : "type_command_activity"})
             update = {}
             if db is None:
@@ -104,7 +104,27 @@ class CommandErrorHandler(commands.Cog, name="Error Handler"):
                         "$set" : update
                     }
                 )
+                
+            try:
+                used_channel_dict = {
+                    "channel_general" : guild.system_channel.id,
+                    "channel_logs" : guild.system_channel.id,
+                    "channel_confession" : guild.system_channel.id,
+                }
 
+            except:
+                used_channel_dict = {
+                    "channel_general" : guild.text_channels[0].id,
+                    "channel_logs" : guild.text_channels[0].id,
+                    "channel_confession" : guild.text_channels[0].id,
+                }
+
+            CLUSTER_UTIL = self.bot.mongo_client[str(guild.id)]["utils"]
+            _init_mongo_dict(CLUSTER_UTIL, "type_important_channels", used_channel_dict)        
+            _init_mongo_arr(CLUSTER_UTIL, "type_blacklist", ["nigger"])
+            _init_mongo_arr(CLUSTER_UTIL, "type_on_join_roles")
+            _init_mongo_arr(CLUSTER_UTIL, "type_snipe_gifs", DEF_SNIPE_GIFS)
+            _init_mongo_bool(CLUSTER_UTIL, "type_confession")
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
