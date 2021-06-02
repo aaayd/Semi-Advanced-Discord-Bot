@@ -1,7 +1,7 @@
 <p align="center"><img src="https://cdn.discordapp.com/attachments/833503537479942155/841505138497814559/zenyx_bot_2_small.png" /></p>
 
 # Zen-Bot
-An easy to setup Discord bot utilising a MongoDB database made in Python <br>
+An easy to setup, feature-rich, Discord Bot utilising a MongoDB database, powered by Python 3<br>
 
 # Usage
 To use the bot, invite it to your server by clicking [here](https://discord.com/api/oauth2/authorize?client_id=813239350702637058&permissions=8&scope=bot) <br>
@@ -9,6 +9,8 @@ Alternatively, you can host the bot yourself by cloning the files and going thro
 - Note, when hosting yourself, be sure to invite the bot <b>AFTER</b> it is online. This way the bot can initialise important files in the database.
 
 # Features 
+- A Website Dashboard
+- Games
 - MongoDB Backend 
 - Supports Multiple Servers (and so does the Database!)
 - Ranking System
