@@ -68,13 +68,28 @@ Alternatively, install the libraries manually:
 ```
 
 
-# Setup
+# Bot Setup
 1. Open `protected_vars.env`
 2. Set `SRV_URL` to your `MongoDB` Connection URL 
 3. Set `TOKEN` to your bot token 
-4. Save `protected_vars.env`
-5. Run `bot.py`
-6. Change your default `general` and `logs` channel 
+4. Save!
+
+- Optional
+5. Change your default `general` and `logs` channel
 
 - Change Default Channels Example: <br>
 ![image_example](https://cdn.discordapp.com/attachments/833503537479942155/842426219093688320/unknown.png)
+
+# Website Setup
+1. Open `protected_vars.env`
+2. Set `WEBSITE_ENABLED` to `TRUE`
+3. Set `SECRET_KEY` to any secret key you desire; e.g: `1234`
+4. Set `IPC_SECRET` to any secret key you desire; e.g: `5678`
+5. Set `DISCORD_CLIENT_ID` to your Discord Bot `Client ID`
+6. Set `DISCORD_CLIENT_SECRET` to your Discord Bot `Client Secret`
+7. Set `DISCORD_REDIRECT_URI` to your website's `URI` (default is `http://127.0.0.1:5000/callback`)
+8. Save!
+
+- Note
+You can access this website by going to your URI address; e.g: `http://127.0.0.1:5000`
+
