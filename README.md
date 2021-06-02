@@ -26,15 +26,20 @@ Welcome Card Example
 1. Python 3
 
 # Libraries 
-- discordpy 
+- discord.py
 - discord-ext-ipc
-- Pillow 
 - pymongo
 - dnspython
-- aiodns
+- aiohttp
+- Quart
+- Quart-Discord
+- Pillow
+- youtube_dl
+- numpy
+- animals.py
+- praw
 - fuzzywuzzy
-- quart
-- quart_discord
+- emojis
 
 # Installation 
 1. Open CMD in the same location as the bot root folder
@@ -46,15 +51,20 @@ Welcome Card Example
 
 Alternatively, install the libraries manually:
 ```py
-# pip install discordpy 
-# pip install discord-ext-ipc 
-# pip install discord_button 
-# pip install Pillow
+# pip install discord.py
+# pip install discord-ext-ipc
 # pip install pymongo
-# pip install fuzzywuzzy 
+# pip install dnspython
+# pip install aiohttp
+# pip install Quart
+# pip install Quart-Discord
+# pip install Pillow
+# pip install youtube_dl
+# pip install numpy
+# pip install animals.py
+# pip install praw
+# pip install fuzzywuzzy
 # pip install emojis
-# pip install quart
-# pip install quart_discord
 ```
 
 
