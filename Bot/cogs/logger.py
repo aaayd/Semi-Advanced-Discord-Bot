@@ -1,6 +1,8 @@
+from colorama.ansi import Style
 from Bot.utils.error_handler import ExpectedLiteralInt, MissingArgument
 from Bot.utils.constants import command_activity_check, get_channel_id, get_cluster, get_command_description
 import discord
+from colorama import Fore, Style
 from random import choice
 from datetime import datetime, timedelta
 from discord.ext import commands
@@ -56,6 +58,11 @@ class Logger(commands.Cog, name="Log Commands"):
         )
         await ctx.send(embed=embed)
 
+    @commands.Cog.listener()
+    async def on_command_completion(self, ctx):
+        args = str(ctx.args).partition(' ')[2].split(", ")[2][:-1].replace("None", "")
+
+        print(f"[{Fore.MAGENTA}{self.bot.command_prefix}{Style.RESET_ALL}] [{Fore.GREEN}{ctx.author}{Style.RESET_ALL}] [{Fore.CYAN}{ctx.command.name.upper()}{Style.RESET_ALL}]")
 
     @commands.Cog.listener()
     async def on_message_delete(self, message):
