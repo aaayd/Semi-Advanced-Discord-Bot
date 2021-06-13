@@ -1,0 +1,131 @@
+:root {
+    --primary-text: #d3d3d3;
+    --background-colour: #1a1a1a;
+    --grey-dark: #1f1f1f;
+    --colour-accent: #FFAE00;
+}
+
+html body{
+    overflow: hidden;
+    background-color: var(--background-colour);
+}
+
+.avatar {
+    border-radius: 50%;
+    border: 3px solid #3E3E3E;
+
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+.center-align {
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
+.vertical-align {
+    display: flex; 
+    align-items: center; 
+}
+
+.horizontal-align {
+    display: flex; 
+    justify-content: center;
+}
+.row .card-guild {
+    width: 65%; 
+    height: 95px; 
+}
+
+.row .card-guild:hover {
+    background-color: var(--grey-dark); 
+}
+
+.card-guild-col-2{
+    margin-left: 2rem;
+    color: var(--primary-text)
+}
+.img-sml {
+    height: 70px;
+    width: 70px;
+}
+.round {
+    border-radius: 50%;
+}
+.navbar {
+    background-color: var(--grey-dark);
+}
+
+
+.nav-item .nav-link, .navbar-brand {
+    color: var(--primary-text)
+
+}
+
+.nav-item .nav-link:hover, .nav-item .nav-link .active{
+    color: var(--colour-accent) 
+}
+
+
+.content {
+    background-color: #1c1c1c;
+    height: 90vh;
+}
+
+@media only screen and (max-width: 991px) {
+    #fullS
+    #sidebar{
+        display: flex;
+        bottom: 0;
+        width: 345345px;
+        flex-direction: row;
+        
+    }
+    
+    .bg-wrap {
+        display: none;
+    }
+    
+    li .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        text-align: center;
+        margin-bottom: 0.5rem;
+        width: 100%;
+        height: 5rem;
+    }
+    
+    .row {
+        min-width: 100%;
+    }
+    
+    .avatar {
+        height: 120px;
+        width: 120px;
+    }
+    
+    .card-guild-col-1{
+        min-width: 10rem;
+    }
+    .row .card-guild {
+        height: 150px;
+        min-width: 100%;
+        font-size: 2rem;
+    }
+    
+    .row .card-guild .btn {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        min-height: 85%;
+        font-size: 2rem;
+    }
+  
+}
+

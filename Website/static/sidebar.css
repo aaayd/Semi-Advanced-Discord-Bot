@@ -1,6 +1,10 @@
-body {
-    background: #141617
+:root {
+    --primary-text: #d3d3d3;
+    --background-colour: #1a1a1a;
+    --grey-dark: #1f1f1f;
+    --colour-accent: #FFAE00;
 }
+
 
 .tabcontent {
     background-color:#111213;
@@ -11,105 +15,15 @@ body {
     transition: all 0.3s;
 }
 
-.container-main {
-    min-width: 100%;
-    display: flex; 
-    float: left; 
-    background-color: #141617;
-
-    
-}
-.container .row .card-title {
-    color: #b2aea9;
-}
-
-.container .row .card-text {
-    color: #b2aea9;
-}
-
-
-.container .row .container-card-large {
-  border-radius: 10px;
-  background: #1A1A1A;
-  padding: 20px;
-  width: 1000px;
-  height: 150px;
-
-}
-
-.container-card-large .row {
-    width: 950px;
-}
-
-.container .row .container-card-medium {
-  border-radius: 10px;
-  background: #1A1A1A;
-  padding: 20px;
-  width: 700px;
-  height: 150px;
-
-}
-
-.container .row .container-card-small {
-    border-radius: 10px;
-    background: #1A1A1A;
-    padding: 20px;
-    width: 400px;
-    height: 150px;
-  
-}
-  
-.container .row .container-space {
-    margin-left: 40px;
-}
-.text-title-card {
-    color: white;
-    font-weight: bold;
-}
-
-.row .card {
-    background-color: #202121;
-    margin-top: 20px; 
-    margin-right: 20px;
-}
-.container .row .card .card-body{
-    background-color: #111213;
-    border: 0cm;
-}
-.container .row .card-text a{
-    color: #808080;
-}
-
-.container .small-ct {
-    max-width: 5px;
-} 
-.container .row .card-text span{
-    color: white;
-}
-
-.container .row {
-    margin: 0px 15px 15px 15px
-}
-.info-card {
-    width: 1200px;
-}
-
-a {
+#sidebar a {
+    text-decoration: none !important;
     -webkit-transition: .3s all ease;
     -o-transition: .3s all ease;
     transition: .3s all ease;
-    color: #ffc600; }
-    a:hover, a:focus {
-    
-      text-decoration: none !important;
-      outline: none !important;
-      -webkit-box-shadow: none;
-      box-shadow: none; }
-
+}
       
-a:hover,
-a:focus {
-    
+#sidebar a:hover {
+    color: var(--colour-accent);
     text-decoration: none !important;
     outline: none !important;
     -webkit-box-shadow: none;
@@ -141,9 +55,9 @@ a:focus {
     to {opacity: 1;}
 }
 
-  
 
 #sidebar {
+    min-height: 100vh;
     min-width: 300px;
     max-width: 300px;
     background: #1b1d1f;
@@ -160,6 +74,7 @@ a:focus {
 
 #sidebar.active {
     margin-left: -300px;
+    color: var(--colour-accent)
 }
 
 #sidebar.active .custom-menu {
@@ -172,7 +87,7 @@ a:focus {
     right: 2px !important;
 }
 
-#sidebar.active .btn.btn-primary:after {
+#sidebar .active .btn .btn-primary:after {
     display: none;
 }
 
