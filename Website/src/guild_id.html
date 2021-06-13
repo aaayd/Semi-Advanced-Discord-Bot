@@ -221,7 +221,7 @@
                             </div>
                             <div class="row" style="margin-right: 40px;">
                                 {% for command in commands %}
-                                <div class="card">
+                                <div>
                                     {% if _db_commands[command[0]] == 1 %}
                                     <div id="card_command_{{command[0]}}" class="card-body" style="min-width: 450px;">
                                         <input id="command_{{command[0]}}" onclick="updateCommandActivityState('command_{{command[0]}}')"type="checkbox" checked="checked"><label for="command_{{command[0]}}"></label>

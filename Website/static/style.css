@@ -259,10 +259,7 @@ main {
     margin-top: 20px; 
     margin-right: 20px;
 }
-.container .row .card .card-body{
-    background-color: #111213;
-    border: 0cm;
-}
+
 .container .row .card-text a{
     color: #808080;
 }
