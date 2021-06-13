@@ -6,10 +6,9 @@
         <link rel="stylesheet" type="text/css" href="static/famin.css" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-            
         <title>Guild Dashboard</title>
     </head>
-    <body>
+    <body style="height: 100vh;">
         <div class="grid">
             <div class="row">
                 <nav class="navbar navbar-expand-lg">
@@ -38,28 +37,25 @@
             </div>
             <div class="row horizontal-align" style="margin-top: 50px;">
                 {% for guild in guilds %}
-                    <div class="row card-guild">
-                        <div class="card-guild-col-1 col-1 center-align">
-                            {% if guild.icon_url is not none %}
-                                <img class="img-sml round avatar" src="{{guild.icon_url}}" alt="Card image cap">
-                            {% else %}
-                                <img class="img-sml round avatar"  src="https://cdn.discordapp.com/attachments/833503537479942155/844650622342922310/Zeny_Bot_Gray.png" alt="Card image cap">
-                            {% endif %}
-            
-                        </div>
-                        
-                        <div class="card-guild-col-2 col-8 vertical-align">
-                        <span><a>{{guild.name}}</a></span>
-                        </div>
-                        
-                        <div class="col-1 center-align">
-                            {% if guild.in_server is true %}
-                                <a href="/dashboard/{{guild.id}}" class="btn btn-outline-warning " role="button">Dashboard</a> 
-                            {% else %}
-                                <a href="/dashboard/{{guild.id}}" class="btn btn-dark " role="button">Invite!</a>
-                            {% endif %}
-                        </div>
+                <div class="row card-guild">
+                    <div class="card-guild-col-1 col-1 center-align">
+                        {% if guild.icon_url is not none %}
+                        <img class="img-sml round avatar" src="{{guild.icon_url}}" alt="Card image cap">
+                        {% else %}
+                        <img class="img-sml round avatar"  src="https://cdn.discordapp.com/attachments/833503537479942155/844650622342922310/Zeny_Bot_Gray.png" alt="Card image cap">
+                        {% endif %}
                     </div>
+                    <div class="card-guild-col-2 col-8 vertical-align">
+                        <span><a>{{guild.name}}</a></span>
+                    </div>
+                    <div class="col-1 center-align">
+                        {% if guild.in_server is true %}
+                        <a href="/dashboard/{{guild.id}}" class="btn btn-outline-warning " role="button">Dashboard</a> 
+                        {% else %}
+                        <a href="/dashboard/{{guild.id}}" class="btn btn-dark " role="button">Invite!</a>
+                        {% endif %}
+                    </div>
+                </div>
                 {% endfor %}
             </div>
         </div>

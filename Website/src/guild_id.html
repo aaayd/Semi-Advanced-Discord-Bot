@@ -14,7 +14,6 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
     </head>
     <body>
         <nav class="navbar">
@@ -48,38 +47,35 @@
                     </a>
                 </li>
                 <a href="javascript:void(0)">
-                <li class="nav-item"  onclick="openTab(event, 'ServerInformation')">
-                    <a href="#" class="nav-link">
-                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="question-circle" class="svg-inline--fa fa-question-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                            <path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z" class="fa-secondary"></path>
-                        </svg>    
-                        <span class="link-text tablinks" onclick="openTab(event, 'ServerInformation')">Server Info</span>
-                    </a>
+                    <li class="nav-item"  onclick="openTab(event, 'ServerInformation')">
+                <a href="#" class="nav-link">
+                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="question-circle" class="svg-inline--fa fa-question-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z" class="fa-secondary"></path>
+                </svg>    
+                <span class="link-text tablinks" onclick="openTab(event, 'ServerInformation')">Server Info</span>
+                </a>
                 </li>
                 </a>
-
                 <a href="javascript:void(0)">
-                <li class="nav-item" onclick="openTab(event, 'Commands')">
-                    <a href="#" class="nav-link">
-                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="tools" class="svg-inline--fa fa-tools fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                            <path fill="currentColor" d="M501.1 395.7L384 278.6c-23.1-23.1-57.6-27.6-85.4-13.9L192 158.1V96L64 0 0 64l96 128h62.1l106.6 106.6c-13.6 27.8-9.2 62.3 13.9 85.4l117.1 117.1c14.6 14.6 38.2 14.6 52.7 0l52.7-52.7c14.5-14.6 14.5-38.2 0-52.7zM331.7 225c28.3 0 54.9 11 74.9 31l19.4 19.4c15.8-6.9 30.8-16.5 43.8-29.5 37.1-37.1 49.7-89.3 37.9-136.7-2.2-9-13.5-12.1-20.1-5.5l-74.4 74.4-67.9-11.3L334 98.9l74.4-74.4c6.6-6.6 3.4-17.9-5.7-20.2-47.4-11.7-99.6.9-136.6 37.9-28.5 28.5-41.9 66.1-41.2 103.6l82.1 82.1c8.1-1.9 16.5-2.9 24.7-2.9zm-103.9 82l-56.7-56.7L18.7 402.8c-25 25-25 65.5 0 90.5s65.5 25 90.5 0l123.6-123.6c-7.6-19.9-9.9-41.6-5-62.7zM64 472c-13.2 0-24-10.8-24-24 0-13.3 10.7-24 24-24s24 10.7 24 24c0 13.2-10.7 24-24 24z" class="fa-secondary"></path>
-                        </svg>
-                        <span class="link-text tablinks" onclick="openTab(event, 'Commands')">Commands</span>
-                    </a>
+                    <li class="nav-item" onclick="openTab(event, 'Commands')">
+                <a href="#" class="nav-link">
+                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="tools" class="svg-inline--fa fa-tools fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path fill="currentColor" d="M501.1 395.7L384 278.6c-23.1-23.1-57.6-27.6-85.4-13.9L192 158.1V96L64 0 0 64l96 128h62.1l106.6 106.6c-13.6 27.8-9.2 62.3 13.9 85.4l117.1 117.1c14.6 14.6 38.2 14.6 52.7 0l52.7-52.7c14.5-14.6 14.5-38.2 0-52.7zM331.7 225c28.3 0 54.9 11 74.9 31l19.4 19.4c15.8-6.9 30.8-16.5 43.8-29.5 37.1-37.1 49.7-89.3 37.9-136.7-2.2-9-13.5-12.1-20.1-5.5l-74.4 74.4-67.9-11.3L334 98.9l74.4-74.4c6.6-6.6 3.4-17.9-5.7-20.2-47.4-11.7-99.6.9-136.6 37.9-28.5 28.5-41.9 66.1-41.2 103.6l82.1 82.1c8.1-1.9 16.5-2.9 24.7-2.9zm-103.9 82l-56.7-56.7L18.7 402.8c-25 25-25 65.5 0 90.5s65.5 25 90.5 0l123.6-123.6c-7.6-19.9-9.9-41.6-5-62.7zM64 472c-13.2 0-24-10.8-24-24 0-13.3 10.7-24 24-24s24 10.7 24 24c0 13.2-10.7 24-24 24z" class="fa-secondary"></path>
+                </svg>
+                <span class="link-text tablinks" onclick="openTab(event, 'Commands')">Commands</span>
+                </a>
                 </li>
                 </a>
-
                 <a href="javascript:void(0)">
-                <li class="nav-item" onclick="openTab(event, 'Warns')">
-                    <a href="#" class="nav-link">
-                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="exclamation-triangle" class="svg-inline--fa fa-exclamation-triangle fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                            <path fill="currentColor" d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z" class="fa-secondary"></path>
-                        </svg>
-                        <span class="link-text tablinks" onclick="openTab(event, 'Warns')">Warns</span>
-                    </a>
+                    <li class="nav-item" onclick="openTab(event, 'Warns')">
+                <a href="#" class="nav-link">
+                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="exclamation-triangle" class="svg-inline--fa fa-exclamation-triangle fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                <path fill="currentColor" d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z" class="fa-secondary"></path>
+                </svg>
+                <span class="link-text tablinks" onclick="openTab(event, 'Warns')">Warns</span>
+                </a>
                 </li>
                 </a>
-                
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="exclamation-circle" class="svg-inline--fa fa-exclamation-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -126,9 +122,7 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>
-                
                 <div class="container" style="min-width: 100%;display: flex; float: left; background-color: #121212;">
                     <div class="row" style="margin-top: 20px;">
                         <div class="col col-xl-8">
@@ -136,7 +130,6 @@
                                 <div class="row">
                                     <a class="card-title">IMPORTANT CHANNELS</a>
                                 </div>
-                                
                                 <div class="row">
                                     <div class="col-4 card-text col-xl-12">
                                         <a>General Channel ID:</a> <span>{{_db_important_channels["channel_general"]}}</span>
@@ -147,12 +140,11 @@
                                         <a>Logs Channel ID:</a> <span>{{_db_important_channels["channel_logs"]}}</span>
                                     </div>
                                 </div>
-<div class="row">
+                                <div class="row">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
                 </div>
                 <div class="container" style="min-width: 100%;display: flex; float: left; background-color: #121212;">
                     <div class="row" style="margin-top: 20px;">
@@ -164,148 +156,127 @@
                                 <div class="row">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                          <button id="channel-dropdown-button" class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Channels</button>
-                                          <div class="dropdown-menu">
-                                            {% for name, id in channels.items() %}
-                                            <a id=channel_id_{{id}} class="dropdown-item" onclick="selectChannel(this.id, this.innerHTML)" href="#"># {{name}}</a>
-                                            {% endfor %}
-                                          </div>
+                                            <button id="channel-dropdown-button" class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Channels</button>
+                                            <div class="dropdown-menu">
+                                                {% for name, id in channels.items() %}
+                                                <a id=channel_id_{{id}} class="dropdown-item" onclick="selectChannel(this.id, this.innerHTML)" href="#"># {{name}}</a>
+                                                {% endfor %}
+                                            </div>
                                         </div>
                                         <input id="announcement-input" type="text" placeholder="Insert Message..." class="form-control" aria-label="Text input with dropdown button">
                                         <form>
                                             <a href=# id=sendMessage><button class="btn btn-outline-warning" type="button">Send</button></a>
                                         </form>
-
-                                      </div>
-                                      
                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </div>
-        </div>
-    </div>
-
+            </div>
+            </div>
             <div id="Commands" class="tabcontent p-4 pt-5">
                 <!--
-                <div class="container container-main">
-                        <div class="row" style="margin-top: 20px;">
-                            <div class="col">
-                                <form>
-                                    <a href=# id=updateChanges><button  class='btn btn-warning'>Update Database</button></a>
-                                </form>
+                    <div class="container container-main">
+                            <div class="row" style="margin-top: 20px;">
+                                <div class="col">
+                                    <form>
+                                        <a href=# id=updateChanges><button  class='btn btn-warning'>Update Database</button></a>
+                                    </form>
+                                </div>
+                            <div class="row" style="min-width: 300px;">
+                                <div class="col">
+                                    <form>
+                                        <a href=# id=sendMessage><button  class='btn btn-warning'>Send Message</button></a>
+                                    </form>
+                                </div>
                             </div>
-                        <div class="row" style="min-width: 300px;">
-                            <div class="col">
-                                <form>
-                                    <a href=# id=sendMessage><button  class='btn btn-warning'>Send Message</button></a>
-                                </form>
-                            </div>
+                        
                         </div>
-                    
                     </div>
-                </div>
-                -->
-                
+                    -->
                 <div class="container container-main">
                     <div class="row" style="margin-top: 20px;">
                         <div class="row" style="display: flex;">
-                        {% for cog, commands in cogs.items() %}
-                            {% if commands|length != 0 %}
-                                
-                                    <div class="col">
-                                        <form>
-                                            <a href=# id=sendMessage><button style="height: 60px; width: 110px; margin-top: 20px; float: left;" class='btn btn-dark'>{{cog.upper().replace("COMMANDS", " ")}}</button></a>
-                                        </form>
-                                    </div>
-                                
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                    </div>
-                </div>
-                
-
-                <div class="container container-main" style="margin-top: 20px">
-                    
-                    <div class="row">
-                        <div class="col">
                             {% for cog, commands in cogs.items() %}
-                                {% if commands|length != 0 %}
-                                    <div class="row" style="width: 100%; margin-top: 40px; margin-right: 40px;">
-                                        <h2 class="important">{{cog}}</h2>
-                                    </div>
-                                    
-                                    <div class="row" style="margin-right: 40px;">
-                                        {% for command in commands %}
-                                        
-                                        <div class="card">
-                                            {% if _db_commands[command[0]] == 1 %}
-                                                <div id="card_command_{{command[0]}}" class="card-body" style="min-width: 450px;">
-                                                    <input id="command_{{command[0]}}" onclick="updateCommandActivityState('command_{{command[0]}}')"type="checkbox" checked="checked"><label for="command_{{command[0]}}"></label>
-                                            {% else %}
-                                                <div id="card_command_{{command[0]}}" class="card-body" style="background-color: #202121;border-radius : 0  px; min-width: 450px;">
-                                                    <input id="command_{{command[0]}}" onclick="updateCommandActivityState('command_{{command[0]}}')"type="checkbox"><label for="command_{{command[0]}}"></label>
-                                            {% endif %}
-                                            <span class="control"></span>
-            
-                                        <h5 class="card-title important">{{command[0].replace("_", " ")}} </h5>
-                                        <p class="card-text">{{command[1]}}</p>
-                                    </div>
-                                </div>
-                                {% endfor %}
+                            {% if commands|length != 0 %}
+                            <div class="col">
+                                <form>
+                                    <a href=# id=sendMessage><button style="height: 60px; width: 110px; margin-top: 20px; float: left;" class='btn btn-dark'>{{cog.upper().replace("COMMANDS", " ")}}</button></a>
+                                </form>
                             </div>
                             {% endif %}
                             {% endfor %}
                         </div>
                     </div>
                 </div>
-
-                <div class="container container-main" style="margin-top: 20px"></div>
-            </div>
-        </div>
-
-                <div id="Warns" class="tabcontent p-4 pt-5">
-                    <div class="container container-main">
-                        <input type="text" id="warn-table-filter" style="margin-top: 40px;" onkeyup="filterTable()" placeholder="Filter by ID.." title="Type in an ID">
+                <div class="container container-main" style="margin-top: 20px">
+                    <div class="row">
+                        <div class="col">
+                            {% for cog, commands in cogs.items() %}
+                            {% if commands|length != 0 %}
+                            <div class="row" style="width: 100%; margin-top: 40px; margin-right: 40px;">
+                                <h2 class="important">{{cog}}</h2>
+                            </div>
+                            <div class="row" style="margin-right: 40px;">
+                                {% for command in commands %}
+                                <div class="card">
+                                    {% if _db_commands[command[0]] == 1 %}
+                                    <div id="card_command_{{command[0]}}" class="card-body" style="min-width: 450px;">
+                                        <input id="command_{{command[0]}}" onclick="updateCommandActivityState('command_{{command[0]}}')"type="checkbox" checked="checked"><label for="command_{{command[0]}}"></label>
+                                        {% else %}
+                                        <div id="card_command_{{command[0]}}" class="card-body" style="background-color: #202121;border-radius : 0  px; min-width: 450px;">
+                                            <input id="command_{{command[0]}}" onclick="updateCommandActivityState('command_{{command[0]}}')"type="checkbox"><label for="command_{{command[0]}}"></label>
+                                            {% endif %}
+                                            <span class="control"></span>
+                                            <h5 class="card-title important">{{command[0].replace("_", " ")}} </h5>
+                                            <p class="card-text">{{command[1]}}</p>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
-                    <div class="container container-main">
-                        
-                        <table id="warn-table" style="margin-top: 10px; margin-bottom: 20px;">
-                            <tr>
-                              <th onclick="sortTable(0)">User Name</th>
-                              <th onclick="sortTable(1)">ID</th>
-                              <th onclick="sortTable(2)">Reason</th>
-                              <th onclick="sortTable(3)">Moderator Name</th>
-                              <th onclick="sortTable(4)">Moderator ID</th>
-                              <th onclick="sortTable(5)">Time</th>
-                            </tr>
-                            {% for warn in _db_warns %}
-                            <tr>
-                              <td class="important">{{warn["warned_user_name"]}}</td>
-                              <td class="important">{{warn["warned_user_id"]}}</td>
-                              <td class="important">{{warn["warn_reason"]}}</td>
-                              <td class="important">{{warn["moderator_name"]}}</td>
-                              <td class="important">{{warn["moderator_id"]}}</td>
-                              <td class="important">{{warn["time"].strftime("%x %X")}}</td>
-                            </tr>
-                            {% endfor %}
-                          </table>
-                                                
-                    </div>
-    
+                    <div class="container container-main" style="margin-top: 20px"></div>
                 </div>
-            
             </div>
-    
+            <div id="Warns" class="tabcontent p-4 pt-5">
+                <div class="container container-main">
+                    <input type="text" id="warn-table-filter" style="margin-top: 40px;" onkeyup="filterTable()" placeholder="Filter by ID.." title="Type in an ID">
+                </div>
+                <div class="container container-main">
+                    <table id="warn-table" style="margin-top: 10px; margin-bottom: 20px;">
+                        <tr>
+                            <th onclick="sortTable(0)">User Name</th>
+                            <th onclick="sortTable(1)">ID</th>
+                            <th onclick="sortTable(2)">Reason</th>
+                            <th onclick="sortTable(3)">Moderator Name</th>
+                            <th onclick="sortTable(4)">Moderator ID</th>
+                            <th onclick="sortTable(5)">Time</th>
+                        </tr>
+                        {% for warn in _db_warns %}
+                        <tr>
+                            <td class="important">{{warn["warned_user_name"]}}</td>
+                            <td class="important">{{warn["warned_user_id"]}}</td>
+                            <td class="important">{{warn["warn_reason"]}}</td>
+                            <td class="important">{{warn["moderator_name"]}}</td>
+                            <td class="important">{{warn["moderator_id"]}}</td>
+                            <td class="important">{{warn["time"].strftime("%x %X")}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+            </div>
         </main>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
         <script type="text/javascript">
             $(function() {
-           
+            
                 $('a#updateChanges').on('click', function(f) {                    
                     f.preventDefault()
                     $.getJSON('/update_command_state', {
@@ -316,7 +287,7 @@
                     return false;
                 });
             });
-
+            
             $(function() {
                     $('a#sendMessage').on('click', function(f) {
                     f.preventDefault()
@@ -329,15 +300,12 @@
                     return false;
                 });
             });
-
-            </script>
-    
-        <script type="text/javascript">
+            
         </script>
-
+        <script type="text/javascript"></script>
         <script>
             var selected_channel_id
-
+            
             function filterTable() {
                 var input, filter, table, tr, td, i, txtValue;
                 input = document.getElementById("warn-table-filter");
@@ -359,13 +327,13 @@
             
             function selectChannel(id, name) {
                 dropdown_button = document.getElementById("channel-dropdown-button")
-
+            
                 dropdown_button.textContent = name
                 
                 selected_channel_id = id
-        
+            
             }
-
+            
             function sortTable(n) {
                 var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
                 table = document.getElementById("warn-table");
@@ -420,13 +388,12 @@
                     }
                 }
             }
-
+            
         </script>
-
         <script>
             var allChanges = {}
             document.getElementById("defaultTab").click();
-
+            
             function updateCommandActivityState(id) {
                 var checkBox = document.getElementById(id);
                 var cardBox = document.getElementById(`card_${id}`);
@@ -435,7 +402,7 @@
                 
                 if (checkBox.checked == true){
                     allChanges[id] = 1
-
+            
                     
                     cardBox.style.backgroundColor="#111213"
                 }
@@ -446,10 +413,8 @@
                 }
                 
             }
-
-
+            
+            
         </script>
-
     </body>
-    
 </html>
