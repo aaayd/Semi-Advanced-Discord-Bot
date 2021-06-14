@@ -1,8 +1,6 @@
 var allChanges = {}
 var selected_channel_id
 
-document.getElementById("defaultTab").click();
-
 function openTab(evt, cityName) {
   var i, tabcontent, tablinks;
   
