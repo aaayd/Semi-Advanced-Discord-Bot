@@ -133,7 +133,6 @@ main {
 
 @media only screen and (max-width: 991px) {
     #announcement-input {
-        display: flex;
         max-width: 25%
     }
     .container .row .col-4 {
@@ -280,6 +279,7 @@ main {
 
 
 .tabcontent {
+    height: 100%;
     -webkit-animation: fadeEffect 1s;
     animation: fadeEffect 1s;
 }

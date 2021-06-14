@@ -154,16 +154,16 @@
                                     <a class="card-title">MAKE ANNOUNCEMENT</a>
                                 </div>
                                 <div class="row">
-                                    <div class="input-group mb-3">
+                                    <div class="col" style="display: flex;width: 100%;">
                                         <div class="input-group-prepend">
-                                            <button id="channel-dropdown-button" class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Channels</button>
+                                            <button style="display: flex;width: 100%;" id="channel-dropdown-button"  class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Channels</button>
                                             <div class="dropdown-menu">
                                                 {% for name, id in channels.items() %}
-                                                <a id=channel_id_{{id}} class="dropdown-item" onclick="selectChannel(this.id, this.innerHTML)" href="#"># {{name}}</a>
+                                                <a id=channel_id_{{id}} style="display: flex;width: 100%;" class="dropdown-item" onclick="selectChannel(this.id, this.innerHTML)" href="#"># {{name}}</a>
                                                 {% endfor %}
                                             </div>
                                         </div>
-                                        <input id="announcement-input" type="text" placeholder="Insert Message..." class="form-control" aria-label="Text input with dropdown button">
+                                        <input id="announcement-input" style="display: flex;width: 100%;" type="text" placeholder="Insert Message..." class="form-control" aria-label="Text input with dropdown button">
                                         <form>
                                             <a href=# id=sendMessage><button class="btn btn-outline-warning" type="button">Send</button></a>
                                         </form>
@@ -203,7 +203,7 @@
                             {% if commands|length != 0 %}
                             <div class="col">
                                 <form>
-                                    <a href=# id=sendMessage><button style="height: 60px; width: 110px; margin-top: 20px; float: left;" class='btn btn-dark'>{{cog.upper().replace("COMMANDS", " ")}}</button></a>
+                                    <a href=#><button style="height: 60px; width: 110px; margin-top: 20px; float: left;" onclick="scrollToText(this.innerHTML)" class='btn btn-dark'>{{cog.upper().replace("COMMANDS", " ")}}</button></a>
                                 </form>
                             </div>
                             {% endif %}
@@ -300,120 +300,6 @@
                     return false;
                 });
             });
-            
-        </script>
-        <script type="text/javascript"></script>
-        <script>
-            var selected_channel_id
-            
-            function filterTable() {
-                var input, filter, table, tr, td, i, txtValue;
-                input = document.getElementById("warn-table-filter");
-                filter = input.value.toUpperCase();
-                table = document.getElementById("warn-table");
-                tr = table.getElementsByTagName("tr");
-                for (i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[1];
-                    if (td) {
-                        txtValue = td.textContent || td.innerText;
-                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                            tr[i].style.display = "";
-                        } else {
-                            tr[i].style.display = "none";
-                        }
-                    }
-                }
-            }
-            
-            function selectChannel(id, name) {
-                dropdown_button = document.getElementById("channel-dropdown-button")
-            
-                dropdown_button.textContent = name
-                
-                selected_channel_id = id
-            
-            }
-            
-            function sortTable(n) {
-                var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-                table = document.getElementById("warn-table");
-                switching = true;
-                //Set the sorting direction to ascending:
-                dir = "asc";
-                /*Make a loop that will continue until
-                no switching has been done:*/
-                while (switching) {
-                    //start by saying: no switching is done:
-                    switching = false;
-                    rows = table.rows;
-                    /*Loop through all table rows (except the
-                    first, which contains table headers):*/
-                    for (i = 1; i < (rows.length - 1); i++) {
-                        //start by saying there should be no switching:
-                        shouldSwitch = false;
-                        /*Get the two elements you want to compare,
-                        one from current row and one from the next:*/
-                        x = rows[i].getElementsByTagName("TD")[n];
-                        y = rows[i + 1].getElementsByTagName("TD")[n];
-                        /*check if the two rows should switch place,
-                        based on the direction, asc or desc:*/
-                        if (dir == "asc") {
-                            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                                //if so, mark as a switch and break the loop:
-                                shouldSwitch = true;
-                                break;
-                            }
-                        } else if (dir == "desc") {
-                            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                                //if so, mark as a switch and break the loop:
-                                shouldSwitch = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (shouldSwitch) {
-                        /*If a switch has been marked, make the switch
-                        and mark that a switch has been done:*/
-                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                        switching = true;
-                        //Each time a switch is done, increase this count by 1:
-                        switchcount++;
-                    } else {
-                        /*If no switching has been done AND the direction is "asc",
-                        set the direction to "desc" and run the while loop again.*/
-                        if (switchcount == 0 && dir == "asc") {
-                            dir = "desc";
-                            switching = true;
-                        }
-                    }
-                }
-            }
-            
-        </script>
-        <script>
-            var allChanges = {}
-            document.getElementById("defaultTab").click();
-            
-            function updateCommandActivityState(id) {
-                var checkBox = document.getElementById(id);
-                var cardBox = document.getElementById(`card_${id}`);
-                if (id in allChanges)
-                    delete allChanges[id]
-                
-                if (checkBox.checked == true){
-                    allChanges[id] = 1
-            
-                    
-                    cardBox.style.backgroundColor="#111213"
-                }
-                    
-                else {
-                    allChanges[id] = 0
-                    cardBox.style.backgroundColor="#202121"
-                }
-                
-            }
-            
             
         </script>
     </body>
