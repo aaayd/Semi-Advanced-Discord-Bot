@@ -132,6 +132,12 @@ main {
 /* Small screens */
 
 @media only screen and (max-width: 991px) {
+    #cogNameButtons {
+        visibility: hidden;
+        display: none;
+        max-width: 0px;
+        max-height: 0px;
+    }
     #announcement-input {
         max-width: 25%
     }

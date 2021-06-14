@@ -196,9 +196,9 @@
                         </div>
                     </div>
                     -->
-                <div class="container container-main">
+                <div id="cogNameButtons" style="display: flex; justify-content: center; align-content: center;" class="container container-main">
                     <div class="row" style="margin-top: 20px;">
-                        <div class="row" style="display: flex;">
+                        <div class="row">
                             {% for cog, commands in cogs.items() %}
                             {% if commands|length != 0 %}
                             <div class="col">
@@ -276,7 +276,7 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script type="text/javascript">
             document.getElementById("defaultOpenTab").click();
-            
+
             $(function() {
             
                 $('a#updateChanges').on('click', function(f) {                    
